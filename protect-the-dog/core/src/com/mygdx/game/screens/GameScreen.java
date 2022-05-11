@@ -1,4 +1,4 @@
-package screens;
+package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -16,8 +16,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        TmxMapLoader loader = new TmxMapLoader();
-        map = loader.load("maps/map.tmx");
+        map = new TmxMapLoader().load("maps/map.tmx");
 
         renderer = new OrthogonalTiledMapRenderer(map) {
         };

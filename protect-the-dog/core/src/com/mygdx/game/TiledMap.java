@@ -1,7 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-import screens.GameScreen;
+import com.mygdx.game.screens.GameScreen;
 
 public class TiledMap extends Game {
     @Override
