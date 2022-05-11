@@ -11,6 +11,9 @@ public class DesktopLauncher {
 		config.height = 640;
 		config.title = "Protect the dog by simon og ardit";
 		config.resizable = false;
+		config.vSyncEnabled = true;
+		config.backgroundFPS = 60;
+		config.foregroundFPS = 60;
 
 
 		new LwjglApplication(new MyGdxGame(), config);
