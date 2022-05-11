@@ -1,4 +1,4 @@
-#Wed May 11 12:53:10 CEST 2022
+#Wed May 11 13:05:47 CEST 2022
 org.netbeans.libs.osgi.OpenIDE-Module-Install=\u0000
 org.netbeans.api.io.OpenIDE-Module-Layer=\u0000
 dk.sdu.mmmi.cbse.CommonEnemy.OpenIDE-Module-Hide-Classpath-Packages=\u0000
@@ -85,8 +85,8 @@ org.openide.util.lookup.OpenIDE-Module-Layer=\u0000
 org.netbeans.api.progress.OpenIDE-Module-Install=\u0000
 org.openide.io.OpenIDE-Module-Description=\u0000
 org.netbeans.bootstrap.OpenIDE-Module-Deprecated=\u0000
-dk.sdu.mmmi.cbse.CommonAsteroids.AutoUpdate-Show-In-Client=\u0000
 dk.sdu.mmmi.cbse.Core.AutoUpdate-Show-In-Client=\u0000
+dk.sdu.mmmi.cbse.CommonAsteroids.AutoUpdate-Show-In-Client=\u0000
 org.openide.filesystems.OpenIDE-Module-Install=\u0000
 org.netbeans.api.intent.OpenIDE-Module-Deprecated=\u0000
 org.netbeans.api.annotations.common.OpenIDE-Module-Install=\u0000
