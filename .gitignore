@@ -24,5 +24,6 @@ hs_err_pid*
 
 # Intellij files
 .idea
+
 /AsteroidsNetbeansModules/AsteroidsNetbeansModules/application/target/
 .DS_Store
