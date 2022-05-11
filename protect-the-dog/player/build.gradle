@@ -1,18 +1,6 @@
-plugins {
-    id 'java'
-}
+sourceCompatibility = 1.7
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-version '1.0'
+sourceSets.main.java.srcDirs = [ "src/" ]
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-}
-
-test {
-    useJUnitPlatform()
-}
+eclipse.project.name = appName + "-player"
