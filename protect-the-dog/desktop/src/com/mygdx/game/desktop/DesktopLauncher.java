@@ -9,9 +9,11 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Gaem";
-		config.width = 1280;
-		config.height = 720;
-//		new LwjglApplication(new MyGdxGame(), config);
+		config.width = 960;
+		config.height = 640;
+		config.resizable = false;
+		config.backgroundFPS = 60;
+		config.foregroundFPS = 60;
 		new LwjglApplication(new TiledMap(), config);
 	}
 }
