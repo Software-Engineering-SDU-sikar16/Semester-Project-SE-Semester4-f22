@@ -13,7 +13,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 //		img = new Texture("badlogic.jpg");
-		img = new Texture("picturetilesheet.png");
+		img = new Texture("mapproject.png");
 	}
 
 	@Override
