@@ -14,11 +14,13 @@ public class Installer extends ModuleInstall {
         g = new Game();
 
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.title = "Asteroids";
-        cfg.width = 800;
-        cfg.height = 600;
+        cfg.title = "Gaem";
+        cfg.width = 960;
+        cfg.height = 640;
         cfg.useGL30 = false;
         cfg.resizable = false;
+        cfg.backgroundFPS = 60;
+        cfg.foregroundFPS = 60;
 
         new LwjglApplication(g, cfg);
     }
