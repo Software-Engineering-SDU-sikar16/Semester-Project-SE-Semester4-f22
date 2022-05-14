@@ -14,7 +14,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.mygdx.game.GameScreen;
-import objects.player.Player;
+import objects.player.Enemy;
 
 import static helper.Constants.PPM;
 
@@ -45,7 +45,8 @@ public class TileMapHelper {
                 Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();
                 String rectangleName = mapObject.getName();
 
-                if (rectangleName.equals("player")) {
+
+                if (rectangleName.equals("enemy")) {
                     Body body = BodyHelperService.createBody(
                             rectangle.getX() + rectangle.getWidth() / 2,
                             rectangle.getY() + rectangle.getHeight() / 2,
@@ -53,8 +54,9 @@ public class TileMapHelper {
                             rectangle.getHeight(),
                             false,
                             gameScreen.getWorld());
-                    gameScreen.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body));
+                    gameScreen.setEnemy(new Enemy(rectangle.getWidth(), rectangle.getHeight(), body));
                 }
+
             }
 
         }

@@ -1,5 +1,6 @@
 package helper;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.physics.box2d.*;
 
 import static helper.Constants.PPM;
@@ -12,10 +13,19 @@ public class BodyHelperService {
         bodyDef.position.set(x / PPM, y / PPM);
         Body body = world.createBody(bodyDef);
 
+        //add color to body
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.density = 1f;
+        fixtureDef.friction = 0.5f;
+        fixtureDef.restitution = 0.5f;
+
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(width / PPM / 2, height / PPM / 2);
+        Color color = isStatic ? Color.GRAY : Color.WHITE;
 
-        FixtureDef fixtureDef = new FixtureDef();
+
+        shape.setAsBox(width / PPM / 2, height / PPM / 2);
+
         fixtureDef.shape = shape;
         body.createFixture(fixtureDef);
         shape.dispose();

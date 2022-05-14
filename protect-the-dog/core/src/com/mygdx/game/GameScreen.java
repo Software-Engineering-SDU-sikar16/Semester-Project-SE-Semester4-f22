@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import helper.TileMapHelper;
-import objects.player.Player;
+import objects.player.Enemy;
 
 import static helper.Constants.PPM;
 
@@ -25,7 +25,7 @@ public class GameScreen extends ScreenAdapter {
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TileMapHelper tileMapHelper;
 
-    private Player player;
+    private Enemy enemy;
 
     public GameScreen(OrthographicCamera camera) {
         this.camera = camera;
@@ -47,7 +47,7 @@ public class GameScreen extends ScreenAdapter {
 
         batch.setProjectionMatrix(camera.combined);
         orthogonalTiledMapRenderer.setView(camera);
-        player.update();
+        enemy.update();
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
@@ -57,8 +57,8 @@ public class GameScreen extends ScreenAdapter {
 
     private void cameraUpdate(int width, int height) {
         Vector3 position = camera.position;
-        position.x = Math.round(player.getBody().getPosition().x * PPM * 10) / 10f;
-        position.y = Math.round(player.getBody().getPosition().y * PPM * 10) / 10f;
+        position.x = Math.round(enemy.getBody().getPosition().x * PPM * 10) / 10f;
+        position.y = Math.round(enemy.getBody().getPosition().y * PPM * 10) / 10f;
 
         camera.viewportHeight = height;
         camera.viewportWidth = width;
@@ -91,7 +91,7 @@ public class GameScreen extends ScreenAdapter {
         return world;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setEnemy(Enemy enemy) {
+        this.enemy = enemy;
     }
 }
