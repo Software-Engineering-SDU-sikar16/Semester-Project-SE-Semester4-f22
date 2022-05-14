@@ -24,6 +24,7 @@ public class Enemy extends GameEntity{
         this.getSprite().setPosition(x, y);
 
         checkUserInput();
+        moveEnemy();
 
     }
 
@@ -50,6 +51,8 @@ public class Enemy extends GameEntity{
         }
 
 
+
+
 //        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && jumpCounter < 2) {
 //            float force = body.getMass() * 18;
 //            body.applyLinearImpulse(new Vector2(0, force), body.getPosition(), true);
@@ -57,4 +60,15 @@ public class Enemy extends GameEntity{
         body.setLinearVelocity(velX * speed, velY* speed);
 
     }
+
+    private void moveEnemy(){
+        if(body.getPosition().x < 0){
+            body.setLinearVelocity(-speed, 0);
+        }
+        if(body.getPosition().x > 0){
+            body.setLinearVelocity(speed, 0);
+        }
+    }
+
+
 }

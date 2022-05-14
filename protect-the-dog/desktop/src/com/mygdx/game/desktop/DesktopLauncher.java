@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 960;
 		config.height = 640;
-		config.title = "Protect the dog by simon og ardit";
+		config.title = "Protect the dog";
 		config.resizable = false;
 		config.vSyncEnabled = true;
 		config.backgroundFPS = 60;
