@@ -26,4 +26,5 @@ hs_err_pid*
 .idea
 
 /AsteroidsNetbeansModules/AsteroidsNetbeansModules/application/target/
+*.netbeans_automatic_build
 .DS_Store
