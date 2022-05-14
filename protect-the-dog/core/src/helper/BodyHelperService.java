@@ -21,7 +21,6 @@ public class BodyHelperService {
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(width / PPM / 2, height / PPM / 2);
-        Color color = isStatic ? Color.GRAY : Color.WHITE;
 
 
         shape.setAsBox(width / PPM / 2, height / PPM / 2);

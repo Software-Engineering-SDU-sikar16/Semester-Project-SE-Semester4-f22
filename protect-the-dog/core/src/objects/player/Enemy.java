@@ -21,6 +21,7 @@ public class Enemy extends GameEntity{
     public void update() {
         x = body.getPosition().x * PPM;
         y = body.getPosition().y * PPM;
+        this.getSprite().setPosition(x, y);
 
         checkUserInput();
 
