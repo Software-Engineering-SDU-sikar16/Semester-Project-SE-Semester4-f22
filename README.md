@@ -1,10 +1,10 @@
 # Semester-Project-SE-Semester4-f22
 
-## How to run AsteroidsNetbeansModules
+## How to run TowerDefenseNetbeansModules
 Some path changes are needed before we can run it.
 
 First we have to change the path in the SilentUpdate Bundle.properties file:
-Go to AsteroidsNetbeansModules/SilentUpdate/src/main/resources/org/netbeans/modules/autoupdate/silentupdate/resources/
+Go to TowerDefenseNetbeansModules/SilentUpdate/src/main/resources/org/netbeans/modules/autoupdate/silentupdate/resources/
 Change the path for org_netbeans_modules_autoupdate_silentupdate_update_center to where the netbeans_site/updates.xml is.
 
 

@@ -28,3 +28,17 @@ hs_err_pid*
 /AsteroidsNetbeansModules/AsteroidsNetbeansModules/application/target/
 *.netbeans_automatic_build
 .DS_Store
+/TowerDefenseNetbeansModules/Asteroid/target/
+/TowerDefenseNetbeansModules/Bullet/target/
+/TowerDefenseNetbeansModules/Collision/target/
+/TowerDefenseNetbeansModules/Common/target/
+/TowerDefenseNetbeansModules/CommonAsteroids/target/
+/TowerDefenseNetbeansModules/CommonBullet/target/
+/TowerDefenseNetbeansModules/CommonEnemy/target/
+/TowerDefenseNetbeansModules/Core/target/
+/TowerDefenseNetbeansModules/Enemy/target/
+/TowerDefenseNetbeansModules/Player/target/
+/TowerDefenseNetbeansModules/SilentUpdate/target/
+/TowerDefenseNetbeansModules/application/target/
+/TowerDefenseNetbeansModules/branding/target/
+/TowerDefenseNetbeansModules/Collision/nbproject/
