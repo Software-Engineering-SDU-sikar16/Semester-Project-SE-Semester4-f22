@@ -27,7 +27,7 @@ public class Game implements ApplicationListener {
 //public class Game implements Screen {
 
     private static OrthographicCamera cam;
-//    private ShapeRenderer sr;
+    private ShapeRenderer sr;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private final Lookup lookup = Lookup.getDefault();
@@ -45,9 +45,11 @@ public class Game implements ApplicationListener {
         cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
         cam.update();
         
+        
         map = new TmxMapLoader().load("/Users/sk/Documents/Uni/SoftwareEngineering/4Semester/Semester-Project-SE-Semester4-f22/TowerDefenseNetbeansModules/Core/src/main/resources/assets/maps/map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map) {
         };
+        sr = new ShapeRenderer();
 
         Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
 
@@ -74,7 +76,7 @@ public class Game implements ApplicationListener {
         renderer.setView(cam);
         renderer.render();
         update();
-//        draw();
+        draw();
     }
 
     private void update() {
@@ -89,25 +91,25 @@ public class Game implements ApplicationListener {
         }
     }
 
-//    private void draw() {
-//        for (Entity entity : world.getEntities()) {
-//            sr.setColor(1, 1, 1, 1);
-//            
-//            sr.begin(ShapeRenderer.ShapeType.Line);
-//            
-//            float[] shapex = entity.getShapeX();
-//            float[] shapey = entity.getShapeY();
-//
-//            for (int i = 0, j = shapex.length - 1;
-//                    i < shapex.length;
-//                    j = i++) {
-//
-//                sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
-//            }
-//
-//            sr.end();
-//        }
-//    }
+    private void draw() {
+        for (Entity entity : world.getEntities()) {
+            sr.setColor(1, 1, 1, 1);
+            
+            sr.begin(ShapeRenderer.ShapeType.Line);
+            
+            float[] shapex = entity.getShapeX();
+            float[] shapey = entity.getShapeY();
+
+            for (int i = 0, j = shapex.length - 1;
+                    i < shapex.length;
+                    j = i++) {
+
+                sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
+            }
+
+            sr.end();
+        }
+    }
 
     @Override
     public void resize(int width, int height) {
