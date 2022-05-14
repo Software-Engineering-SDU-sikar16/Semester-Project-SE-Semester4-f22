@@ -8,10 +8,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>AsteroidsNetbeansModules-branding</artifactId>
+    <artifactId>TowerDefenseNetbeansModules-branding</artifactId>
     <packaging>nbm</packaging>
 
-    <name>AsteroidsNetbeansModules-branding</name>
+    <name>TowerDefenseNetbeansModules-branding</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
