@@ -27,3 +27,8 @@ hs_err_pid*
 
 /AsteroidsNetbeansModules/AsteroidsNetbeansModules/application/target/
 .DS_Store
+*.icloud
+*.lock
+*.gradle
+*target
+*felix
