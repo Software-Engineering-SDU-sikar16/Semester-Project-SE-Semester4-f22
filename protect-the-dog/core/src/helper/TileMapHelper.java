@@ -33,15 +33,6 @@ public class TileMapHelper {
     public OrthogonalTiledMapRenderer setupMap() {
         tiledMap = new TmxMapLoader().load("mapproject.tmx");
         parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
-
-        TiledMapTileLayer tileid = (TiledMapTileLayer)tiledMap.getLayers().get(0);
-
-        TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-
-        System.out.print(tileid.getCell(0,0).getTile().getObjects().toString());
-
-
-
         return new OrthogonalTiledMapRenderer(tiledMap);
     }
 

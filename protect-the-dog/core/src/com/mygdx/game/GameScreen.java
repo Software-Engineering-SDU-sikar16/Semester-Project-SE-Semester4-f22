@@ -81,8 +81,8 @@ public class GameScreen extends ScreenAdapter {
 
         batch.begin();
         // render objects
-        this.enemy.getSprite().draw(batch);;
-        this.enemy.getSprite().translate(20, 20);
+        this.enemy.getSprite().draw(batch);
+
 
 
         batch.end();

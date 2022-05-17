@@ -23,7 +23,7 @@ public class Enemy extends GameEntity{
         y = body.getPosition().y * PPM;
         this.getSprite().setPosition(x, y);
 
-        checkUserInput();
+        //checkUserInput();
         moveEnemy();
 
     }
@@ -61,13 +61,14 @@ public class Enemy extends GameEntity{
 
     }
 
+
     private void moveEnemy(){
-        if(body.getPosition().x < 0){
-            body.setLinearVelocity(-speed, 0);
-        }
-        if(body.getPosition().x > 0){
-            body.setLinearVelocity(speed, 0);
-        }
+
+
+
+
+
+
     }
 
 
