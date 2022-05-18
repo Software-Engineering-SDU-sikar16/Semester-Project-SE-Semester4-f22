@@ -32,7 +32,7 @@ public abstract class GameEntity {
         this.velY = 0;
         this.speed = 1;
 
-        this.texture = new Texture("/Users/sk/Documents/Uni/SoftwareEngineering/4Semester/Semester-Project-SE-Semester4-f22/TowerDefenseOSGi/OSGiCore/src/main/assets/images/v3.png");
+        this.texture = new Texture("../OSGiCore/assets/images/v3.png");
         this.textureRegion = new TextureRegion(texture, 0, 192, 16,16);
         // flip the texture
         this.textureRegion.flip(true, false);
