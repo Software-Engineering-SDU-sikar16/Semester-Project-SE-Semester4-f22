@@ -20,9 +20,6 @@ public abstract class GameEntity {
 
     public GameEntity(float width, float height, Body body) {
 
-
-
-
         this.x = body.getPosition().x;
         this.y = body.getPosition().y;
         this.width = width;

@@ -26,7 +26,7 @@
   <artifactId>PaxAteroids</artifactId>
   <version>1.0-SNAPSHOT</version>
       
-  <name>PaxAsteroids (OSGi project)</name>
+  <name>TowerDefense (OSGi project)</name>
       
   <!--
      | describe your project here
