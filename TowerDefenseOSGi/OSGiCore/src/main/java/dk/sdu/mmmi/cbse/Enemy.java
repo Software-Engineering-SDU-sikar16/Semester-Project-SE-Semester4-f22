@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 
-public class Enemy extends GameEntity {
+public class Enemy extends EnemyEntity {
     public static final float PPM = 32.0f;
     private int jumpCounter;
 
