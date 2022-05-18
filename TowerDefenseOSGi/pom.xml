@@ -53,8 +53,8 @@
       <module>provision</module>
       <module>OSGiCore</module>
       <module>OSGiCommon</module>
-      <module>OSGiCommonEnemy</module>
-      <module>OSGiEnemy</module>
+<!--      <module>OSGiCommonEnemy</module>-->
+<!--      <module>OSGiEnemy</module>-->
       <module>OSGiLibGDX</module>
   </modules>
       
