@@ -1,4 +1,4 @@
-package helper;
+package dk.sdu.mmmi.cbse;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -14,36 +14,31 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
-import com.mygdx.game.GameScreen;
-import objects.player.Enemy;
-
-import static helper.Constants.PPM;
+import dk.sdu.mmmi.cbse.GameScreen;
+import dk.sdu.mmmi.cbse.Enemy;
 
 public class TileMapHelper {
 
     private TiledMap tiledMap;
-    private GameScreen gameScreen;
+    private static GameScreen gameScreen;
+    public static final float PPM = 32.0f;
 
     public TileMapHelper(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }
 
     public OrthogonalTiledMapRenderer setupMap() {
-        tiledMap = new TmxMapLoader().load("maps/map1.tmx");
+        tiledMap = new TmxMapLoader().load("/Users/sk/Documents/Uni/SoftwareEngineering/4Semester/Semester-Project-SE-Semester4-f22/TowerDefenseOSGi/OSGiCore/src/main/assets/maps/map1.tmx");
         parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
 
-        TiledMapTileLayer tileid = (TiledMapTileLayer)tiledMap.getLayers().get(0);
-
-        TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-
-        System.out.print(tileid.getCell(0,0).getTile().getObjects().toString());
-
-
+//        TiledMapTileLayer tileid = (TiledMapTileLayer)tiledMap.getLayers().get(0);
+//        TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+//        System.out.print(tileid.getCell(0,0).getTile().getObjects().toString());
 
         return new OrthogonalTiledMapRenderer(tiledMap);
     }
 
-    private void parseMapObjects(MapObjects mapObjects) {
+    public void parseMapObjects(MapObjects mapObjects) {
         for (MapObject mapObject : mapObjects) {
             if (mapObject instanceof PolygonMapObject) {
                 createStaticBody((PolygonMapObject) mapObject);
