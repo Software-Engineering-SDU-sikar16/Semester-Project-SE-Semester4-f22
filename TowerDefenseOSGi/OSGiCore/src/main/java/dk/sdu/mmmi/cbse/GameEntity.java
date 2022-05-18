@@ -1,4 +1,4 @@
-package objects.player;
+package dk.sdu.mmmi.cbse;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -20,6 +20,9 @@ public abstract class GameEntity {
 
     public GameEntity(float width, float height, Body body) {
 
+
+
+
         this.x = body.getPosition().x;
         this.y = body.getPosition().y;
         this.width = width;
@@ -29,7 +32,7 @@ public abstract class GameEntity {
         this.velY = 0;
         this.speed = 1;
 
-        this.texture = new Texture("images/v3.png");
+        this.texture = new Texture("../OSGiCore/assets/images/v3.png");
         this.textureRegion = new TextureRegion(texture, 0, 192, 16,16);
         // flip the texture
         this.textureRegion.flip(true, false);
@@ -46,5 +49,4 @@ public abstract class GameEntity {
     public Body getBody() {
         return body;
     }
-
 }

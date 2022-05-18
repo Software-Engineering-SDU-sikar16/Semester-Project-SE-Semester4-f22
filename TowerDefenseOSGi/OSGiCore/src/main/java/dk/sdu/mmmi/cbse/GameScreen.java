@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package dk.sdu.mmmi.cbse;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -11,10 +11,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import helper.TileMapHelper;
-import objects.player.Enemy;
-
-import static helper.Constants.PPM;
+import dk.sdu.mmmi.cbse.TileMapHelper;
+import dk.sdu.mmmi.cbse.Enemy;
 
 public class GameScreen extends ScreenAdapter {
     private OrthographicCamera camera;
@@ -24,6 +22,7 @@ public class GameScreen extends ScreenAdapter {
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TileMapHelper tileMapHelper;
     private Enemy enemy;
+    public static final float PPM = 32.0f;
 
     public GameScreen(OrthographicCamera camera) {
         this.camera = camera;
@@ -86,4 +85,7 @@ public class GameScreen extends ScreenAdapter {
     public void setEnemy(Enemy enemy) {
         this.enemy = enemy;
     }
+
+
+
 }
