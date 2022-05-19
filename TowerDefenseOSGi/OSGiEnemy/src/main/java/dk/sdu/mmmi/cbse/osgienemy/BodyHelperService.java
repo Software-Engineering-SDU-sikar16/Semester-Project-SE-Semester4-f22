@@ -1,4 +1,4 @@
-package dk.sdu.mmmi.cbse;
+package dk.sdu.mmmi.cbse.osgienemy;
 
 import com.badlogic.gdx.physics.box2d.*;
 

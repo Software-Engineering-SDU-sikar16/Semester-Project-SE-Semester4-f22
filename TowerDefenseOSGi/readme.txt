@@ -1,5 +1,7 @@
-mvn org.ops4j:maven-pax-plugin:create-project -DgroupId=org.sonatype.mcookbook -DartifactId=osgi-project -Dversion=1.0-SNAPSHOT
-
-mvn pax:create-bundle -Dpackage=dk.sdu.mmmi -Dname=core-bundle -Dversion=1.0-SNAPSHOT
-
-mvn pax:wrap-jar -g groupId -a artifactId -v version
+## How to run with OSGi in IntelliJ
+- In file -> project structure, set SDK to 1.8
+- Add new run configuration from top right.
+- Choose maven and give it a name
+- Choose the project directory
+- Write `install pas:provision` in the command line parameter
+- Now ya gucci to run

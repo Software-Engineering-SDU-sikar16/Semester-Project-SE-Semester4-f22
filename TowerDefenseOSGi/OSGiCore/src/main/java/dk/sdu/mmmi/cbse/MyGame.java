@@ -4,7 +4,15 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+//import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class MyGame extends Game {
 
@@ -17,12 +25,12 @@ public class MyGame extends Game {
 //    private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
     public static MyGame INSTANCE;
     private int widthScreen, heightScreen;
-    private OrthographicCamera orthographicCamera;
-
-
-//    public MyGdxGame() {
-//        INSTANCE = this;
-//    }
+    private OrthographicCamera camera;
+//    private SpriteBatch batch;
+    private World world;
+    private Box2DDebugRenderer box2DDebugRenderer;
+    private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
+    private TiledMap tiledMap;
 
     public MyGame(){
         init();
@@ -46,10 +54,40 @@ public class MyGame extends Game {
     public void create() {
         this.widthScreen = Gdx.graphics.getWidth();
         this.heightScreen = Gdx.graphics.getHeight();
-        this.orthographicCamera = new OrthographicCamera();
-        this.orthographicCamera.setToOrtho(false, widthScreen, heightScreen);
-        setScreen(new GameScreen(orthographicCamera));
+        this.camera = new OrthographicCamera();
+        this.camera.setToOrtho(false, widthScreen, heightScreen);
+//        this.camera = camera;
+//        this.batch = new SpriteBatch();
+        this.world = new World(new Vector2(0, 0), false);
+        this.box2DDebugRenderer = new Box2DDebugRenderer();
+        tiledMap = new TmxMapLoader().load("../OSGiCore/assets/maps/map1.tmx");
+        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+//        parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
+
+//        setScreen(new GameScreen(camera));
     }
+
+    @Override
+    public void render() {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        orthogonalTiledMapRenderer.setView(camera);
+        orthogonalTiledMapRenderer.render();
+
+//        batch.begin();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
+        camera.update();
+    }
+
+//    public void hide() {
+//        dispose();
+//    }
 
 //    @Override
 //    public void create() {

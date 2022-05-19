@@ -11,8 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import dk.sdu.mmmi.cbse.TileMapHelper;
-import dk.sdu.mmmi.cbse.Enemy;
 
 public class GameScreen extends ScreenAdapter {
     private OrthographicCamera camera;
@@ -20,8 +18,8 @@ public class GameScreen extends ScreenAdapter {
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-    private TileMapHelper tileMapHelper;
-    private Enemy enemy;
+//    private TileMapHelper tileMapHelper;
+//    private Enemy enemy;
     public static final float PPM = 32.0f;
 
     public GameScreen(OrthographicCamera camera) {
@@ -29,8 +27,8 @@ public class GameScreen extends ScreenAdapter {
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0, 0), false); //gravity is -9.81f in y direction
         this.box2DDebugRenderer = new Box2DDebugRenderer();
-        this.tileMapHelper = new TileMapHelper(this);
-        this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
+//        this.tileMapHelper = new TileMapHelper(this);
+//        this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
     }
 
     private void update() {
@@ -38,7 +36,7 @@ public class GameScreen extends ScreenAdapter {
         cameraUpdate(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.setProjectionMatrix(camera.combined);
         orthogonalTiledMapRenderer.setView(camera);
-        enemy.update();
+//        enemy.update();
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
@@ -47,8 +45,8 @@ public class GameScreen extends ScreenAdapter {
 
     private void cameraUpdate(int width, int height) {
         Vector3 position = camera.position;
-        position.x = Math.round(enemy.getBody().getPosition().x * PPM * 10) / 10f;
-        position.y = Math.round(enemy.getBody().getPosition().y * PPM * 10) / 10f;
+//        position.x = Math.round(enemy.getBody().getPosition().x * PPM * 10) / 10f;
+//        position.y = Math.round(enemy.getBody().getPosition().y * PPM * 10) / 10f;
 
         camera.viewportHeight = height;
         camera.viewportWidth = width;
@@ -70,8 +68,8 @@ public class GameScreen extends ScreenAdapter {
 
         batch.begin();
         // render objects
-        this.enemy.getSprite().draw(batch);;
-        this.enemy.getSprite().translate(20, 20);
+//        this.enemy.getSprite().draw(batch);;
+//        this.enemy.getSprite().translate(20, 20);
 
 
         batch.end();
@@ -82,9 +80,9 @@ public class GameScreen extends ScreenAdapter {
         return world;
     }
 
-    public void setEnemy(Enemy enemy) {
-        this.enemy = enemy;
-    }
+//    public void setEnemy(Enemy enemy) {
+//        this.enemy = enemy;
+//    }
 
 
 

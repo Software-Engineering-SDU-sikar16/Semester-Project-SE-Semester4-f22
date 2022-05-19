@@ -32,4 +32,3 @@ hs_err_pid*
 *.gradle
 *target
 *felix
-TowerDefenseOSGi/runner/deploy-pom.xml
