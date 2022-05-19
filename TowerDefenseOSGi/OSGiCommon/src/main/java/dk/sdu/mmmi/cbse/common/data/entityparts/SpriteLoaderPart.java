@@ -1,5 +1,6 @@
 package dk.sdu.mmmi.cbse.common.data.entityparts;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -55,7 +56,7 @@ public class SpriteLoaderPart implements EntityPart {
             createSprite();
         }
         spriteBatch.begin();
-        sprite.setCenter(x+200, y+200);
+        sprite.setPosition(x , y);
         sprite.draw(spriteBatch);
         spriteBatch.end();
 

@@ -70,6 +70,8 @@ public class MyGame implements ApplicationListener {
     public void create() {
         this.widthScreen = Gdx.graphics.getWidth();
         this.heightScreen = Gdx.graphics.getHeight();
+        this.gameData.setDisplayHeight(this.heightScreen);
+        this.gameData.setDisplayWidth(this.widthScreen);
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, widthScreen, heightScreen);
 //        this.camera = camera;
@@ -80,6 +82,12 @@ public class MyGame implements ApplicationListener {
         //orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 //        parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
         mapService.createMap();
+
+                for (   IGamePluginService gamePluginService : gamePluginList) {         
+                    gamePluginService.start(gameData, world);                            
+                                                                                         
+                }                                                                        
+
         for(Entity entity : world.getEntities()) {
 
             SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
@@ -90,7 +98,10 @@ public class MyGame implements ApplicationListener {
         /*spriteBatch = new SpriteBatch();
         texture = new Texture("../assets/images/v3.png");
         sprite = new Sprite(texture);*/
-
+ 
+ 
+ 
+ 
     }
 
     @Override
@@ -232,7 +243,7 @@ public class MyGame implements ApplicationListener {
 
     public void addGamePluginService(IGamePluginService plugin) {
         gamePluginList.add(plugin);
-        plugin.start(gameData, world);
+
 
     }
 
