@@ -20,6 +20,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
+import dk.sdu.mmmi.cbse.common.services.IMapService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class MyGame implements ApplicationListener {
     private static World world = new World();
     private static final List<IEntityProcessingService> entityProcessorList = new CopyOnWriteArrayList<>();
     private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
+    private IMapService mapService;
     private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
     public static MyGame INSTANCE;
     private int widthScreen, heightScreen;
@@ -73,14 +75,14 @@ public class MyGame implements ApplicationListener {
 //        this.batch = new SpriteBatch();
 //        this.world = new World(new Vector2(0, 0), false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
-        tiledMap = new TmxMapLoader().load("../OSGiCore/assets/maps/map1.tmx");
-        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        //tiledMap = new TmxMapLoader().load("../OSGiCore/assets/maps/map1.tmx");
+        //orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 //        parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
-
+        mapService.createMap();
 //        setScreen(new GameScreen(camera));
 
         spriteBatch = new SpriteBatch();
-        texture = new Texture("../OSGiCore/assets/images/v3.png");
+        texture = new Texture("../assets/images/v3.png");
         sprite = new Sprite(texture);
     }
 
@@ -89,8 +91,8 @@ public class MyGame implements ApplicationListener {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        orthogonalTiledMapRenderer.setView(camera);
-        orthogonalTiledMapRenderer.render();
+        //orthogonalTiledMapRenderer.setView(camera);
+        //orthogonalTiledMapRenderer.render();
         update();
         spritedraw();
     }
@@ -150,6 +152,9 @@ public class MyGame implements ApplicationListener {
 //    }
 //
     private void update() {
+        if(mapService != null) {
+        mapService.updateMap(camera);
+        }
         // Update
         for (IEntityProcessingService entityProcessorService : entityProcessorList) {
             entityProcessorService.process(gameData, world);
@@ -222,6 +227,15 @@ public class MyGame implements ApplicationListener {
     public void removeGamePluginService(IGamePluginService plugin) {
         gamePluginList.remove(plugin);
         plugin.stop(gameData, world);
+    }
+    public void addMapService(IMapService map) {
+        mapService = map;
+    }
+
+
+
+    public void removeMapService(IMapService map) {
+        mapService = null;
     }
 
 }

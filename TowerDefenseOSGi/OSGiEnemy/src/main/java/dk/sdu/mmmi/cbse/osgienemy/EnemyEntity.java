@@ -29,7 +29,7 @@ public abstract class EnemyEntity {
         this.velY = 0;
         this.speed = 1;
 
-        this.texture = new Texture("../OSGiCore/assets/images/v3.png");
+        this.texture = new Texture("../assets/images/v3.png");
         this.textureRegion = new TextureRegion(texture, 0, 192, 16,16);
         // flip the texture
         this.textureRegion.flip(true, false);
