@@ -197,31 +197,31 @@ public class MyGame implements ApplicationListener {
 //    public void dispose() {
 //    }
 //
-//    public void addEntityProcessingService(IEntityProcessingService eps) {
-//        this.entityProcessorList.add(eps);
-//    }
-//
-//    public void removeEntityProcessingService(IEntityProcessingService eps) {
-//        this.entityProcessorList.remove(eps);
-//    }
-//
-//    public void addPostEntityProcessingService(IPostEntityProcessingService eps) {
-//        postEntityProcessorList.add(eps);
-//    }
-//
-//    public void removePostEntityProcessingService(IPostEntityProcessingService eps) {
-//        postEntityProcessorList.remove(eps);
-//    }
-//
-//    public void addGamePluginService(IGamePluginService plugin) {
-//        this.gamePluginList.add(plugin);
-//        plugin.start(gameData, world);
-//
-//    }
-//
-//    public void removeGamePluginService(IGamePluginService plugin) {
-//        this.gamePluginList.remove(plugin);
-//        plugin.stop(gameData, world);
-//    }
+    public void addEntityProcessingService(IEntityProcessingService eps) {
+        entityProcessorList.add(eps);
+    }
+
+    public void removeEntityProcessingService(IEntityProcessingService eps) {
+        entityProcessorList.remove(eps);
+    }
+
+    public void addPostEntityProcessingService(IPostEntityProcessingService eps) {
+        postEntityProcessorList.add(eps);
+    }
+
+    public void removePostEntityProcessingService(IPostEntityProcessingService eps) {
+        postEntityProcessorList.remove(eps);
+    }
+
+    public void addGamePluginService(IGamePluginService plugin) {
+        gamePluginList.add(plugin);
+        plugin.start(gameData, world);
+
+    }
+
+    public void removeGamePluginService(IGamePluginService plugin) {
+        gamePluginList.remove(plugin);
+        plugin.stop(gameData, world);
+    }
 
 }

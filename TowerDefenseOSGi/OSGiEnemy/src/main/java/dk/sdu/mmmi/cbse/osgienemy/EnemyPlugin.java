@@ -1,5 +1,6 @@
 package dk.sdu.mmmi.cbse.osgienemy;
 
+import com.badlogic.gdx.physics.box2d.Body;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -19,6 +20,7 @@ public class EnemyPlugin implements IGamePluginService {
     public void start(GameData gameData, World world) {
         // Add entities to the world
         Entity enemy = createEnemyShip(gameData);
+        //EnemyEntity = ee = new EnemyEntity(3, 3, new Body())
         enemyID = world.addEntity(enemy);
         
     }
