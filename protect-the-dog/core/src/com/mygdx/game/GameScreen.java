@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import helper.TileMapHelper;
 import objects.player.Enemy;
+import objects.player.Tower;
 
 import static helper.Constants.PPM;
 
@@ -24,6 +25,7 @@ public class GameScreen extends ScreenAdapter {
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TileMapHelper tileMapHelper;
     private Enemy enemy;
+    private Tower tower;
 
     public GameScreen(OrthographicCamera camera) {
         this.camera = camera;
@@ -40,6 +42,7 @@ public class GameScreen extends ScreenAdapter {
         batch.setProjectionMatrix(camera.combined);
         orthogonalTiledMapRenderer.setView(camera);
         enemy.update();
+        tower.update();
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
@@ -50,6 +53,10 @@ public class GameScreen extends ScreenAdapter {
         Vector3 position = camera.position;
         position.x = Math.round(enemy.getBody().getPosition().x * PPM * 10) / 10f;
         position.y = Math.round(enemy.getBody().getPosition().y * PPM * 10) / 10f;
+
+        Vector3 towerPosition = camera.position;
+        towerPosition.x = Math.round(tower.getBody().getPosition().x);
+        towerPosition.y = Math.round(tower.getBody().getPosition().y);
 
         camera.viewportHeight = height;
         camera.viewportWidth = width;
@@ -74,6 +81,10 @@ public class GameScreen extends ScreenAdapter {
         this.enemy.getSprite().draw(batch);;
         this.enemy.getSprite().translate(20, 20);
 
+        this.tower.getSprite().draw(batch);
+        this.tower.getSprite().translate(20, 20);
+
+
 
         batch.end();
         box2DDebugRenderer.render(world, camera.combined.scl(PPM));
@@ -85,5 +96,9 @@ public class GameScreen extends ScreenAdapter {
 
     public void setEnemy(Enemy enemy) {
         this.enemy = enemy;
+    }
+
+    public void setTower(Tower tower) {
+        this.tower = tower;
     }
 }

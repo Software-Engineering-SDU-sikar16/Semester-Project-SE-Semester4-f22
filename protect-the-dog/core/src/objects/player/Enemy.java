@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import static helper.Constants.PPM;
 
-public class Enemy extends GameEntity{
+public class Enemy extends EnemyEntity {
 
     private int jumpCounter;
 

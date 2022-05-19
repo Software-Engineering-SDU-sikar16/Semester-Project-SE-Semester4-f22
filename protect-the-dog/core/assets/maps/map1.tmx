@@ -81,5 +81,6 @@
    <polygon points="0,0 -20.3031,0 -20.3031,-126.769 0,-126.769"/>
   </object>
   <object id="25" name="enemy" x="-0.798604" y="269.207" width="16.8146" height="17.0198"/>
+  <object id="30" name="tower" x="400" y="270" width="16.8146" height="17.0198"/>
  </objectgroup>
 </map>

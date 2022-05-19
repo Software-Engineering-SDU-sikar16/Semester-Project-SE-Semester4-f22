@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.mygdx.game.GameScreen;
 import objects.player.Enemy;
+import objects.player.Tower;
 
 import static helper.Constants.PPM;
 
@@ -65,6 +66,19 @@ public class TileMapHelper {
                             false,
                             gameScreen.getWorld());
                     gameScreen.setEnemy(new Enemy(rectangle.getWidth(), rectangle.getHeight(), body));
+                }
+
+                boolean findTower = rectangleName.equals("tower");
+
+                if (findTower) {
+                    Body body = BodyHelperService.createBody(
+                            rectangle.getX() + rectangle.getWidth() / 2,
+                            rectangle.getY() + rectangle.getHeight() / 2,
+                            rectangle.getWidth(),
+                            rectangle.getHeight(),
+                            false,
+                            gameScreen.getWorld());
+                    gameScreen.setTower(new Tower(rectangle.getWidth(), rectangle.getHeight(), body));
                 }
 
             }
