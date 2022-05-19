@@ -11,12 +11,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 //import com.badlogic.gdx.physics.box2d.World;
+import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
+import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
@@ -41,6 +41,7 @@ public class MyGame implements ApplicationListener {
     SpriteBatch spriteBatch;
     Sprite sprite;
     Texture texture;
+    SpriteLoaderPart sl;
 //    private SpriteBatch batch;
 //    private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
@@ -79,11 +80,17 @@ public class MyGame implements ApplicationListener {
         //orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 //        parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
         mapService.createMap();
-//        setScreen(new GameScreen(camera));
+        for(Entity entity : world.getEntities()) {
 
-        spriteBatch = new SpriteBatch();
+            SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
+            sl.createSprite();
+        }
+//        setScreen(new GameScreen(camera));
+         //sl = new SpriteLoaderPart("images/v3.png", 0, 192, 16, 16, true, false);
+        /*spriteBatch = new SpriteBatch();
         texture = new Texture("../assets/images/v3.png");
-        sprite = new Sprite(texture);
+        sprite = new Sprite(texture);*/
+
     }
 
     @Override
@@ -94,7 +101,7 @@ public class MyGame implements ApplicationListener {
         //orthogonalTiledMapRenderer.setView(camera);
         //orthogonalTiledMapRenderer.render();
         update();
-        spritedraw();
+
     }
 
     @Override
@@ -119,11 +126,11 @@ public class MyGame implements ApplicationListener {
 
     }
 
-    private void spritedraw() {
+   /* private void spritedraw() {
         spriteBatch.begin();
         sprite.draw(spriteBatch);
         spriteBatch.end();
-    }
+    }*/
 
 //    @Override
 //    public void create() {
@@ -152,6 +159,7 @@ public class MyGame implements ApplicationListener {
 //    }
 //
     private void update() {
+        // always draw the map first with the camera because components are renders synchronously.
         if(mapService != null) {
         mapService.updateMap(camera);
         }
@@ -164,9 +172,13 @@ public class MyGame implements ApplicationListener {
         for (IPostEntityProcessingService postEntityProcessorService : postEntityProcessorList) {
             postEntityProcessorService.process(gameData, world);
         }
+        for(Entity entity : world.getEntities()) {
+                                                                        //sl.process(gameData, new Entity());
+          SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
+            sl.process(gameData, entity);
+       }
     }
-
-//    private void draw() {
+//    pr}                                                                 ivate void draw() {
 //        for (Entity entity : world.getEntities()) {
 //            sr.setColor(1, 1, 1, 1);
 //
