@@ -1,6 +1,7 @@
 package helper;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,17 +16,18 @@ public class Resources
 {
 	
 	
-	
 	public static HashMap<String, Texture> Textures = new HashMap<String, Texture>();
 	
 	public static HashMap<String, FontResource> Fonts = new HashMap<String, FontResource>();
+	public static HashMap<String, Music> Musics = new HashMap<String, Music>();
 	
 	public static Texture LoadTexture(String FilePath)
 	{
 		if (Textures.containsKey(FilePath))
 		{
 			return Textures.get(FilePath);
-		} else
+		}
+		else
 		{
 			Texture texture = new Texture(Gdx.files.internal(FilePath), true);
 			texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -59,7 +61,8 @@ public class Resources
 		if (Fonts.containsKey(FilePath + Size))
 		{
 			return Fonts.get(FilePath + Size).GetFont();
-		} else
+		}
+		else
 		{
 			FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal(FilePath));
 			FreeTypeFontGenerator.FreeTypeFontParameter freeTypeFontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -85,12 +88,17 @@ public class Resources
 		
 		LoadFont("fonts/GoogleIconsRounded.ttf", 24);
 		
-		Constants.BigPauseScreenFont = LoadFont("fonts/OpenSans-Bold.ttf", 42 * (Constants.GlobalWidth / Constants.GlobalHeight)); // 42 for best luck
+		Constants.BigPauseScreenFont = LoadFont("fonts/editundo.ttf", 35); // 42 for best luck
+//		Constants.BigPauseScreenFont = LoadFont("fonts/OpenSans-Bold.ttf", 42 * (Constants.GlobalWidth / Constants.GlobalHeight)); // 42 for best luck
 		Constants.BigPauseScreenSpriteBatch = new SpriteBatch();
 		
 		Constants.ScoreUIFont = LoadFont("fonts/OpenSans-Bold.ttf", 13);
 		Constants.ScoreUIFontIcons = LoadFont("fonts/GoogleIconsRounded.ttf", 16, FontResource.GetCharacterRangeFromTo(0, 500));
-	
+		
+		
+		Constants.PixelFont = LoadFont("fonts/editundo.ttf", 14);
+		
+		Constants.ScoreUIFont = Constants.PixelFont;
 		
 	/*	FileHandle fontFile = Gdx.files.internal("data/Roboto-Bold.ttf");
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
@@ -103,9 +111,43 @@ public class Resources
 		*/
 	}
 	
+	public static Music LoadSound(String FilePath)
+	{
+		if (Musics.containsKey(FilePath))
+		{
+			return Musics.get(FilePath);
+		}
+		else
+		{
+			Music music = Gdx.audio.newMusic(Gdx.files.internal(FilePath));
+			Musics.put(FilePath, music);
+			return music;
+		}
+	}
+	
+	public static void LoadSounds()
+	{
+		LoadSound("sound/title_music.mp3").play();
+	}
+	
 	public static void Dispose()
 	{
 		Constants.BigPauseScreenSpriteBatch.dispose();
-		Constants.BigPauseScreenFont.dispose();
+		
+		for (Texture tex : Textures.values())
+		{
+			tex.dispose();
+		}
+		
+		for (FontResource font : Fonts.values())
+		{
+			font.Dispose();
+		}
+		
 	}
+	
+	
+	
+
+	
 }

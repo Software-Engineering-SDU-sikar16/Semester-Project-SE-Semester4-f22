@@ -1,6 +1,5 @@
 package Overlays;
 
-import Animation.AnimatedSprite;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -11,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.game.MyGdxGame;
 import helper.Constants;
 import helper.Resources;
 
@@ -32,21 +32,14 @@ public class PauseScreen extends Overlay
 		String text = button.getText().toString();
 		SelectorPosition = GetTextCenterPosition(text, button.getX(), button.getY());
 		GlyphLayouter.setText(Constants.BigPauseScreenFont, text);
-		SelectorSprite.setPosition(button.getX() - 75, button.getY());
-		SelectorSpriteTwo.setPosition(button.getX() + GlyphLayouter.width, button.getY());
+		SelectorSprite.setPosition(button.getX() - 60, button.getY() - 15);
+		SelectorSpriteTwo.setPosition(button.getX() + GlyphLayouter.width - 17, button.getY() - 15);
 	}
 	
-	
-public static	AnimatedSprite sprite;
-public static	AnimatedSprite dude;
 	
 	@Override
 	public void OnCreate()
 	{
-	//sprite = new AnimatedSprite("spine/WindMillTest/windmill-ess.atlas", "spine/WindMillTest/windmill-ess.json", 0, 0);
-	sprite = new AnimatedSprite("spine/FogExplosion/fog explosion.atlas", "spine/FogExplosion/skeleton.json", 128, 128);
-		dude = new AnimatedSprite(Resources.LoadTexture("spine/Goblin/Run.png"), 1, 8);
-		
 		
 		
 		SelectorSprite = new Sprite(Resources.LoadTexture("images/star_tiny.png"));
@@ -183,7 +176,10 @@ public static	AnimatedSprite dude;
 	@Override
 	public void OnRender()
 	{
-		if (!Constants.IsPauseScreenVisible) return;
+		if (!Constants.IsPauseScreenVisible)
+		{
+			return;
+		}
 		
 		
 		if (SelectorPosition.x > 0 && SelectorPosition.y > 0)
@@ -214,7 +210,17 @@ public static	AnimatedSprite dude;
 		
 		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
 		{
-			sprite.PlayAnimation();
+			MyGdxGame.sprite.PlayAnimation();
+		}
+		
+		if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT))
+		{
+			MyGdxGame.dude.SetAnimation("Run");
+		}
+		
+		if (Gdx.input.isButtonJustPressed(Input.Buttons.MIDDLE))
+		{
+			MyGdxGame.dude.SetAnimation("Idle");
 		}
 		
 	}
@@ -222,7 +228,7 @@ public static	AnimatedSprite dude;
 	public void TogglePaused()
 	{
 		SetPaused(!Constants.IsPauseScreenVisible);
-		sprite.PlayAnimation();
+		MyGdxGame.sprite.PlayAnimation();
 	}
 	
 	public void UnpauseGame()

@@ -20,11 +20,16 @@ public class FontResource
 		
 		for (int i = from; i < to; i++)
 		{
-			String s = String.valueOf((char)i);
+			String s = String.valueOf((char) i);
 			builder.append(s);
 		}
 		
 		return builder.toString();
+	}
+	
+	public void Dispose()
+	{
+		Font.dispose();
 	}
 	
 	int GetSize()

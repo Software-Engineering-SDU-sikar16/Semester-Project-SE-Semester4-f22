@@ -36,6 +36,10 @@ public class TileMapHelper
 	public int MapPixelWidth;
 	public int MapPixelHeight;
 	
+	public Tile Start = null;
+	public Tile End = null;
+	
+	
 	public TileMapHelper(GameScreen gameScreen)
 	{
 		this.gameScreen = gameScreen;
@@ -78,8 +82,6 @@ public class TileMapHelper
 		Constants.GameMapGraph = new GameMapGraph();
 		
 		Tile PreviousTile = null;
-		Tile Start = null;
-		Tile End = null;
 		
 		MapLayer layer = tiledMap.getLayers().get("PathLayer");
 		

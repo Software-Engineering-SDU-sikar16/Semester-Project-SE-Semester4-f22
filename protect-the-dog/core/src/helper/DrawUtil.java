@@ -32,15 +32,14 @@ public class DrawUtil
 	
 	private void DrawTriangleAtPositon(ShapeRenderer shapeRenderer, Vector2 P, float Scale, Color color)
 	{
-		
-		/**
-		 
-		 A
-		 / \
-		 /   \
-		 /  P  \
-		 /       \
+		/*
+		      A
+		     / \
+			/   \
+		   /  P  \
+		  /       \
 		 C---------B
+		 
 		 Solve for p:
 		 A = (p.x, p.y + 1);
 		 B = (p.x + 1, p.y -1)

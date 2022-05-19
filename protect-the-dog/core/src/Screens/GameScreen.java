@@ -1,9 +1,9 @@
 package Screens;
 
-import Entities.IEntity;
+import Entities.Entity;
 import Map.Tile;
 import Map.TilePath;
-import Overlays.IOverlay;
+import Overlays.Overlay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.MyGdxGame;
 import helper.Constants;
 import helper.MouseOperator;
 import helper.TileMapHelper;
@@ -58,16 +59,12 @@ public class GameScreen extends ScreenAdapter
 		}
 		
 		
-		//update entities
-		for (IEntity entity : Constants.Entities)
-		{
-			entity.OnUpdate(Gdx.graphics.getDeltaTime());
-		}
+		Entity.UpdateAllEntities();
 		
-		for (IOverlay overlay : Constants.Overlays)
-		{
-			overlay.OnUpdate(Gdx.graphics.getDeltaTime());
-		}
+		Overlay.UpdateAllOverlays();
+		
+	
+	
 		
 	}
 	
@@ -110,8 +107,8 @@ public class GameScreen extends ScreenAdapter
 		
 		
 		Vector2 pos =MouseOperator.GetMouseWorldPosition();
-		//Constants.PauseScreen.sprite.SetPosition(pos.x, pos.y);
-		Constants.PauseScreen.dude.SetPosition(pos.x, pos.y);
+		MyGdxGame.sprite.SetPosition(pos.x, pos.y);
+		MyGdxGame.dude.SetPosition(pos.x, pos.y);
 		
 		
 		batch.end();
@@ -139,19 +136,10 @@ public class GameScreen extends ScreenAdapter
 		}
 		
 		
-		//render entities before overlays
-		for (IEntity entity : Constants.Entities)
-		{
-			entity.OnRender();
-		}
+		Entity.RenderAllEntities();
 		
-		
-		//Render Overlays
-		for (IOverlay overlay : Constants.Overlays)
-		{
-			overlay.OnRender();
-		}
-		
+		Overlay.RenderAllOverlays();
+	
 		
 		Constants.Stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
 		Constants.Stage.draw();

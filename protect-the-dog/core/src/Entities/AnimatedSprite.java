@@ -1,6 +1,5 @@
-package Animation;
+package Entities;
 
-import Entities.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -8,27 +7,30 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.esotericsoftware.spine.*;
-import helper.Constants;
+
+import java.util.HashMap;
 
 
-public class AnimatedSprite extends Entity // extends Skeleton
+public class AnimatedSprite extends Entity
 {
-	SpriteBatch batch;
-	SkeletonRenderer skeletonRenderer;
 	
+	public static SpriteBatch batch;
+	
+	// Spine specific
+	public static SkeletonRenderer skeletonRenderer;
 	Skeleton skeleton;
 	AnimationState animationState;
-	
 	AnimationState.TrackEntry CurrentTrack;
 	
 	
+	// Non Spine custom animated spritesheets
 	TextureRegion[][] TextureRegions = null;
 	TextureRegion[] AnimationFrames = null;
 	
-	com.badlogic.gdx.graphics.g2d.Animation animation;
-	
-	public boolean LoopAllFrames = false;
-	public int[][] AnimatedFrameSubset;
+	String currentAnimationName = "";
+	HashMap<String, Animation<TextureRegion>> Animations = new HashMap<String, Animation<TextureRegion>>();
+	Animation<TextureRegion> currentAnimation = null;
+	float elapsedTime = 0;
 	
 	
 	// This uses the spine animation system.
@@ -36,7 +38,6 @@ public class AnimatedSprite extends Entity // extends Skeleton
 	{
 		batch = new SpriteBatch();
 		skeletonRenderer = new SkeletonRenderer();
-		
 		
 		// YOU MUSE USE Spine 3.7 exporter for this version of libgdx
 		// per entity
@@ -58,7 +59,6 @@ public class AnimatedSprite extends Entity // extends Skeleton
 		
 		skeleton.updateWorldTransform();
 		
-		Constants.Entities.add(this);
 	}
 	
 	public AnimatedSprite(String TextureAtlas, String SkeletonDataJSON)
@@ -78,17 +78,26 @@ public class AnimatedSprite extends Entity // extends Skeleton
 	}
 	
 	// this uses a custom lookup into a texture atlas
-	public AnimatedSprite(Texture atlas, int NumberOfRows, int NumberOfColumns)
+	public AnimatedSprite()
 	{
-		int width = atlas.getWidth() / NumberOfColumns;
-		int height = atlas.getHeight() / NumberOfRows;
-		// assume the frames are aligned correctly.
-		TextureRegions = TextureRegion.split(atlas, width, height);
+	}
+	
+	// this uses a custom lookup into a texture atlas
+	public AnimatedSprite(int x, int y, int width, int height)
+	{
+		setSize(width, height);
+		setX(x);
+		setY(y);
+	}
+	
+	public void AddAnimation(String AnimationName, Texture AnimationSpriteSheet, int NumberOfRows, int NumberOfColumns, float AnimationSpeed, Animation.PlayMode playMode)
+	{
+		int width = AnimationSpriteSheet.getWidth() / NumberOfColumns;
+		int height = AnimationSpriteSheet.getHeight() / NumberOfRows;
+		// assume the individual frames are aligned correctly. in terms of width/height
+		TextureRegions = TextureRegion.split(AnimationSpriteSheet, width, height);
 		
 		setSize(width, height);
-		setX(0);
-		setY(0);
-		
 		
 		AnimationFrames = new TextureRegion[NumberOfColumns * NumberOfRows];
 		int animationFramesIndex = 0;
@@ -100,30 +109,39 @@ public class AnimatedSprite extends Entity // extends Skeleton
 			}
 		}
 		
-		animation = new com.badlogic.gdx.graphics.g2d.Animation(1.0f / 60.0f, AnimationFrames);
-		animation.setPlayMode(Animation.PlayMode.LOOP);
+		Animation<TextureRegion> animation = new Animation(1.0f / AnimationSpeed, AnimationFrames);
+		animation.setPlayMode(playMode);
+		Animations.put(AnimationName, animation);
 		
-		batch = new SpriteBatch();
+		if (currentAnimation == null)
+		{
+			currentAnimation = animation;
+		}
 	}
 	
-	// this uses a custom lookup into a texture atlas
-	public AnimatedSprite(Texture[] textures, int width, int height)
+	public void SetAnimation(String AnimationName)
 	{
-		TextureRegions = new TextureRegion[0][textures.length];
-		
-		int counter = 1;
-		for (int i = 0; i < textures.length; i++)
+		if (AnimationName == null || currentAnimation == null)
 		{
-			TextureRegions[0][i] = new TextureRegion(textures[i], counter * width, counter * height, width, height);
-			counter++;
+			return;
 		}
 		
-		setSize(width, height);
-		setX(0);
-		setY(0);
-		
-		batch = new SpriteBatch();
+		if (Animations.containsKey(AnimationName))
+		{
+			currentAnimation = Animations.get(AnimationName);
+			currentAnimationName = AnimationName;
+		}
 	}
+	
+	public void SetAnimationSpeed(float AnimationSpeed)
+	{
+		if (currentAnimation == null)
+		{
+			return;
+		}
+		currentAnimation.setFrameDuration(1 / AnimationSpeed);
+	}
+	
 	
 	@Override
 	public void OnCreate()
@@ -134,62 +152,30 @@ public class AnimatedSprite extends Entity // extends Skeleton
 	@Override
 	public void OnRender()
 	{
+		if (skeleton == null && currentAnimation == null) // end early
+		{
+			return;
+		}
+		
 		batch.begin();
 		if (skeleton != null)
 		{
 			skeletonRenderer.draw(batch, skeleton);
 		}
 		
-		if (TextureRegions != null)
+		if (currentAnimation != null)
 		{
-			//draw texture regions
-			DrawTextureRegions();
+			TickAndDrawAnimations();
 		}
 		
-		if (AnimationFrames != null)
-		{
-			batch.draw(AnimationFrames[4], 128, 130, 10, 10);
-			batch.draw(AnimationFrames[1], getX(), getY());
-			batch.draw(AnimationFrames[2], getX(), getY());
-			batch.draw(AnimationFrames[3], getX(), getY());
-		}
-
 		batch.end();
 	}
 	
-	int currentRegionX = 0;
-	int currentRegionY = 0;
-	float elapsedTime = 0;
 	
-	private void DrawTextureRegions()
+	private void TickAndDrawAnimations()
 	{
 		elapsedTime += Gdx.graphics.getDeltaTime();
-		
-		if (LoopAllFrames)
-		{
-			if (currentRegionX >= TextureRegions.length)
-			{
-				currentRegionX = 0;
-				currentRegionY = 0;
-			} else
-			{
-				if (currentRegionY >= TextureRegions[currentRegionX].length)
-				{
-					currentRegionY = 0;
-					currentRegionX++;
-				} else
-				{
-					currentRegionY++;
-				}
-			}
-			
-			
-		}
-		
-		batch.draw(AnimationFrames[4], getX(), getY(), 50, 50);
-		batch.draw(AnimationFrames[1], getX(), getY(), 50, 50);
-		batch.draw(AnimationFrames[2], getX(), getY(), 50, 50);
-		batch.draw(AnimationFrames[3], getX(), getY(), 50, 50);
+		batch.draw(currentAnimation.getKeyFrame(elapsedTime, true), getX(), getY(), getWidth(), getHeight());
 	}
 	
 	@Override
@@ -201,8 +187,6 @@ public class AnimatedSprite extends Entity // extends Skeleton
 			animationState.update(DeltaTime);
 			animationState.apply(skeleton);
 		}
-		
-		
 	}
 	
 	public void PlayAnimation()
@@ -212,5 +196,6 @@ public class AnimatedSprite extends Entity // extends Skeleton
 			CurrentTrack.setTrackTime(0);
 		}
 	}
+	
 	
 }

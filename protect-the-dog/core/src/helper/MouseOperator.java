@@ -1,6 +1,5 @@
 package helper;
 
-import Map.Tile;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
@@ -80,6 +79,9 @@ public class MouseOperator
 		TiledMapTileLayer layer = (TiledMapTileLayer) Constants.TileMapHelper.tiledMap.getLayers().get(0);
 		
 		TiledMapTileLayer.Cell cell = layer.getCell(tileX, tileY);
+		
+	
+	/*
 		if (cell != null)
 		{
 			if (Gdx.input.justTouched())
@@ -88,7 +90,7 @@ public class MouseOperator
 				Constants.GameMapGraph.AddTile(graphTile);
 			}
 		}
-		
+	*/
 		TileUnderMouseWorldPosition.set(tileX, tileY);
 		return cell;
 	}

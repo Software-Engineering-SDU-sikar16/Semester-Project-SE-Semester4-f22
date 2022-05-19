@@ -1,16 +1,12 @@
 package helper;
 
-import Animation.AnimatedSprite;
-import Entities.IEntity;
 import Map.GameMapGraph;
 import Map.Tile;
-import Overlays.IOverlay;
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Constants
@@ -44,6 +40,7 @@ public class Constants
 	
 	public static BitmapFont BigPauseScreenFont;
 	public static BitmapFont ScoreUIFont;
+	public static BitmapFont PixelFont;
 	public static BitmapFont ScoreUIFontIcons;
 	
 	public static SpriteBatch BigPauseScreenSpriteBatch;
@@ -53,10 +50,7 @@ public class Constants
 	public static Overlays.PauseScreen PauseScreen;
 	public static Overlays.GameUIOverlay GameUIOverlay;
 	
-	public static AnimatedSprite TestAnimatedSprite;
-	public static Array<IOverlay> Overlays = new Array<IOverlay>();
-	
-	public static Array<IEntity> Entities = new Array<IEntity>();
+
 	
 //	public static Overlays.WaveProgressBar WaveProgressBar; // todo fix/add
 	
