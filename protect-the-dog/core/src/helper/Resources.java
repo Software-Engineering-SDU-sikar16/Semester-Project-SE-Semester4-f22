@@ -127,7 +127,9 @@ public class Resources
 	
 	public static void LoadSounds()
 	{
-		LoadSound("sound/title_music.mp3").play();
+		Music backgroundMusic = LoadSound("sound/title_music.mp3");
+		backgroundMusic.play();
+		
 	}
 	
 	public static void Dispose()

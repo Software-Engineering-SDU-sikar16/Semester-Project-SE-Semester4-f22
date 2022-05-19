@@ -63,7 +63,7 @@ public class MyGdxGame extends Game
 		
 		for (int i = 0; i < 23; i++)
 		{
-			AnimatedSprite sprite2 = new AnimatedSprite(198 + (i * 50), 158 + (i), 24, 24);
+			AnimatedSprite sprite2 = new AnimatedSprite(50 + (i * 50), 158 + (i), 24, 24);
 			sprite2.AddAnimation("default", Resources.LoadTexture("entities/enemies/enemies/sheet_"+ i + ".png "), 1, 4, 12, Animation.PlayMode.NORMAL);
 		}
 		
