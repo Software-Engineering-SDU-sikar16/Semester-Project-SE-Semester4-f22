@@ -1,35 +1,98 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.*;
+import Entities.IEntity;
+import Overlays.GameUIOverlay;
+import Overlays.IOverlay;
+import Overlays.PauseScreen;
+import Screens.GameScreen;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-
-
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import helper.Constants;
+import helper.Resources;
 
-public class MyGdxGame extends Game {
-
+public class MyGdxGame extends Game
+{
+	
 	public static MyGdxGame INSTANCE;
-	private int widthScreen, heightScreen;
-	private OrthographicCamera orthographicCamera;
-
-
-	public MyGdxGame() {
+	
+	
+	public MyGdxGame()
+	{
 		INSTANCE = this;
 	}
-
+	
 	@Override
-	public void create () {
-		this.widthScreen = Gdx.graphics.getWidth();
-		this.heightScreen = Gdx.graphics.getHeight();
-		this.orthographicCamera = new OrthographicCamera();
-		this.orthographicCamera.setToOrtho(false, widthScreen, heightScreen);
-		setScreen(new GameScreen(orthographicCamera));
-
-
+	public void create()
+	{
+		Constants.GlobalWidth = Gdx.graphics.getWidth();
+		Constants.GlobalHeight = Gdx.graphics.getHeight();
+		Resources.LoadFonts();
+		Resources.LoadTextures();
+		
+		Constants.Viewport = new FitViewport(Constants.GlobalWidth, Constants.GlobalHeight);
+		Constants.Stage = new Stage(Constants.Viewport);
+		Gdx.input.setInputProcessor(Constants.Stage);
+		
+		
+		Constants.Camera = new OrthographicCamera();
+		Constants.Camera.setToOrtho(false, Constants.GlobalWidth, Constants.GlobalHeight);
+		setScreen(new GameScreen());
+		
+		
+		
+		// Create Overlays
+		Constants.PauseScreen = new PauseScreen();
+		Constants.GameUIOverlay = new GameUIOverlay();
+		
+		for (IOverlay overlay : Constants.Overlays)
+		{
+			overlay.OnCreate();
+		}
+		
+		
+		//Create Entities
+		for (IEntity entity : Constants.Entities)
+		{
+			entity.OnCreate();
+		}
+		
+		
+		
+		Constants.shapeRenderer = new ShapeRenderer();
+		Constants.batch = new SpriteBatch();
+		Constants.font = new BitmapFont();
+		
+		
+	}
+	
+	public static Table table;
+/*	@Override
+	public void render()
+	{
+	
+	}*/
+	
+	@Override
+	public void dispose()
+	{
+		Constants.shapeRenderer.dispose();
+		Constants.batch.dispose();
+		Constants.font.dispose();
+		Resources.Dispose();
+	}
+	
+	
+	@Override
+	public void resize(int width, int height)
+	{
+		Constants.Viewport.update(width, height);
 	}
 
 

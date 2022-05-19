@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import static helper.Constants.PPM;
 
-public class Enemy extends GameEntity{
+public class Enemy extends GameEntity {
 
     private int jumpCounter;
 
@@ -32,22 +32,26 @@ public class Enemy extends GameEntity{
     public void render(SpriteBatch batch) {
 
     }
-
+    
     private void checkUserInput() {
         velX = 0;
         velY = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             velX = 1;
+            System.out.println("Pressed D ");
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             velX = -1;
+            System.out.println("Pressed A");
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             velY = -1;
+            System.out.println("Pressed S");
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             velY = 1;
+            System.out.println("Pressed W");
         }
 
 

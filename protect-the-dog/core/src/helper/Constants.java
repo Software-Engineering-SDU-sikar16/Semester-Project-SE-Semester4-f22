@@ -1,7 +1,69 @@
 package helper;
 
-public class Constants {
+import Animation.AnimatedSprite;
+import Entities.IEntity;
+import Map.GameMapGraph;
+import Map.Tile;
+import Overlays.IOverlay;
+import com.badlogic.gdx.ai.pfa.GraphPath;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
-
-    public static final float PPM = 32.0f;
+public class Constants
+{
+	//~ Application Specific
+	public static int GlobalWidth = 0;
+	public static int GlobalHeight = 0;
+	
+	public static final float PPM = 32.0f;
+	
+	
+	//~ Game
+	public static boolean IsPauseScreenVisible = false;
+	public static boolean IsGamePaused = false;
+	public static int CurrentWave = 0; // the current wave of enemies
+	public static int TotalWavesInLevel = 8; // the total waves of enemies for this particular level.
+	
+	
+	//~ TileMap
+	public static TileMapHelper TileMapHelper;
+	
+	
+	//~ Camera
+	public static OrthographicCamera Camera;
+	
+	
+	
+	//~ Rendering
+	
+	public static Viewport Viewport;
+	
+	public static BitmapFont BigPauseScreenFont;
+	public static BitmapFont ScoreUIFont;
+	public static BitmapFont ScoreUIFontIcons;
+	
+	public static SpriteBatch BigPauseScreenSpriteBatch;
+	public static com.badlogic.gdx.scenes.scene2d.Stage Stage;
+	
+	
+	public static Overlays.PauseScreen PauseScreen;
+	public static Overlays.GameUIOverlay GameUIOverlay;
+	
+	public static AnimatedSprite TestAnimatedSprite;
+	public static Array<IOverlay> Overlays = new Array<IOverlay>();
+	
+	public static Array<IEntity> Entities = new Array<IEntity>();
+	
+//	public static Overlays.WaveProgressBar WaveProgressBar; // todo fix/add
+	
+	public static ShapeRenderer shapeRenderer;
+	public static SpriteBatch batch;
+	public static BitmapFont font;
+	public static GameMapGraph GameMapGraph;
+	public static GraphPath<Tile> GameMapPath;
+	public static int Coins = 0;
 }
