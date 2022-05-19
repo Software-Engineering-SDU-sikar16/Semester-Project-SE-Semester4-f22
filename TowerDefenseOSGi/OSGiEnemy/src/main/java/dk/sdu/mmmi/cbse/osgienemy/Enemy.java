@@ -1,70 +1,27 @@
 package dk.sdu.mmmi.cbse.osgienemy;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.math.Vector2;
 
-public class Enemy extends EnemyEntity {
-    public static final float PPM = 32.0f;
-    private int jumpCounter;
+public class Enemy extends Sprite {
 
-    public Enemy(float width, float height, Body body) {
-        super(width, height, body);
-        this.speed = 4f;
-        this.jumpCounter = 0;
+    private Vector2 velocity = new Vector2();
+    private float speed = 60*2, gravity = 60*1.8f;
+
+    public Enemy(Sprite sprite) {
+        super(sprite);
     }
 
-    @Override
-    public void update() {
-        x = body.getPosition().x * PPM;
-        y = body.getPosition().y * PPM;
-        this.getSprite().setPosition(x, y);
-
-        checkUserInput();
-        moveEnemy();
-
+//    @Override
+    public void draw(SpriteBatch batch) {
+        update(Gdx.graphics.getDeltaTime());
+        super.draw(batch);
     }
 
-    @Override
-    public void render(SpriteBatch batch) {
+    public void update(float delta) {
 
     }
 
-    private void checkUserInput() {
-        velX = 0;
-        velY = 0;
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            velX = 1;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            velX = -1;
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            velY = -1;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            velY = 1;
-        }
-
-
-
-
-//        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && jumpCounter < 2) {
-//            float force = body.getMass() * 18;
-//            body.applyLinearImpulse(new Vector2(0, force), body.getPosition(), true);
-//        }
-        body.setLinearVelocity(velX * speed, velY* speed);
-
-    }
-
-    private void moveEnemy(){
-        if(body.getPosition().x < 0){
-            body.setLinearVelocity(-speed, 0);
-        }
-        if(body.getPosition().x > 0){
-            body.setLinearVelocity(speed, 0);
-        }
-    }
 }
