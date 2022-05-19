@@ -10,7 +10,6 @@ public class DesktopLauncher {
 		config.width = 960;
 		config.height = 640;
 		config.title = "Protect the dog";
-		config.resizable = false;
 		config.vSyncEnabled = true;
 		config.backgroundFPS = 60;
 		config.foregroundFPS = 60;
