@@ -60,6 +60,21 @@ public class TileMapHelper {
                             false,
                             gameScreen.getWorld());
                     gameScreen.setEnemy(new Enemy(rectangle.getWidth(), rectangle.getHeight(), body));
+
+                }
+
+                boolean findTower = rectangleName.equals("tower");
+
+                if (findTower) {
+                    Body body = BodyHelperService.createBody(
+                            rectangle.getX() + rectangle.getWidth() / 2,
+                            rectangle.getY() + rectangle.getHeight() / 2,
+                            rectangle.getWidth(),
+                            rectangle.getHeight(),
+                            false,
+                            gameScreen.getWorld());
+                    gameScreen.setTower(new Tower(rectangle.getWidth(), rectangle.getHeight(), body));
+
                 }
 
             }

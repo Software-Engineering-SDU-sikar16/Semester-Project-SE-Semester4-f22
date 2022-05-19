@@ -1,0 +1,21 @@
+package dk.sdu.mmmi.cbse;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Body;
+
+public class Tower extends TowerEntity {
+
+    public Tower(float width, float height, Body body) {
+        super(width, height, body);
+    }
+
+    @Override
+    public void update() {
+        this.getSprite().setPosition(x, y);
+    }
+
+    @Override
+    public void render(SpriteBatch batch) {
+
+    }
+}
