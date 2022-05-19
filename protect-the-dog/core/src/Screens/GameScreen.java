@@ -108,7 +108,6 @@ public class GameScreen extends ScreenAdapter
 		
 		Vector2 pos =MouseOperator.GetMouseWorldPosition();
 		MyGdxGame.sprite.SetPosition(pos.x, pos.y);
-		MyGdxGame.dude.SetPosition(pos.x, pos.y);
 		
 		
 		batch.end();

@@ -208,19 +208,10 @@ public class PauseScreen extends Overlay
 			TogglePaused();
 		}
 		
+		// this is just for testing
 		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
 		{
 			MyGdxGame.sprite.PlayAnimation();
-		}
-		
-		if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT))
-		{
-			MyGdxGame.dude.SetAnimation("Run");
-		}
-		
-		if (Gdx.input.isButtonJustPressed(Input.Buttons.MIDDLE))
-		{
-			MyGdxGame.dude.SetAnimation("Idle");
 		}
 		
 	}

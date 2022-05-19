@@ -27,8 +27,6 @@ public class MyGdxGame extends Game
 	
 	
 	public static AnimatedSprite sprite;
-	public static AnimatedSprite dude;
-	public static AnimatedSprite dude2;
 	
 	
 	public MyGdxGame()
@@ -70,22 +68,9 @@ public class MyGdxGame extends Game
 		}
 		
 		
-		
 		sprite = new AnimatedSprite("spine/FogExplosion/fog explosion.atlas", "spine/FogExplosion/skeleton.json", 128, 128);
 		sprite.SetZIndex(2);
 		
-		dude2 = new AnimatedSprite(158, 158, 150, 150);
-		dude2.AddAnimation("Idle", Resources.LoadTexture("entities/enemies/goblin/Idle.png"), 1, 4, 12, Animation.PlayMode.NORMAL);
-		
-		
-		dude = new AnimatedSprite(128, 128, 150, 150);
-		
-		
-		dude.AddAnimation("Run", Resources.LoadTexture("entities/enemies/goblin/Run.png"), 1, 8, 15, Animation.PlayMode.NORMAL);
-		dude.AddAnimation("Attack", Resources.LoadTexture("entities/enemies/goblin/Attack.png"), 1, 8, 15, Animation.PlayMode.NORMAL);
-		dude.AddAnimation("Death", Resources.LoadTexture("entities/enemies/goblin/Death.png"), 1, 4, 15, Animation.PlayMode.NORMAL);
-		dude.AddAnimation("Idle", Resources.LoadTexture("entities/enemies/goblin/Idle.png"), 1, 4, 15, Animation.PlayMode.NORMAL);
-		dude.AddAnimation("Take Hit", Resources.LoadTexture("entities/enemies/goblin/Take Hit.png"), 1, 4, 15, Animation.PlayMode.NORMAL);
 		
 		
 		// these must be the last things that happen when the application is created, after everything else as possible.
