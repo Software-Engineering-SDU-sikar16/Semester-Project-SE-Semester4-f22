@@ -13,8 +13,8 @@ public class Tower extends TowerEntity {
 
     @Override
     public void update() {
-        x = body.getPosition().x;
-        y = body.getPosition().y;
+        x = body.getPosition().x * PPM;
+        y = body.getPosition().y * PPM;
         this.getSprite().setPosition(x, y);
     }
 

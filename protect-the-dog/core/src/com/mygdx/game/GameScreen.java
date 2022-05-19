@@ -54,10 +54,6 @@ public class GameScreen extends ScreenAdapter {
         position.x = Math.round(enemy.getBody().getPosition().x * PPM * 10) / 10f;
         position.y = Math.round(enemy.getBody().getPosition().y * PPM * 10) / 10f;
 
-        Vector3 towerPosition = camera.position;
-        towerPosition.x = Math.round(tower.getBody().getPosition().x);
-        towerPosition.y = Math.round(tower.getBody().getPosition().y);
-
         camera.viewportHeight = height;
         camera.viewportWidth = width;
         // camera.position.set(position);
@@ -82,7 +78,6 @@ public class GameScreen extends ScreenAdapter {
         this.enemy.getSprite().translate(20, 20);
 
         this.tower.getSprite().draw(batch);
-        this.tower.getSprite().translate(20, 20);
 
 
 
