@@ -41,7 +41,7 @@ public class EnemyPlugin implements IGamePluginService {
         enemyShip.setRadius(4);
         enemyShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         enemyShip.add(new PositionPart(x, y, radians));
-        SpriteLoaderPart spriteLoaderPart = new SpriteLoaderPart("images/v3.png", 0, 192, 16, 16, true, true);
+        SpriteLoaderPart spriteLoaderPart = new SpriteLoaderPart("images/v3.png", 0, 192, 16, 16, false, false);
         enemyShip.add(spriteLoaderPart);
         return enemyShip;
     }
