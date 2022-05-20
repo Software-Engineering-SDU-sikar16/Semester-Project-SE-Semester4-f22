@@ -2,6 +2,7 @@ package Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public abstract class Entity extends Sprite implements IEntity
@@ -43,10 +44,16 @@ public abstract class Entity extends Sprite implements IEntity
 		ZIndex = other.GetZIndex() + 1;
 	}
 	
+	public void setPosition(Vector2 pos)
+	{
+		setPosition(pos.x, pos.y);
+	}
+	
 	
 	public Entity()
 	{
 		Entities.add(this);
+		Enabled = true;
 	}
 	
 	

@@ -1,5 +1,7 @@
 package helper;
 
+import Entities.AnimatedSprite;
+import GamePlay.EnemyManager;
 import Map.GameMapGraph;
 import Map.Tile;
 import com.badlogic.gdx.ai.pfa.GraphPath;
@@ -23,7 +25,9 @@ public class Constants
 	public static boolean IsGamePaused = false;
 	public static int CurrentWave = 0; // the current wave of enemies
 	public static int TotalWavesInLevel = 8; // the total waves of enemies for this particular level.
-	
+	public static GamePlay.Player Player;
+	public static boolean IsBuildingTurret = false;
+	public static EnemyManager EnemyManager;
 	
 	//~ TileMap
 	public static TileMapHelper TileMapHelper;
@@ -32,6 +36,9 @@ public class Constants
 	//~ Camera
 	public static OrthographicCamera Camera;
 	
+	
+	// ~ Misc
+	public static AnimatedSprite MouseTileSelector;
 	
 	
 	//~ Rendering

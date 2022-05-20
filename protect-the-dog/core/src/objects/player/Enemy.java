@@ -38,20 +38,20 @@ public class Enemy extends GameEntity {
         velY = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             velX = 1;
-            System.out.println("Pressed D ");
+            //System.out.println("Pressed D ");
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             velX = -1;
-            System.out.println("Pressed A");
+            //System.out.println("Pressed A");
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             velY = -1;
-            System.out.println("Pressed S");
+            //System.out.println("Pressed S");
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             velY = 1;
-            System.out.println("Pressed W");
+            //System.out.println("Pressed W");
         }
 
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.spine.*;
 
 import java.util.HashMap;
@@ -83,11 +84,30 @@ public class AnimatedSprite extends Entity
 	}
 	
 	// this uses a custom lookup into a texture atlas
-	public AnimatedSprite(int x, int y, int width, int height)
+	public AnimatedSprite(float x, float y, int width, int height)
 	{
 		setSize(width, height);
-		setX(x);
-		setY(y);
+		setPosition(x, y);
+	}
+	
+	public AnimatedSprite(Vector2 Pos, int width, int height)
+	{
+		setSize(width, height);
+		setPosition(Pos.x, Pos.y);
+	}
+	
+	public AnimatedSprite(Texture texture)
+	{
+		setSize(texture.getWidth(), texture.getHeight());
+		setTexture(texture);
+		setPosition(0, 0);
+	}
+	
+	public AnimatedSprite(Texture texture, float x, float y, int width, int height)
+	{
+		setSize(width, height);
+		setPosition(x , y);
+		setTexture(texture);
 	}
 	
 	public void AddAnimation(String AnimationName, Texture AnimationSpriteSheet, int NumberOfRows, int NumberOfColumns, float AnimationSpeed, Animation.PlayMode playMode)
@@ -135,11 +155,23 @@ public class AnimatedSprite extends Entity
 	
 	public void SetAnimationSpeed(float AnimationSpeed)
 	{
-		if (currentAnimation == null)
+		if (currentAnimation == null && currentAnimation.getFrameDuration() == 1 / AnimationSpeed)
 		{
 			return;
 		}
 		currentAnimation.setFrameDuration(1 / AnimationSpeed);
+	}
+	
+	
+	public float getEntityY()
+	{
+		return getY() + (getHeight() / 2);
+	}
+	
+	
+	public float getEntityX()
+	{
+		return getX() + (getWidth() / 2);
 	}
 	
 	
@@ -152,7 +184,7 @@ public class AnimatedSprite extends Entity
 	@Override
 	public void OnRender()
 	{
-		if (skeleton == null && currentAnimation == null) // end early
+		if (skeleton == null && currentAnimation == null && getTexture() == null) // end early
 		{
 			return;
 		}
@@ -166,6 +198,11 @@ public class AnimatedSprite extends Entity
 		if (currentAnimation != null)
 		{
 			TickAndDrawAnimations();
+		}
+		
+		if (getTexture() != null)
+		{
+			batch.draw(getTexture(), getX(), getY(), getWidth(), getHeight());
 		}
 		
 		batch.end();
@@ -187,6 +224,7 @@ public class AnimatedSprite extends Entity
 			animationState.update(DeltaTime);
 			animationState.apply(skeleton);
 		}
+		
 	}
 	
 	public void PlayAnimation()

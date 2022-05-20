@@ -21,6 +21,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import objects.player.Enemy;
 
+import java.util.HashMap;
+
 import static helper.Constants.PPM;
 
 public class TileMapHelper
@@ -38,6 +40,8 @@ public class TileMapHelper
 	
 	public Tile Start = null;
 	public Tile End = null;
+	
+	public static HashMap<Vector2, Tile> EnemyPath = new HashMap<Vector2, Tile>();
 	
 	
 	public TileMapHelper(GameScreen gameScreen)
@@ -101,6 +105,8 @@ public class TileMapHelper
 				Tile graphTile = new Tile(x, y, rectangleMapObject.getName());
 				Constants.GameMapGraph.AddTile(graphTile);
 				
+				EnemyPath.put(new Vector2(x, y), graphTile);
+				
 				if (Start == null)
 				{
 					Start = graphTile;
@@ -116,10 +122,11 @@ public class TileMapHelper
 		}
 		
 		End = PreviousTile;
+		EnemyPath.put(new Vector2(End.x, End.y), End);
 		Constants.GameMapPath = Constants.GameMapGraph.FindPath(Start, End);
-	
+		
 	}
-
+	
 	private void parseMapObjects(MapObjects mapObjects)
 	{
 		for (MapObject mapObject : mapObjects)
@@ -179,4 +186,33 @@ public class TileMapHelper
 		shape.set(worldVertices);
 		return shape;
 	}
+	
+	public Tile GetEnemyPathTileAt(Vector2 vector)
+	{
+		return EnemyPath.get(vector);
+	}
+	
+	public Tile GetEnemyPathTileAt(float x, float y)
+	{
+		return EnemyPath.get(new Vector2(x, y));
+	}
+	
+	// Gets the next tile we should be heading to from the position of the current tile. e.g. input is Tile xy of A => output is Tile B;
+	public Tile GetNextEnemyPathTileFromCurrentTileAt(float x, float y)
+	{
+		Tile currentTile = EnemyPath.get(new Vector2(x, y));
+		
+		if (Constants.GameMapPath.getCount() - 1 >= currentTile.index + 1)
+		{
+			Tile nextTile = Constants.GameMapPath.get(currentTile.index + 1);
+			return nextTile;
+		}
+		else
+		{
+			return null;
+		}
+		
+	}
+	
+	
 }

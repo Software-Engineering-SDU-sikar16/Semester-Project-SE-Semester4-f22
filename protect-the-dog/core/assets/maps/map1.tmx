@@ -220,46 +220,210 @@
   <object id="86" name="0" x="640" y="384" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="8" name="PathLayer">
-  <object id="161" name="StartPath" x="0" y="256" width="32" height="32"/>
-  <object id="162" name="1" x="32" y="256" width="32" height="32"/>
-  <object id="163" name="2" x="64" y="256" width="32" height="32"/>
-  <object id="164" name="3" x="96" y="256" width="32" height="32"/>
-  <object id="165" name="4" x="128" y="256" width="32" height="32"/>
-  <object id="166" name="5" x="160" y="256" width="32" height="32"/>
-  <object id="167" name="6" x="192" y="256" width="32" height="32"/>
-  <object id="168" name="7" x="224" y="256" width="32" height="32"/>
-  <object id="169" name="8" x="256" y="256" width="32" height="32"/>
-  <object id="170" name="9" x="256" y="288" width="32" height="32"/>
-  <object id="171" name="0" x="256" y="320" width="32" height="32"/>
-  <object id="172" name="10" x="256" y="352" width="32" height="32"/>
-  <object id="173" name="11" x="256" y="384" width="32" height="32"/>
-  <object id="174" name="12" x="288" y="384" width="32" height="32"/>
-  <object id="175" name="13" x="320" y="384" width="32" height="32"/>
-  <object id="176" name="14" x="352" y="384" width="32" height="32"/>
-  <object id="177" name="15" x="384" y="384" width="32" height="32"/>
-  <object id="178" name="16" x="416" y="384" width="32" height="32"/>
-  <object id="179" name="17" x="448" y="384" width="32" height="32"/>
-  <object id="180" name="18" x="480" y="384" width="32" height="32"/>
-  <object id="181" name="19" x="512" y="384" width="32" height="32"/>
-  <object id="182" name="20" x="544" y="384" width="32" height="32"/>
-  <object id="183" name="21" x="576" y="384" width="32" height="32"/>
-  <object id="184" name="22" x="576" y="352" width="32" height="32"/>
-  <object id="185" name="23" x="576" y="320" width="32" height="32"/>
-  <object id="186" name="24" x="576" y="288" width="32" height="32"/>
-  <object id="187" name="25" x="576" y="256" width="32" height="32"/>
-  <object id="188" name="26" x="576" y="224" width="32" height="32"/>
-  <object id="189" name="27" x="576" y="192" width="32" height="32"/>
-  <object id="190" name="28" x="576" y="160" width="32" height="32"/>
-  <object id="191" name="29" x="608" y="160" width="32" height="32"/>
-  <object id="192" name="30" x="640" y="160" width="32" height="32"/>
-  <object id="193" name="31" x="672" y="160" width="32" height="32"/>
-  <object id="194" name="32" x="704" y="160" width="32" height="32"/>
-  <object id="195" name="33" x="736" y="160" width="32" height="32"/>
-  <object id="196" name="34" x="768" y="160" width="32" height="32"/>
-  <object id="198" name="38" x="800" y="160" width="32" height="32"/>
-  <object id="199" name="35" x="832" y="160" width="32" height="32"/>
-  <object id="200" name="36" x="864" y="160" width="32" height="32"/>
-  <object id="201" name="37" x="896" y="160" width="32" height="32"/>
-  <object id="202" name="EndPath" x="928" y="160" width="32" height="32"/>
+  <object id="161" name="StartPath" x="0" y="256" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="162" name="1" x="32" y="256" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="163" name="2" x="64" y="256" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="164" name="3" x="96" y="256" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="165" name="4" x="128" y="256" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="166" name="5" x="160" y="256" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="167" name="6" x="192" y="256" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="168" name="7" x="224" y="256" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="169" name="8" x="256" y="256" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="170" name="9" x="256" y="288" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="171" name="0" x="256" y="320" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="172" name="10" x="256" y="352" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="173" name="11" x="256" y="384" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="174" name="12" x="288" y="384" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="175" name="13" x="320" y="384" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="176" name="14" x="352" y="384" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="177" name="15" x="384" y="384" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="178" name="16" x="416" y="384" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="179" name="17" x="448" y="384" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="180" name="18" x="480" y="384" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="181" name="19" x="512" y="384" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="182" name="20" x="544" y="384" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="183" name="21" x="576" y="384" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="184" name="22" x="576" y="352" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="185" name="23" x="576" y="320" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="186" name="24" x="576" y="288" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="187" name="25" x="576" y="256" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="188" name="26" x="576" y="224" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="189" name="27" x="576" y="192" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="190" name="28" x="576" y="160" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="191" name="29" x="608" y="160" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="192" name="30" x="640" y="160" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="193" name="31" x="672" y="160" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="194" name="32" x="704" y="160" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="195" name="33" x="736" y="160" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="196" name="34" x="768" y="160" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="198" name="38" x="800" y="160" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="199" name="35" x="832" y="160" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="200" name="36" x="864" y="160" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="201" name="37" x="896" y="160" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="202" name="EndPath" x="928" y="160" width="32" height="32">
+   <properties>
+    <property name="Type" type="int" value="5"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

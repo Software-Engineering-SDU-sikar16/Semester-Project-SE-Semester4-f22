@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 public class GameMapGraph implements IndexedGraph<Tile>
 {
-	
 	TileHeuristic GameMapNodeHeuristic = new TileHeuristic();
 	public Array<Tile> Tiles = new Array<>();
 	public Array<TilePath> Paths = new Array<>();
@@ -27,6 +26,7 @@ public class GameMapGraph implements IndexedGraph<Tile>
 		Tiles.add(tile);
 	}
 	
+	
 	public void ConnectTiles(Tile from, Tile to)
 	{
 		TilePath Path = new TilePath(from, to);
@@ -40,9 +40,9 @@ public class GameMapGraph implements IndexedGraph<Tile>
 	
 	public GraphPath<Tile> FindPath(Tile start, Tile goal)
 	{
-		GraphPath<Tile> cityPath = new DefaultGraphPath<>();
-		new IndexedAStarPathFinder<>(this).searchNodePath(start, goal, GameMapNodeHeuristic, cityPath);
-		return cityPath;
+		GraphPath<Tile> path = new DefaultGraphPath<>();
+		new IndexedAStarPathFinder<>(this).searchNodePath(start, goal, GameMapNodeHeuristic, path);
+		return path;
 	}
 	
 	@Override

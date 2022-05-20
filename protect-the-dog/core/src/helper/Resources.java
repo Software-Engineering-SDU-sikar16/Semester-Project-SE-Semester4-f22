@@ -7,19 +7,21 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.DEFAULT_CHARS;
 
 
 public class Resources
 {
+	public static ExecutorService ThreadPool = Executors.newCachedThreadPool();
 	
+	public static ConcurrentHashMap<String, Texture> Textures = new ConcurrentHashMap<String, Texture>();
 	
-	public static HashMap<String, Texture> Textures = new HashMap<String, Texture>();
-	
-	public static HashMap<String, FontResource> Fonts = new HashMap<String, FontResource>();
-	public static HashMap<String, Music> Musics = new HashMap<String, Music>();
+	public static ConcurrentHashMap<String, FontResource> Fonts = new ConcurrentHashMap<String, FontResource>();
+	public static ConcurrentHashMap<String, Music> Musics = new ConcurrentHashMap<String, Music>();
 	
 	public static Texture LoadTexture(String FilePath)
 	{
@@ -43,12 +45,21 @@ public class Resources
 	
 	public static void LoadTextures()
 	{
-		LoadTexture("images/star_tiny.png");
+		ThreadPool.submit(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				LoadTexture("images/star_tiny.png");
+				
+				LoadTexture("ui/start_button.png");
+				LoadTexture("ui/UI_BUTTON_BKG.png");
+				LoadTexture("ui/UI_LEFT_SELECTOR.png");
+				LoadTexture("ui/UI_TOP_SCORE.png");
+			}
+		});
 		
 		
-		LoadTexture("ui/UI_BUTTON_BKG.png");
-		LoadTexture("ui/UI_LEFT_SELECTOR.png");
-		LoadTexture("ui/UI_TOP_SCORE.png");
 	}
 	
 	public static BitmapFont LoadFont(String FilePath, int Size)
@@ -85,30 +96,20 @@ public class Resources
 	
 	public static void LoadFonts()
 	{
-		
 		LoadFont("fonts/GoogleIconsRounded.ttf", 24);
 		
 		Constants.BigPauseScreenFont = LoadFont("fonts/editundo.ttf", 35); // 42 for best luck
 //		Constants.BigPauseScreenFont = LoadFont("fonts/OpenSans-Bold.ttf", 42 * (Constants.GlobalWidth / Constants.GlobalHeight)); // 42 for best luck
 		Constants.BigPauseScreenSpriteBatch = new SpriteBatch();
 		
-		Constants.ScoreUIFont = LoadFont("fonts/OpenSans-Bold.ttf", 13);
-		Constants.ScoreUIFontIcons = LoadFont("fonts/GoogleIconsRounded.ttf", 16, FontResource.GetCharacterRangeFromTo(0, 500));
+		Constants.ScoreUIFont =  LoadFont("fonts/editundo.ttf", 24);
+		Constants.ScoreUIFontIcons = LoadFont("fonts/GoogleIconsRounded.ttf", 22, FontResource.GetCharacterRangeFromTo(0, 500));
 		
 		
 		Constants.PixelFont = LoadFont("fonts/editundo.ttf", 14);
 		
-		Constants.ScoreUIFont = Constants.PixelFont;
+
 		
-	/*	FileHandle fontFile = Gdx.files.internal("data/Roboto-Bold.ttf");
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
-		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		parameter.size = 12;
-		textFont = generator.generateFont(parameter);
-		parameter.size = 24;
-		titleFont = generator.generateFont(parameter);
-		generator.dispose();
-		*/
 	}
 	
 	public static Music LoadSound(String FilePath)
@@ -127,8 +128,18 @@ public class Resources
 	
 	public static void LoadSounds()
 	{
-		Music backgroundMusic = LoadSound("sound/title_music.mp3");
-		backgroundMusic.play();
+		
+		
+		ThreadPool.submit(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				//Music backgroundMusic = LoadSound("sound/title_music.mp3");
+				//backgroundMusic.play();
+			}
+		});
+		
 		
 	}
 	
@@ -148,8 +159,5 @@ public class Resources
 		
 	}
 	
-	
-	
-
 	
 }

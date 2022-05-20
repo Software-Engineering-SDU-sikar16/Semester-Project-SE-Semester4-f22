@@ -58,14 +58,15 @@ public class GameScreen extends ScreenAdapter
 			
 		}
 		
+		Constants.EnemyManager.SteerEnemies();
 		
 		Entity.UpdateAllEntities();
 		
 		Overlay.UpdateAllOverlays();
 		
-	
-	
 		
+	
+
 	}
 	
 	private void cameraUpdate(int width, int height)
@@ -89,8 +90,6 @@ public class GameScreen extends ScreenAdapter
 	public void render(float delta)
 	{
 		this.update();
-		
-		MouseOperator.GetTileUnderMousePosition();
 		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		//	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

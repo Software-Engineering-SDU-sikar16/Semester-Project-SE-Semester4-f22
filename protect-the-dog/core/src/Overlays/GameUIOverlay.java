@@ -19,92 +19,71 @@ public class GameUIOverlay extends Overlay
 {
 	GlyphLayout GlyphLayouter = new GlyphLayout();
 	
-	TextButton[] Buttons = new TextButton[1];
+	ImageButton StartButton;
+	
 	ImageButton[] MenuButtons = new ImageButton[6];
 	
 	
 	Vector2 CenterPoint;
 	
 	
-	Texture ButtonBKGTexture;
+	Texture StartButtonTexture;
 	Texture UIMenuBKGTexture;
-	Texture ScoreBKGTexture;
 	
-	Sprite ScoreUI;
-	Sprite PlayPauseButtonBKG;
 	Sprite UIMenu;
 	
 	
 	@Override
 	public void OnCreate()
 	{
-		
-		
-		ButtonBKGTexture = Resources.LoadTexture("ui/UI_BUTTON_BKG.png");
+		StartButtonTexture = Resources.LoadTexture("ui/start_button.png");
 		UIMenuBKGTexture = Resources.LoadTexture("ui/UI_MENU.png");
-		ScoreBKGTexture = Resources.LoadTexture("ui/UI_TOP_SCORE.png");
 		
 		
 		CenterPoint = new Vector2(Constants.GlobalWidth / 2, Constants.GlobalHeight / 2);
 		Vector2 Pos = GetTextCenterPosition("\u0083", CenterPoint.x, CenterPoint.y);
 		
-		ScoreUI = new Sprite(ScoreBKGTexture);
-		ScoreUI.setSize(ScoreBKGTexture.getWidth() / 7, ScoreBKGTexture.getHeight() / 7);
-		ScoreUI.setPosition(Constants.GlobalWidth - ScoreUI.getWidth() - 20, Constants.GlobalHeight - ScoreUI.getHeight() - 20);
-		
 		UIMenu = new Sprite(UIMenuBKGTexture);
-		UIMenu.setSize(UIMenuBKGTexture.getWidth() / 5, UIMenuBKGTexture.getHeight() / 5);
-		UIMenu.setPosition(Constants.GlobalWidth / 2 - ScoreUI.getWidth() / 2 - 40, 20);
-		
-		
-		PlayPauseButtonBKG = new Sprite(ButtonBKGTexture);
-		PlayPauseButtonBKG.setSize(ButtonBKGTexture.getWidth() / 10, ButtonBKGTexture.getHeight() / 10);
-		PlayPauseButtonBKG.setPosition(Constants.GlobalWidth - PlayPauseButtonBKG.getWidth() - 23, Constants.GlobalHeight - PlayPauseButtonBKG.getHeight() - 23);
-		
+		UIMenu.setSize(UIMenuBKGTexture.getWidth() / 1, UIMenuBKGTexture.getHeight() /1.5f);
+		UIMenu.setPosition(0, 0);
+	
 		
 		TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
 		textButtonStyle.font = Resources.LoadFont("fonts/GoogleIconsRounded.ttf", 32, FontResource.GetCharacterRangeFromTo(0, 150));
 		textButtonStyle.fontColor = Color.WHITE;
 		
 		
-		Buttons[0] = new TextButton("\u0083", textButtonStyle);
-		Buttons[0].setVisible(true);
-		Buttons[0].setWidth(PlayPauseButtonBKG.getWidth());
-		Buttons[0].setHeight(PlayPauseButtonBKG.getHeight());
-		Buttons[0].setPosition(PlayPauseButtonBKG.getX(), PlayPauseButtonBKG.getY());
-		Buttons[0].getLabelCell().padTop(32.0f);
-		Buttons[0].getLabelCell().padLeft(0.5f);
-		//Buttons[0].debugAll();
-		Buttons[0].addListener(new ClickListener()
+		StartButton = new ImageButton(DrawUtil.GetDrawableByTexture(StartButtonTexture));
+		StartButton.setVisible(true);
+		StartButton.setWidth(StartButtonTexture.getWidth() * 1.5f);
+		StartButton.setHeight(StartButtonTexture.getHeight()* 1.5f);
+		StartButton.getImage().setFillParent(true);
+		StartButton.setPosition(180, Constants.GlobalHeight - 48);
+		StartButton.addListener(new ClickListener()
 		{
 			@Override
 			public void clicked(InputEvent event, float x, float y)
 			{
-				Constants.IsGamePaused = !Constants.IsGamePaused;
-				if (Constants.IsGamePaused)
-				{
-					Buttons[0].setText("\u0086");
-				} else
-				{
-					Buttons[0].setText("\u0083");
-				}
+			
 			}
 			
 			
 			@Override
 			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
 			{
+				System.out.println("entered");
 			}
 			
 			@Override
 			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor)
 			{
+				System.out.println("exit");
 			}
 			
 		});
+
 		
-		
-		MenuButtons[0] = new ImageButton(DrawUtil.GetDrawableByTexture(ButtonBKGTexture));
+		MenuButtons[0] = new ImageButton(DrawUtil.GetDrawableByTexture(StartButtonTexture));
 		MenuButtons[0].setVisible(true);
 		MenuButtons[0].setWidth(45);
 		MenuButtons[0].setHeight(45);
@@ -133,7 +112,7 @@ public class GameUIOverlay extends Overlay
 		
 		
 		
-		MenuButtons[1] = new ImageButton(DrawUtil.GetDrawableByTexture(ButtonBKGTexture));
+		MenuButtons[1] = new ImageButton(DrawUtil.GetDrawableByTexture(StartButtonTexture));
 		MenuButtons[1].setVisible(true);
 		MenuButtons[1].setWidth(45);
 		MenuButtons[1].setHeight(45);
@@ -162,7 +141,7 @@ public class GameUIOverlay extends Overlay
 		
 		
 		
-		MenuButtons[2] = new ImageButton(DrawUtil.GetDrawableByTexture(ButtonBKGTexture));
+		MenuButtons[2] = new ImageButton(DrawUtil.GetDrawableByTexture(StartButtonTexture));
 		MenuButtons[2].setVisible(true);
 		MenuButtons[2].setWidth(45);
 		MenuButtons[2].setHeight(45);
@@ -192,7 +171,7 @@ public class GameUIOverlay extends Overlay
 		
 		
 		
-		MenuButtons[3] = new ImageButton(DrawUtil.GetDrawableByTexture(ButtonBKGTexture));
+		MenuButtons[3] = new ImageButton(DrawUtil.GetDrawableByTexture(StartButtonTexture));
 		MenuButtons[3].setVisible(true);
 		MenuButtons[3].setWidth(45);
 		MenuButtons[3].setHeight(45);
@@ -219,7 +198,7 @@ public class GameUIOverlay extends Overlay
 			
 		});
 		
-		MenuButtons[4] = new ImageButton(DrawUtil.GetDrawableByTexture(ButtonBKGTexture));
+		MenuButtons[4] = new ImageButton(DrawUtil.GetDrawableByTexture(StartButtonTexture));
 		MenuButtons[4].setVisible(true);
 		MenuButtons[4].setWidth(45);
 		MenuButtons[4].setHeight(45);
@@ -247,7 +226,7 @@ public class GameUIOverlay extends Overlay
 		});
 		
 		
-		MenuButtons[5] = new ImageButton(DrawUtil.GetDrawableByTexture(ButtonBKGTexture));
+		MenuButtons[5] = new ImageButton(DrawUtil.GetDrawableByTexture(StartButtonTexture));
 		MenuButtons[5].setVisible(true);
 		MenuButtons[5].setWidth(45);MenuButtons[5].setHeight(45);
 		MenuButtons[5].setPosition(UIMenu.getX() + 315, UIMenu.getY() + 2);
@@ -274,17 +253,7 @@ public class GameUIOverlay extends Overlay
 			
 		});
 		
-		
-		
-		
-		for (TextButton Button : Buttons)
-		{
-			if (Button != null)
-			{
-				Constants.Stage.addActor(Button);
-			}
-		}
-		
+	
 		
 		for (ImageButton Button : MenuButtons)
 		{
@@ -294,6 +263,11 @@ public class GameUIOverlay extends Overlay
 			}
 		}
 		
+		Constants.Stage.addActor(StartButton);
+		
+		new Health();
+		
+		
 		
 	}
 	
@@ -301,16 +275,12 @@ public class GameUIOverlay extends Overlay
 	public void OnRender()
 	{
 		Constants.batch.begin();
-		ScoreUI.draw(Constants.batch);
+		
 		UIMenu.draw(Constants.batch);
-		PlayPauseButtonBKG.draw(Constants.batch);
+		DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFont, "Wave " + Constants.CurrentWave + " / " + Constants.TotalWavesInLevel,  25,  Constants.GlobalHeight- 20, Color.WHITE);
 		
-		
-		DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFontIcons, "\u0116", PlayPauseButtonBKG.getX() - 200, PlayPauseButtonBKG.getY() + 11, Color.WHITE);
-		DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFont, "Wave " + Constants.CurrentWave + " / " + Constants.TotalWavesInLevel, PlayPauseButtonBKG.getX() - 184, PlayPauseButtonBKG.getY() + 23, Color.WHITE);
-		
-		DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFontIcons, "\u0183", PlayPauseButtonBKG.getX() - 100, PlayPauseButtonBKG.getY() + 11, Color.WHITE);
-		DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFont, "" + Constants.Coins, PlayPauseButtonBKG.getX() - 88, PlayPauseButtonBKG.getY() + 23, Color.WHITE);
+		DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFontIcons, "\u0183", 200, Constants.GlobalHeight - 38, Color.WHITE);
+		DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFont, "" + Constants.Coins, 220, Constants.GlobalHeight- 20, Color.WHITE);
 		
 		
 		Constants.batch.end();

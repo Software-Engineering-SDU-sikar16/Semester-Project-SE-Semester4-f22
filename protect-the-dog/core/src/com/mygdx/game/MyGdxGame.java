@@ -2,6 +2,8 @@ package com.mygdx.game;
 
 import Entities.AnimatedSprite;
 import Entities.Entity;
+import GamePlay.EnemyManager;
+import GamePlay.Player;
 import Overlays.GameUIOverlay;
 import Overlays.Overlay;
 import Overlays.PauseScreen;
@@ -42,7 +44,7 @@ public class MyGdxGame extends Game
 		Resources.LoadFonts();
 		Resources.LoadTextures();
 		Resources.LoadSounds();
-	
+		
 		
 		Constants.Viewport = new FitViewport(Constants.GlobalWidth, Constants.GlobalHeight);
 		Constants.Stage = new Stage(Constants.Viewport);
@@ -61,16 +63,15 @@ public class MyGdxGame extends Game
 		Constants.GameUIOverlay = new GameUIOverlay();
 		
 		
-		for (int i = 0; i < 23; i++)
-		{
-			AnimatedSprite sprite2 = new AnimatedSprite(50 + (i * 50), 158 + (i), 24, 24);
-			sprite2.AddAnimation("default", Resources.LoadTexture("entities/enemies/enemies/sheet_"+ i + ".png "), 1, 4, 12, Animation.PlayMode.NORMAL);
-		}
+		Constants.MouseTileSelector = new AnimatedSprite();
+		Constants.MouseTileSelector.AddAnimation("default", Resources.LoadTexture("ui/selected_tile.png"), 1, 1, 1, Animation.PlayMode.NORMAL);
 		
+		Constants.EnemyManager = new EnemyManager();
+		
+		Constants.Player = new Player();
 		
 		sprite = new AnimatedSprite("spine/FogExplosion/fog explosion.atlas", "spine/FogExplosion/skeleton.json", 128, 128);
 		sprite.SetZIndex(2);
-		
 		
 		
 		// these must be the last things that happen when the application is created, after everything else as possible.
@@ -82,6 +83,9 @@ public class MyGdxGame extends Game
 		Constants.batch = new SpriteBatch();
 		Constants.font = new BitmapFont();
 		
+		
+		
+		Constants.EnemyManager.SpawnEnemy();
 		
 	}
 	
