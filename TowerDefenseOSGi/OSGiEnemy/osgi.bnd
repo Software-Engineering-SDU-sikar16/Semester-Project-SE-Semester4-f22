@@ -1,3 +1,0 @@
-Bundle-SymbolicName: OSGiEnemy
-Bundle-ActivationPolicy: lazy
-Service-Component: META-INF/gameplugin.xml, META-INF/entityprocessor.xml
