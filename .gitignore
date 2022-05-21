@@ -29,6 +29,5 @@ hs_err_pid*
 /TowerDefenseNetbeansModules/Collision/nbproject/
 *.icloud
 *.lock
-*.gradle
 *target
 *felix
