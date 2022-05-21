@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 
+import static helper.Constants.PPM;
+
 public abstract class GameEntity {
     protected float x, y, velX, velY, speed;
     protected float width, height;
@@ -33,7 +35,13 @@ public abstract class GameEntity {
         this.textureRegion = new TextureRegion(texture, 0, 192, 16,16);
         // flip the texture
         this.textureRegion.flip(true, false);
+
+
+        // set texture region center so that the texture is centered on the body
+
         this.sprite = new Sprite(textureRegion);
+
+
 //        this.sprite.setCenter(width/2, height/2);
         //this.sprite.setOriginCenter();
 //        this.sprite.setCenter(20, 20);
