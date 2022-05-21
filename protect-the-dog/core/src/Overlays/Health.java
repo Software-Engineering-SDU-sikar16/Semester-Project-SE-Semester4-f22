@@ -1,11 +1,10 @@
 package Overlays;
 
 import Entities.AnimatedSprite;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import helper.Constants;
 import helper.Resources;
+import helper.Util;
 
 public class Health extends AnimatedSprite
 {
@@ -13,7 +12,12 @@ public class Health extends AnimatedSprite
 	Texture HeartTexture;
 	Texture HeartTextureNull;
 	
-	int health = 7;
+	int healthCounter = 7;
+	
+	public int GetHealth()
+	{
+		return  Util.Clamp( healthCounter,0, hearts.length - 1);
+	}
 	
 	public Health()
 	{
@@ -26,60 +30,34 @@ public class Health extends AnimatedSprite
 		
 		for (int i = 0; i < hearts.length; i++)
 		{
-			hearts[i] = new AnimatedSprite(HeartTexture, (30 * i) + 20, Constants.GlobalHeight - 85, (int) (HeartTexture.getWidth() * 1.7f), (int) (HeartTexture.getHeight() * 1.7f));
+			hearts[i] = new AnimatedSprite(HeartTexture, (30 * i) + 20, Constants.GlobalHeight - 85, (int) (HeartTexture.getWidth() * 1.6f), (int) (HeartTexture.getHeight() * 1.6f));
 		}
 		
 	}
 	
-	@Override
-	public void OnUpdate(float DeltaTime)
-	{
-		super.OnUpdate(DeltaTime);
-		
-		if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT))
-		{
-			SubstractHealth();
-		}
-		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
-		{
-			AddHealth();
-		}
-		
-	}
 	
 	public void SubstractHealth()
 	{
-		hearts[health].setTexture(HeartTextureNull);
-		health--;
+		healthCounter--;
+		healthCounter = Util.Clamp( healthCounter,0, hearts.length - 1);
 		
-		if (health < 0)
+		for (int i = healthCounter; i < hearts.length; i++)
 		{
-			health = 0;
+			hearts[i].setTexture(HeartTextureNull);
+			hearts[i].setSize(HeartTextureNull.getWidth()  * 1.7f, HeartTextureNull.getHeight()  * 1.7f);
 		}
-		else if (health > hearts.length - 1)
-		{
-			health = hearts.length - 1;
-		}
-		
-		
 	}
 	
 	public void AddHealth()
 	{
-		if (health < 0)
+		healthCounter = Util.Clamp( healthCounter,0, hearts.length - 1);
+		healthCounter++;
+		
+		for (int i = 0; i < healthCounter; i++)
 		{
-			health = 0;
+			hearts[i].setTexture(HeartTexture);
+			hearts[i].setTexture(HeartTexture);
+			hearts[i].setSize(HeartTexture.getWidth()  * 1.6f , HeartTexture.getHeight()  * 1.6f);
 		}
-		else if (health > hearts.length - 1)
-		{
-			health = hearts.length - 1;
-		}
-		health++;
-		
-		hearts[health].setTexture(HeartTexture);
-
-		
-		
-		
 	}
 }

@@ -66,5 +66,5 @@ public class Constants
 	public static BitmapFont font;
 	public static GameMapGraph GameMapGraph;
 	public static GraphPath<Tile> GameMapPath;
-	public static int Coins = 0;
+	public static int Coins = 2500;
 }

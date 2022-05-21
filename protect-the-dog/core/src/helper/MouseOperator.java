@@ -2,6 +2,7 @@ package helper;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -21,9 +22,36 @@ public class MouseOperator
 		return new Vector2(UnprojectVector.x, UnprojectVector.y);
 	}
 	
-	public static Vector2 ScreenToWorldPoint(Vector2 ScreenPoint)
+	public static Vector3 MultiplyPoint(Matrix4 m, Vector3 point)
 	{
-		Constants.Camera.unproject(UnprojectVector.set(ScreenPoint.x, ScreenPoint.y, 0.0f));
+		Vector3 result = new Vector3(0, 0, 0);
+		result.x = m.val[Matrix4.M00] * point.x + m.val[Matrix4.M01] * point.y + m.val[Matrix4.M02] * point.z + m.val[Matrix4.M03];
+		result.y = m.val[Matrix4.M10] * point.x + m.val[Matrix4.M11] * point.y + m.val[Matrix4.M12] * point.z + m.val[Matrix4.M13];
+		result.z = m.val[Matrix4.M20] * point.x + m.val[Matrix4.M21] * point.y + m.val[Matrix4.M22] * point.z + m.val[Matrix4.M23];
+		float num = m.val[Matrix4.M30] * point.x + m.val[Matrix4.M31] * point.y + m.val[Matrix4.M32] * point.z + m.val[Matrix4.M33];
+		num = 1f / num;
+		result.x *= num;
+		result.y *= num;
+		result.z *= num;
+		return result;
+	}
+	
+	public static Vector2 WorldToScreenPoint(float x, float y)
+	{
+		Matrix4 V = Constants.Camera.view;
+		Matrix4 P = Constants.Camera.projection;
+		
+		Matrix4 MVP = P.mul(V); // Skipping M, point in world coordinates
+		Vector3 screenPos = MultiplyPoint(MVP, new Vector3(x, y, 0));
+		
+		Vector3 screenPoint = new Vector3(screenPos.x + 1f, screenPos.y + 1f, screenPos.z + 1f).scl(0.5f); // returns x, y in [0, 1] internal.
+		
+		return new Vector2(screenPoint.x * Constants.GlobalWidth, screenPoint.y * Constants.GlobalHeight); // multiply by viewport width and height to get the actual screen coordinates.
+	}
+	
+	public static Vector2 WorldToScreenPoint(Vector2 ScreenPoint)
+	{
+		Constants.Camera.unproject(UnprojectVector.set(ScreenPoint.x, Constants.Camera.viewportHeight - ScreenPoint.y, 0.0f));
 		WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);
 		return new Vector2(UnprojectVector.x, UnprojectVector.y);
 	}
@@ -40,7 +68,6 @@ public class MouseOperator
 	{
 		int mx = Gdx.input.getX();
 		int my = Gdx.input.getY();
-		
 		Constants.Camera.unproject(UnprojectVector.set(mx, my, 0.0f));
 		WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);
 		
@@ -58,32 +85,22 @@ public class MouseOperator
 		int tileIndexX = (int) Math.floor(mx / TILE_WIDTH + 0.5f);
 		int tileIndexY = (int) Math.floor(my / TILE_HEIGHT + 0.5f);
 		
-		
 		TiledMapTileLayer tileid = (TiledMapTileLayer) Constants.TileMapHelper.tiledMap.getLayers().get(0);
 		
+		Vector2 WorldPoint = new Vector2(tileIndexX * TILE_WIDTH, ((tileid.getHeight() - 1) - tileIndexY) * TILE_HEIGHT);
 		
+		return TileUnderMouseWorldPosition.set(WorldPoint.x, WorldPoint.y);
+	}
+	
+	public static Vector2 GetTilePositionAt(float x, float y)
+	{
+		int TILE_HEIGHT = Constants.TileMapHelper.TilePixelHeight;
+		int TILE_WIDTH = Constants.TileMapHelper.TilePixelWidth;
 		
+		int tileIndexX = (int) Math.floor(x / TILE_WIDTH + 0.5f);
+		int tileIndexY = (int) Math.floor(y / TILE_HEIGHT + 0.5f);
 		
-	//	Vector2 WorldPoint = ScreenToWorldPoint(tile.getOffsetX(), tile.getOffsetX());
-		Vector2 WorldPoint = new Vector2( tileIndexX * TILE_WIDTH,  ((tileid.getHeight() -1) - tileIndexY) * TILE_HEIGHT);
-		
-		
-	/*	Vector2 cell = screenToCell(mx, my);
-		System.out.println("selectedCell = " + cell.toString());
-		
-		//if you want to get the tile and the cell
-		TiledMapTileLayer layer = (TiledMapTileLayer) Constants.TileMapHelper.tiledMap.getLayers().get(0);
-		System.out.println("layer Width: " + layer.getWidth() + "\n layer Height: " + layer.getHeight());
-		
-		TiledMapTileLayer.Cell tileCell = layer.getCell((int) cell.x, (int) cell.y);
-		if (tileCell != null) {
-		
-		//flip the tile just so you have a visual to make sure your selected the right tile
-		TiledMapTile tile = tileCell.getTile();
-		tileCell.setFlipHorizontally(!tileCell.getFlipHorizontally());
-		return TileUnderMouseWorldPosition.set(tile.getTextureRegion().getRegionX(), tile.getTextureRegion().getRegionY());
-		}
-		*/
+		Vector2 WorldPoint = new Vector2(tileIndexX * TILE_WIDTH, ( tileIndexY) * TILE_HEIGHT);
 		
 		return TileUnderMouseWorldPosition.set(WorldPoint.x, WorldPoint.y);
 	}

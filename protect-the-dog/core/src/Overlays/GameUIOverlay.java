@@ -279,8 +279,8 @@ public class GameUIOverlay extends Overlay
 		UIMenu.draw(Constants.batch);
 		DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFont, "Wave " + Constants.CurrentWave + " / " + Constants.TotalWavesInLevel,  25,  Constants.GlobalHeight- 20, Color.WHITE);
 		
-		DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFontIcons, "\u0183", 200, Constants.GlobalHeight - 38, Color.WHITE);
-		DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFont, "" + Constants.Coins, 220, Constants.GlobalHeight- 20, Color.WHITE);
+		DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFontIcons, "\u0183", 25, Constants.GlobalHeight - 118, Color.WHITE);
+		DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFont, "" + Constants.Coins, 41, Constants.GlobalHeight- 99, Color.WHITE);
 		
 		
 		Constants.batch.end();
