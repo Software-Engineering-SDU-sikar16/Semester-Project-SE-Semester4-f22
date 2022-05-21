@@ -1,1 +1,0 @@
-ffmpeg.exe -i %1 -c:v copy -c:a libmp3lame -q:a 0 %2
