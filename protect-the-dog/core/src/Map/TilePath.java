@@ -18,14 +18,6 @@ public class TilePath implements Connection<Tile>
 		cost = Vector2.dst(from.x, from.y, to.x, to.y);
 	}
 	
-	public void render(ShapeRenderer shapeRenderer)
-	{
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-		shapeRenderer.setColor(0, 0, 0, 1);
-		shapeRenderer.rectLine(From.x, From.y, To.x, To.y, 4);
-		shapeRenderer.end();
-	}
-	
 	@Override
 	public float getCost()
 	{

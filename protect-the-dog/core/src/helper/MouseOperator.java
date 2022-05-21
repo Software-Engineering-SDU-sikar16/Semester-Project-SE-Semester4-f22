@@ -22,6 +22,11 @@ public class MouseOperator
 		return new Vector2(UnprojectVector.x, UnprojectVector.y);
 	}
 	
+	public static Vector2 ScreenToWorldPoint(Vector2 vec)
+	{
+		return ScreenToWorldPoint(vec.x, vec.y);
+	}
+	
 	public static Vector3 MultiplyPoint(Matrix4 m, Vector3 point)
 	{
 		Vector3 result = new Vector3(0, 0, 0);

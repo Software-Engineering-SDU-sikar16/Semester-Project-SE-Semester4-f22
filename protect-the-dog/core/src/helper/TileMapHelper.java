@@ -222,7 +222,6 @@ public class TileMapHelper
 		return BuildableTiles.containsKey(vector);
 	}
 	
-	
 	public Tile GetEnemyPathTileAt(float x, float y)
 	{
 		return EnemyPath.get(new Vector2(x, y));

@@ -16,11 +16,9 @@ import helper.Resources;
 
 public class PauseScreen extends Overlay
 {
-	
-	
 	GlyphLayout GlyphLayouter = new GlyphLayout();
 	
-	TextButton[] Buttons = new TextButton[5];
+	TextButton[] Buttons = new TextButton[2];
 	
 	Vector2 SelectorPosition = new Vector2(0, 0);
 	Sprite SelectorSprite;
@@ -40,7 +38,6 @@ public class PauseScreen extends Overlay
 	@Override
 	public void OnCreate()
 	{
-		
 		
 		SelectorSprite = new Sprite(Resources.LoadTexture("images/star_tiny.png"));
 		SelectorSpriteTwo = new Sprite(Resources.LoadTexture("images/star_tiny.png"));
@@ -79,74 +76,11 @@ public class PauseScreen extends Overlay
 			
 		});
 		
-		Pos = GetTextCenterPosition("Game Settings", CenterPoint.x, CenterPoint.y + 50);
-		Buttons[1] = new TextButton("Game Settings ", textButtonStyle);
+		Pos = GetTextCenterPosition("Exit", CenterPoint.x, CenterPoint.y + 50);
+		Buttons[1] = new TextButton("Exit", textButtonStyle);
 		Buttons[1].setPosition(Pos.x, Pos.y);
 		Buttons[1].setVisible(false);
 		Buttons[1].addListener(new ClickListener()
-		{
-			@Override
-			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
-			{
-				SetSelectorSpriteLocation(Buttons[1]);
-			}
-			
-			
-			@Override
-			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor)
-			{
-				SelectorPosition = Vector2.Zero;
-			}
-		});
-		
-		
-		Pos = GetTextCenterPosition("Video Settings", CenterPoint.x, CenterPoint.y);
-		Buttons[2] = new TextButton("Video Settings", textButtonStyle);
-		Buttons[2].setPosition(Pos.x, Pos.y);
-		Buttons[2].setVisible(false);
-		Buttons[2].addListener(new ClickListener()
-		{
-			@Override
-			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
-			{
-				SetSelectorSpriteLocation(Buttons[2]);
-			}
-			
-			@Override
-			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor)
-			{
-				SelectorPosition = Vector2.Zero;
-			}
-			
-			
-		});
-		
-		
-		Pos = GetTextCenterPosition("Audio Settings", CenterPoint.x, CenterPoint.y - 50);
-		Buttons[3] = new TextButton("Audio Settings", textButtonStyle);
-		Buttons[3].setPosition(Pos.x, Pos.y);
-		Buttons[3].setVisible(false);
-		Buttons[3].addListener(new ClickListener()
-		{
-			@Override
-			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
-			{
-				SetSelectorSpriteLocation(Buttons[3]);
-			}
-			
-			@Override
-			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor)
-			{
-				SelectorPosition = Vector2.Zero;
-			}
-		});
-		
-		
-		Pos = GetTextCenterPosition("Exit", CenterPoint.x, CenterPoint.y - 100);
-		Buttons[4] = new TextButton("Exit", textButtonStyle);
-		Buttons[4].setPosition(Pos.x, Pos.y);
-		Buttons[4].setVisible(false);
-		Buttons[4].addListener(new ClickListener()
 		{
 			@Override
 			public void clicked(InputEvent event, float x, float y)
@@ -157,7 +91,7 @@ public class PauseScreen extends Overlay
 			@Override
 			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
 			{
-				SetSelectorSpriteLocation(Buttons[4]);
+				SetSelectorSpriteLocation(Buttons[1]);
 			}
 			
 			@Override
@@ -208,18 +142,12 @@ public class PauseScreen extends Overlay
 			TogglePaused();
 		}
 		
-		// this is just for testing
-		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
-		{
-			MyGdxGame.sprite.PlayAnimation();
-		}
 		
 	}
 	
 	public void TogglePaused()
 	{
 		SetPaused(!Constants.IsPauseScreenVisible);
-		MyGdxGame.sprite.PlayAnimation();
 	}
 	
 	public void UnpauseGame()

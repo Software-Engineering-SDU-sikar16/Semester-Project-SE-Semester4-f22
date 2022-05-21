@@ -3,7 +3,6 @@ package com.mygdx.game;
 import Entities.AnimatedSprite;
 import Entities.Entity;
 import GamePlay.EnemyManager;
-import GamePlay.Player;
 import Overlays.GameUIOverlay;
 import Overlays.Overlay;
 import Overlays.PauseScreen;
@@ -18,6 +17,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.brashmonkey.spriter.Player;
 import helper.Constants;
 import helper.CustomCursorDrawer;
 import helper.Resources;
@@ -28,7 +28,6 @@ public class MyGdxGame extends Game
 	public static MyGdxGame INSTANCE;
 	
 	
-	public static AnimatedSprite sprite;
 	
 	
 	public MyGdxGame()
@@ -67,12 +66,6 @@ public class MyGdxGame extends Game
 		Constants.MouseTileSelector.AddAnimation("default", Resources.LoadTexture("ui/selected_tile.png"), 1, 1, 1, Animation.PlayMode.NORMAL);
 		
 		Constants.EnemyManager = new EnemyManager();
-		
-		Constants.Player = new Player();
-		
-		sprite = new AnimatedSprite("spine/FogExplosion/fog explosion.atlas", "spine/FogExplosion/skeleton.json", 128, 128);
-		sprite.SetZIndex(2);
-		
 		
 		// these must be the last things that happen when the application is created, after everything else as possible.
 		Entity.CreateAllEntities();

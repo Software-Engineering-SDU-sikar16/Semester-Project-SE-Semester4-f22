@@ -8,18 +8,13 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.spine.*;
+import helper.Constants;
 
 import java.util.HashMap;
 
 
 public class AnimatedSprite extends Entity
 {
-	
-	public static SpriteBatch batch;
-	
-	// Spine specific
-	public static SkeletonRenderer skeletonRenderer;
-	Skeleton skeleton;
 	AnimationState animationState;
 	AnimationState.TrackEntry CurrentTrack;
 	
@@ -33,50 +28,6 @@ public class AnimatedSprite extends Entity
 	Animation<TextureRegion> currentAnimation = null;
 	float elapsedTime = 0;
 	
-	
-	// This uses the spine animation system.
-	public AnimatedSprite(String TextureAtlas, String SkeletonDataJSON, float x, float y)
-	{
-		batch = new SpriteBatch();
-		skeletonRenderer = new SkeletonRenderer();
-		
-		// YOU MUSE USE Spine 3.7 exporter for this version of libgdx
-		// per entity
-		TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal(TextureAtlas));
-		SkeletonJson json = new SkeletonJson(playerAtlas);
-		SkeletonData playerSkeletonData = json.readSkeletonData(Gdx.files.internal(SkeletonDataJSON));
-		AnimationStateData playerAnimationData = new AnimationStateData(playerSkeletonData);
-		
-		
-		skeleton = new Skeleton(playerSkeletonData);
-		
-		skeleton.setPosition(x, y);
-		skeleton.updateWorldTransform();
-		
-		animationState = new AnimationState(playerAnimationData);
-		
-		
-		CurrentTrack = animationState.setAnimation(0, "animation", false); // trackIndex, name, loop
-		
-		skeleton.updateWorldTransform();
-		
-	}
-	
-	public AnimatedSprite(String TextureAtlas, String SkeletonDataJSON)
-	{
-		this(TextureAtlas, SkeletonDataJSON, 0, 0);
-	}
-	
-	
-	public void SetPosition(float x, float y)
-	{
-		if (skeleton != null)
-		{
-			skeleton.updateWorldTransform();
-			skeleton.setPosition(x, y);
-		}
-		
-	}
 	
 	// this uses a custom lookup into a texture atlas
 	public AnimatedSprite()
@@ -103,10 +54,18 @@ public class AnimatedSprite extends Entity
 		setPosition(0, 0);
 	}
 	
+	
 	public AnimatedSprite(Texture texture, float x, float y, int width, int height)
 	{
 		setSize(width, height);
-		setPosition(x , y);
+		setPosition(x, y);
+		setTexture(texture);
+	}
+	
+	public AnimatedSprite(Texture texture, float x, float y)
+	{
+		setSize(texture.getWidth(), texture.getHeight());
+		setPosition(x, y);
 		setTexture(texture);
 	}
 	
@@ -184,16 +143,13 @@ public class AnimatedSprite extends Entity
 	@Override
 	public void OnRender()
 	{
-		if (skeleton == null && currentAnimation == null && getTexture() == null) // end early
+		if (currentAnimation == null && getTexture() == null) // end early
 		{
 			return;
 		}
 		
-		batch.begin();
-		if (skeleton != null)
-		{
-			skeletonRenderer.draw(batch, skeleton);
-		}
+		Constants.batch.begin();
+		
 		
 		if (currentAnimation != null)
 		{
@@ -202,37 +158,22 @@ public class AnimatedSprite extends Entity
 		
 		if (getTexture() != null)
 		{
-			batch.draw(getTexture(), getX(), getY(), getWidth(), getHeight());
+			Constants.batch.draw(getTexture(), getX(), getY(), getWidth(), getHeight());
 		}
 		
-		batch.end();
+		Constants.batch.end();
+	}
+	
+	@Override
+	public void OnUpdate(float DeltaTime)
+	{
 	}
 	
 	
 	private void TickAndDrawAnimations()
 	{
 		elapsedTime += Gdx.graphics.getDeltaTime();
-		batch.draw(currentAnimation.getKeyFrame(elapsedTime, true), getX(), getY(), getWidth(), getHeight());
-	}
-	
-	@Override
-	public void OnUpdate(float DeltaTime)
-	{
-		if (skeleton != null)
-		{
-			skeleton.updateWorldTransform();
-			animationState.update(DeltaTime);
-			animationState.apply(skeleton);
-		}
-		
-	}
-	
-	public void PlayAnimation()
-	{
-		if (skeleton != null)
-		{
-			CurrentTrack.setTrackTime(0);
-		}
+		Constants.batch.draw(currentAnimation.getKeyFrame(elapsedTime, true), getX(), getY(), getWidth(), getHeight());
 	}
 	
 	

@@ -57,11 +57,11 @@ public class EnemyManager
 	{
 		for (EnemyEntity enemy : enemiesOnScreen)
 		{
-			
 			Tile tile = Constants.TileMapHelper.GetNextEnemyPathTileFromCurrentTileAt(enemy.getX(), enemy.getY());
 			
 			if (tile == null)
 			{
+				Constants.Health.SubstractHealth();
 				enemy.SetDidReachEndTile();
 			} else {
 				// move to next tile.

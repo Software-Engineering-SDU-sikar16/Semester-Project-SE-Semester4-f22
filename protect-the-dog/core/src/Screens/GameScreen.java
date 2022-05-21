@@ -1,6 +1,8 @@
 package Screens;
 
 import Entities.Entity;
+import GamePlay.EnemyEntity;
+import GamePlay.Turret;
 import Map.Tile;
 import Map.TilePath;
 import Overlays.Overlay;
@@ -9,6 +11,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -19,12 +22,13 @@ import helper.MouseOperator;
 import helper.TileMapHelper;
 import objects.player.Enemy;
 
+import static helper.Constants.EnemyManager;
 import static helper.Constants.PPM;
 
 public class GameScreen extends ScreenAdapter
 {
 	private SpriteBatch batch;
-	private World world;
+	
 	private Box2DDebugRenderer box2DDebugRenderer;
 	
 	private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
@@ -34,7 +38,7 @@ public class GameScreen extends ScreenAdapter
 	public GameScreen()
 	{
 		this.batch = new SpriteBatch();
-		this.world = new World(new Vector2(0, 0), false); //gravity is -9.81f in y direction
+		Constants.World = new World(new Vector2(0, 0), false); //gravity is -9.81f in y direction
 		this.box2DDebugRenderer = new Box2DDebugRenderer();
 		
 		Constants.TileMapHelper = new TileMapHelper(this);
@@ -46,9 +50,9 @@ public class GameScreen extends ScreenAdapter
 		
 		if (!Constants.IsPauseScreenVisible)
 		{
-			world.step(1 / 60f, 6, 2);
+			Constants.World.step(1 / 60f, 6, 2);
 			
-		//	cameraUpdate(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			//	cameraUpdate(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			
 			Constants.Camera.update();
 			
@@ -65,8 +69,22 @@ public class GameScreen extends ScreenAdapter
 		Overlay.UpdateAllOverlays();
 		
 		
-	
+		Turret.TryBuildTurret();
+		
+		for (Turret turret : Turret.Turrets)
+		{
+			for (EnemyEntity enemy : EnemyManager.enemiesOnScreen)
+			{
+				if (turret.circle.contains(enemy.getX(), enemy.getY()))
+				{
+					turret.EnemyIsClose(enemy);
+				} else {
+					turret.EnemyIsClose(null);
 
+				}
+			}
+		}
+		
 	}
 	
 	private void cameraUpdate(int width, int height)
@@ -80,7 +98,7 @@ public class GameScreen extends ScreenAdapter
 		// camera.position.set(position);
 		
 		Constants.Camera.position.set(width / 2f, height / 2f, 0); //by default camera position on (0,0,0)
-        //camera.position.set(new Vector3(0, 0, 0));
+		//camera.position.set(new Vector3(0, 0, 0));
 		Constants.Camera.update();
 		
 	}
@@ -105,39 +123,17 @@ public class GameScreen extends ScreenAdapter
 		this.enemy.getSprite().translate(20, 20);
 		
 		
-		Vector2 pos =MouseOperator.GetMouseWorldPosition();
-		MyGdxGame.sprite.SetPosition(pos.x, pos.y);
-		
-		
 		batch.end();
-		box2DDebugRenderer.render(world, Constants.Camera.combined.scl(PPM));
+		box2DDebugRenderer.render(Constants.World, Constants.Camera.combined.scl(PPM));
 		
 		
 		// DEBUG
 		
 		
-		for (TilePath street : Constants.GameMapGraph.Paths)
-		{
-			street.render(Constants.shapeRenderer);
-		}
-		
-		// Draw all cities blue
-		for (Tile city : Constants.GameMapGraph.Tiles)
-		{
-			city.render(Constants.shapeRenderer, Constants.batch, Constants.font, false);
-		}
-		
-		// Draw cities in path green
-		for (Tile city : Constants.GameMapPath)
-		{
-			city.render(Constants.shapeRenderer, Constants.batch, Constants.font, true);
-		}
-		
-		
 		Entity.RenderAllEntities();
 		
 		Overlay.RenderAllOverlays();
-	
+		
 		
 		Constants.Stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
 		Constants.Stage.draw();
@@ -145,7 +141,7 @@ public class GameScreen extends ScreenAdapter
 	
 	public World getWorld()
 	{
-		return world;
+		return Constants.World;
 	}
 	
 	public void setEnemy(Enemy enemy)

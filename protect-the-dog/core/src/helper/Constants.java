@@ -4,11 +4,13 @@ import Entities.AnimatedSprite;
 import GamePlay.EnemyManager;
 import Map.GameMapGraph;
 import Map.Tile;
+import Overlays.Health;
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Constants
@@ -25,13 +27,13 @@ public class Constants
 	public static boolean IsGamePaused = false;
 	public static int CurrentWave = 0; // the current wave of enemies
 	public static int TotalWavesInLevel = 8; // the total waves of enemies for this particular level.
-	public static GamePlay.Player Player;
 	public static boolean IsBuildingTurret = false;
 	public static EnemyManager EnemyManager;
 	
 	//~ TileMap
 	public static TileMapHelper TileMapHelper;
 	
+	public static World World;
 	
 	//~ Camera
 	public static OrthographicCamera Camera;
@@ -67,4 +69,5 @@ public class Constants
 	public static GameMapGraph GameMapGraph;
 	public static GraphPath<Tile> GameMapPath;
 	public static int Coins = 2500;
+	public static Overlays.Health Health;
 }
