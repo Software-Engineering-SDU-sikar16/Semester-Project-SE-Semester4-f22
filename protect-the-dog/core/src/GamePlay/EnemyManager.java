@@ -47,7 +47,7 @@ public class EnemyManager
 		for (int i = 0; i < 23; i++)
 		{
 			EnemyEntity enemy = new EnemyEntity(50 + (i * 50), 158 + (i), 24, 24);
-			enemy.AddAnimation("default", Resources.LoadTexture("entities/enemies/enemies/sheet_" + i + ".png "), 1, 4, 12, Animation.PlayMode.NORMAL);
+			enemy.AddAnimation("default", Resources.LoadTexture("entities/enemies/sheet_" + i + ".png "), 1, 4, 12, Animation.PlayMode.NORMAL);
 			Enemies.add(enemy);
 		}
 	}
@@ -55,6 +55,7 @@ public class EnemyManager
 	
 	public void SteerEnemies()
 	{
+		if (Constants.IsGamePaused || !Constants.HasStartedWave) { return;}
 		for (EnemyEntity enemy : enemiesOnScreen)
 		{
 			

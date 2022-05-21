@@ -28,6 +28,7 @@ public class Constants
 	public static GamePlay.Player Player;
 	public static boolean IsBuildingTurret = false;
 	public static EnemyManager EnemyManager;
+	public static boolean HasStartedWave = false;
 	
 	//~ TileMap
 	public static TileMapHelper TileMapHelper;
@@ -56,9 +57,8 @@ public class Constants
 	
 	public static Overlays.PauseScreen PauseScreen;
 	public static Overlays.GameUIOverlay GameUIOverlay;
-	
 
-	
+
 //	public static Overlays.WaveProgressBar WaveProgressBar; // todo fix/add
 	
 	public static ShapeRenderer shapeRenderer;
@@ -67,4 +67,5 @@ public class Constants
 	public static GameMapGraph GameMapGraph;
 	public static GraphPath<Tile> GameMapPath;
 	public static int Coins = 2500;
+	
 }
