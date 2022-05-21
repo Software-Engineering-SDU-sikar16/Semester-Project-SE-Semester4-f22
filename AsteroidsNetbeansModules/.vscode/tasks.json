@@ -1,0 +1,47 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "java",
+      "targetPath": "${workspaceFolder}/${workspaceFolderBasename}.jar",
+      "elements": [
+        "${compileOutput:Asteroid}",
+        "${dependencies:Asteroid}",
+        "${compileOutput:AsteroidsNetbeansModules-app}",
+        "${dependencies:AsteroidsNetbeansModules-app}",
+        "${compileOutput:AsteroidsNetbeansModules-branding}",
+        "${dependencies:AsteroidsNetbeansModules-branding}",
+        "${compileOutput:AstroidNetBeansModules-app}",
+        "${dependencies:AstroidNetBeansModules-app}",
+        "${compileOutput:AstroidNetBeansModules-branding}",
+        "${dependencies:AstroidNetBeansModules-branding}",
+        "${compileOutput:Bullet}",
+        "${dependencies:Bullet}",
+        "${compileOutput:Collision}",
+        "${dependencies:Collision}",
+        "${compileOutput:Common}",
+        "${dependencies:Common}",
+        "${compileOutput:CommonAsteroids}",
+        "${dependencies:CommonAsteroids}",
+        "${compileOutput:CommonBullet}",
+        "${dependencies:CommonBullet}",
+        "${compileOutput:CommonEnemy}",
+        "${dependencies:CommonEnemy}",
+        "${compileOutput:Core}",
+        "${dependencies:Core}",
+        "${compileOutput:Enemy}",
+        "${dependencies:Enemy}",
+        "${compileOutput:Player}",
+        "${dependencies:Player}",
+        "${compileOutput:SilentUpdate}",
+        "${dependencies:SilentUpdate}"
+      ],
+      "problemMatcher": [],
+      "label": "java: exportjar:AsteroidsNetbeansModules",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
