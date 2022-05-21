@@ -74,34 +74,18 @@ public class MyGame implements ApplicationListener {
         this.gameData.setDisplayWidth(this.widthScreen);
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, widthScreen, heightScreen);
-//        this.camera = camera;
-//        this.batch = new SpriteBatch();
-//        this.world = new World(new Vector2(0, 0), false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
-        //tiledMap = new TmxMapLoader().load("../OSGiCore/assets/maps/map1.tmx");
-        //orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-//        parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
-        mapService.createMap();
 
+        mapService.createMap();
                 for (   IGamePluginService gamePluginService : gamePluginList) {         
-                    gamePluginService.start(gameData, world);                            
-                                                                                         
+                    gamePluginService.start(gameData, world);
                 }                                                                        
 
         for(Entity entity : world.getEntities()) {
-
             SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
             sl.createSprite();
         }
 //        setScreen(new GameScreen(camera));
-         //sl = new SpriteLoaderPart("images/v3.png", 0, 192, 16, 16, true, false);
-        /*spriteBatch = new SpriteBatch();
-        texture = new Texture("../assets/images/v3.png");
-        sprite = new Sprite(texture);*/
- 
- 
- 
- 
     }
 
     @Override
@@ -112,7 +96,6 @@ public class MyGame implements ApplicationListener {
         //orthogonalTiledMapRenderer.setView(camera);
         //orthogonalTiledMapRenderer.render();
         update();
-
     }
 
     @Override
@@ -137,38 +120,6 @@ public class MyGame implements ApplicationListener {
 
     }
 
-   /* private void spritedraw() {
-        spriteBatch.begin();
-        sprite.draw(spriteBatch);
-        spriteBatch.end();
-    }*/
-
-//    @Override
-//    public void create() {
-//        gameData.setDisplayWidth(Gdx.graphics.getWidth());
-//        gameData.setDisplayHeight(Gdx.graphics.getHeight());
-//
-//        cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
-//        cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
-//        cam.update();
-//
-//        sr = new ShapeRenderer();
-//        Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
-//    }
-//
-//    @Override
-//    public void render() {
-//        // clear screen to black
-//        Gdx.gl.glClearColor(0, 0, 0, 1);
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//
-//        gameData.setDelta(Gdx.graphics.getDeltaTime());
-//        gameData.getKeys().update();
-//
-//        update();
-//        draw();
-//    }
-//
     private void update() {
         // always draw the map first with the camera because components are renders synchronously.
         if(mapService != null) {
@@ -189,42 +140,7 @@ public class MyGame implements ApplicationListener {
             sl.process(gameData, entity);
        }
     }
-//    pr}                                                                 ivate void draw() {
-//        for (Entity entity : world.getEntities()) {
-//            sr.setColor(1, 1, 1, 1);
-//
-//            sr.begin(ShapeRenderer.ShapeType.Line);
-//
-//            float[] shapex = entity.getShapeX();
-//            float[] shapey = entity.getShapeY();
-//
-//            for (int i = 0, j = shapex.length - 1;
-//                    i < shapex.length;
-//                    j = i++) {
-//
-//                sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
-//            }
-//
-//            sr.end();
-//        }
-//    }
 
-//    @Override
-//    public void resize(int width, int height) {
-//    }
-//
-//    @Override
-//    public void pause() {
-//    }
-//
-//    @Override
-//    public void resume() {
-//    }
-//
-//    @Override
-//    public void dispose() {
-//    }
-//
     public void addEntityProcessingService(IEntityProcessingService eps) {
         entityProcessorList.add(eps);
     }
@@ -243,8 +159,6 @@ public class MyGame implements ApplicationListener {
 
     public void addGamePluginService(IGamePluginService plugin) {
         gamePluginList.add(plugin);
-
-
     }
 
     public void removeGamePluginService(IGamePluginService plugin) {
@@ -254,8 +168,6 @@ public class MyGame implements ApplicationListener {
     public void addMapService(IMapService map) {
         mapService = map;
     }
-
-
 
     public void removeMapService(IMapService map) {
         mapService = null;
