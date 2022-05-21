@@ -116,7 +116,7 @@ public class Player extends AnimatedSprite
 		
 		//Vector2 mosp = MouseOperator.GetMouseScreenPosition();
 		//System.out.println("x: " + mosp.x + " y: " + mosp.y);
-	//	System.out.println("x: " + getX() + " y: " + getY());
+		//	System.out.println("x: " + getX() + " y: " + getY());
 		
 		
 		Vector2 TilePos = MouseOperator.GetTilePositionUnderMousePosition();
@@ -130,80 +130,15 @@ public class Player extends AnimatedSprite
 		Constants.shapeRenderer.circle(getEntityX(), getEntityY(), 90);
 		
 		
-		// this is faster bit magic than below algorithm
-/*		int r = 5; // radius
-		int r2 = r * r;
-		int area = r2 << 2;
-		int rr = r << 1;
-		
-		for (int i = 0; i < area; i++)
-		{
-			int tx = (i % rr) - r;
-			int ty = (i / rr) - r;
-			
-			if (tx * tx + ty * ty <= r2)
-			{
-				Constants.shapeRenderer.rect(tx + getX(), ty + getY(), 10, 10);
-			}
-		}*/
-		
-		
-		Vector2 playerCurrentTilePosition = MouseOperator.GetTilePositionAt(mosp.x, mosp.y);
-		
-		int r = 3; // radius
-		
-		for (int x = -r; x < r; x++)
-		{
-			int height = (int) Math.sqrt(r * r - x * x);
-			
-			for (int y = -height; y < height; y++)
-			{
-				Constants.shapeRenderer.rect((x * Constants.TileMapHelper.TilePixelWidth) + playerCurrentTilePosition.x, (y * Constants.TileMapHelper.TilePixelHeight) + playerCurrentTilePosition.y, Constants.TileMapHelper.TilePixelWidth, Constants.TileMapHelper.TilePixelHeight);
-				//	Constants.shapeRenderer.circle(x + getX(), y + getY(), 50);
-				int TileX = (int) ((x * Constants.TileMapHelper.TilePixelWidth) + playerCurrentTilePosition.x);
-				int TileY = (int) ((y * Constants.TileMapHelper.TilePixelHeight) + playerCurrentTilePosition.y);
-			}
-		}
-		
-		
 		Constants.shapeRenderer.end();
 		
 		
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !Constants.IsBuildingTurret)
 		{
-			new Turret((int) TilePos.x, (int) TilePos.y);
-			
-			Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-			Constants.shapeRenderer.setColor(1.0f, 1.0f, 1.0f, 1);
-			Constants.shapeRenderer.circle(getEntityX(), getEntityY(), 90);
-			Constants.shapeRenderer.end();
-			
-			TiledMapTileLayer layer = (TiledMapTileLayer) Constants.TileMapHelper.tiledMap.getLayers().get("background");
-			TiledMapTileLayer.Cell cell = layer.getCell((int) TilePos.x, (int) TilePos.y);
-			
-			
-			int TILE_HEIGHT = Constants.TileMapHelper.TilePixelHeight;
-			int TILE_WIDTH = Constants.TileMapHelper.TilePixelWidth;
-			
-			if (cell != null)
+			if (Constants.TileMapHelper.IsTileAtPositionAValidBuildableTile(TilePos))
 			{
-				int cellId = cell.getTile().getId();
-				if (cellId == 82 || cellId == 87 || cellId == 142 || cellId == 41)
-				{
-					if (Gdx.input.justTouched())
-					{
-					
-						//Tile graphTile = new Tile((int)TilePos.x * TILE_WIDTH, (int)TilePos.y * TILE_HEIGHT, "Tile " + cell.getTile().getId());
-						//Constants.GameMapGraph.AddTile(graphTile);
-					}
-				}
-				
+				new Turret((int) TilePos.x, (int) TilePos.y);
 			}
-		}
-		
-		if (Gdx.input.justTouched())
-		{
-		
 		}
 
 		

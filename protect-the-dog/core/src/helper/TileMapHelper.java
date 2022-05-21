@@ -42,6 +42,7 @@ public class TileMapHelper
 	public Tile End = null;
 	
 	public static HashMap<Vector2, Tile> EnemyPath = new HashMap<Vector2, Tile>();
+	public static HashMap<Vector2, Tile> BuildableTiles = new HashMap<Vector2, Tile>();
 	
 	
 	public TileMapHelper(GameScreen gameScreen)
@@ -78,7 +79,31 @@ public class TileMapHelper
 		
 		CalculateGraph();
 		
+		BuildHashmapOfBuildableAreas();
+		
 		return new OrthogonalTiledMapRenderer(tiledMap);
+	}
+	
+	private void BuildHashmapOfBuildableAreas()
+	{
+		MapLayer layer = tiledMap.getLayers().get("PlacementLayer");
+		MapObjects mapObjects = layer.getObjects();
+		
+		for (MapObject mapObject : mapObjects)
+		{
+			if (mapObject instanceof RectangleMapObject)
+			{
+				RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
+				// now you can get the position of the rectangle like this:
+				Rectangle rectangle = rectangleMapObject.getRectangle();
+				int x = (int) rectangle.getX();
+				int y = (int) rectangle.getY();
+				
+				Tile graphTile = new Tile(x, y, rectangleMapObject.getName());
+				
+				BuildableTiles.put(new Vector2(x, y), graphTile);
+			}
+		}
 	}
 	
 	public void CalculateGraph()
@@ -191,6 +216,12 @@ public class TileMapHelper
 	{
 		return EnemyPath.get(vector);
 	}
+	
+	public boolean IsTileAtPositionAValidBuildableTile(Vector2 vector)
+	{
+		return BuildableTiles.containsKey(vector);
+	}
+	
 	
 	public Tile GetEnemyPathTileAt(float x, float y)
 	{
