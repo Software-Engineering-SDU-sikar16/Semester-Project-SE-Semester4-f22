@@ -2,15 +2,24 @@ package GamePlay;
 
 import Entities.AnimatedSprite;
 import com.badlogic.gdx.graphics.Texture;
+import helper.MouseOperator;
 import helper.Resources;
 
 public class Turret extends AnimatedSprite
 {
-	public Turret()
+	public Turret(int x, int y)
 	{
-		super(0, 0, 0, 0);
+		super(x, y, 50, 50);
 		
-		//Texture turret1 = new Texture(Resources.LoadTexture(""));
+		Texture turret1 = Resources.LoadTexture("turrets/4shot.png");
+		setTexture(turret1);
 	}
 	
+	
+	@Override
+	public void OnUpdate(float DeltaTime)
+	{
+		super.OnUpdate(DeltaTime);
+		setPosition(MouseOperator.GetMouseWorldPosition());
+	}
 }

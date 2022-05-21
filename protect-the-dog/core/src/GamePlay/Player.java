@@ -171,6 +171,8 @@ public class Player extends AnimatedSprite
 		
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !Constants.IsBuildingTurret)
 		{
+			new Turret((int) TilePos.x, (int) TilePos.y);
+			
 			Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 			Constants.shapeRenderer.setColor(1.0f, 1.0f, 1.0f, 1);
 			Constants.shapeRenderer.circle(getEntityX(), getEntityY(), 90);
@@ -190,6 +192,7 @@ public class Player extends AnimatedSprite
 				{
 					if (Gdx.input.justTouched())
 					{
+					
 						//Tile graphTile = new Tile((int)TilePos.x * TILE_WIDTH, (int)TilePos.y * TILE_HEIGHT, "Tile " + cell.getTile().getId());
 						//Constants.GameMapGraph.AddTile(graphTile);
 					}
