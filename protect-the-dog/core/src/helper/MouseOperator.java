@@ -105,4 +105,92 @@ public class MouseOperator
 		return TileUnderMouseWorldPosition.set(WorldPoint.x, WorldPoint.y);
 	}
 	
+	/*
+	public static Vector2 worldToCell(float x, float y)
+	{
+		
+		int TILE_HEIGHT = Constants.TileMapHelper.TilePixelHeight;
+		int TILE_WIDTH = Constants.TileMapHelper.TilePixelWidth;
+		
+		float halfTileWidth = TILE_WIDTH * 0.5f;
+		float halfTileHeight = TILE_HEIGHT * 0.5f;
+		
+		float row = (1.0f / 2) * (x / halfTileWidth + y / halfTileHeight);
+		float col = (1.0f / 2) * (x / halfTileWidth - y / halfTileHeight);
+		
+		return new Vector2((int) col, (int) row);
+	}
+	
+	public static Vector2 screenToWorld(float x, float y)
+	{
+		Vector3 touch = new Vector3(x, y, 0);
+		Constants.Camera.unproject(touch);
+		touch.mul(Constants.Camera.view.inv());
+		touch.mul(Constants.Camera.view);
+		return new Vector2(touch.x, touch.y);
+	}*/
+	
+	
+/*	public static Vector2 screenToCell(float x, float y)
+	{
+		int TILE_HEIGHT = Constants.TileMapHelper.TilePixelHeight;
+		Vector2 world = screenToWorld(x, y);
+		world.y -= TILE_HEIGHT * 0.5f;
+		return worldToCell(world.x, world.y);
+	}
+	*/
+	
+	public static Vector2 GetTilePositionUnderMousePosition2()
+	{
+		int mx = Gdx.input.getX();
+		int my = Gdx.input.getY();
+		
+		int TILE_HEIGHT = Constants.TileMapHelper.TilePixelHeight;
+		int TILE_WIDTH = Constants.TileMapHelper.TilePixelWidth;
+		
+		Constants.Camera.unproject(UnprojectVector.set(mx, my, 0.0f));
+		WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);
+		
+		float mapx = WorldMousePosition.x / TILE_WIDTH + 0.5f;
+		float mapy = WorldMousePosition.y / TILE_HEIGHT + 0.5f;
+		
+		WorldPosition = new Vector2(mapx, mapy);
+		
+		int tileX = (int) WorldPosition.x;
+		int tileY = (int) WorldPosition.y;
+		
+		TileUnderMouseWorldPosition.set(tileX, tileY);
+		return TileUnderMouseWorldPosition;
+	/*
+		if (Gdx.input.justTouched())
+		{
+			Tile graphTile = new Tile(tileX * TILE_WIDTH, tileY * TILE_HEIGHT, "Tile " +  cell.getTile().getId());
+			Constants.GameMapGraph.AddTile(graphTile);
+		}*/
+		
+	/*	if (Gdx.input.justTouched())
+		{
+			
+			
+			TiledMapTileLayer layer = (TiledMapTileLayer) Constants.TileMapHelper.tiledMap.getLayers().get("background");
+			
+			TiledMapTileLayer.Cell cell = layer.getCell(tileX, tileY);
+			
+			if (cell != null)
+			{
+				int cellId = cell.getTile().getId();
+				if (cellId == 82 || cellId == 87 || cellId == 142 || cellId == 41)
+				{
+					if (Gdx.input.justTouched())
+					{
+						Tile graphTile = new Tile(tileX * TILE_WIDTH, tileY * TILE_HEIGHT, "Tile " + cell.getTile().getId());
+						Constants.GameMapGraph.AddTile(graphTile);
+					}
+				}
+				
+			}
+			TileUnderMouseWorldPosition.set(tileX, tileY);
+		}*/
+		
+	}
 }

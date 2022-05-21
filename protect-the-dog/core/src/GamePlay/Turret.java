@@ -1,23 +1,25 @@
 package GamePlay;
 
 import Entities.AnimatedSprite;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.graphics.Texture;
+import helper.MouseOperator;
 import helper.Resources;
 
 public class Turret extends AnimatedSprite
 {
-	public static Array<Turret> turrets = new Array<>();
-	
-	public Turret()
+	public Turret(int x, int y)
 	{
-		super(0, 0, 0, 0);
-		setTexture(Resources.LoadTexture(""));
+		super(x, y, 50, 50);
+		
+		Texture turret1 = Resources.LoadTexture("turrets/4shot.png");
+		setTexture(turret1);
 	}
 	
-	public static boolean AddTurret(int x, int y)
+	
+	@Override
+	public void OnUpdate(float DeltaTime)
 	{
-		// substract money!
-		
-		return true;
+		super.OnUpdate(DeltaTime);
+		setPosition(MouseOperator.GetMouseWorldPosition());
 	}
 }

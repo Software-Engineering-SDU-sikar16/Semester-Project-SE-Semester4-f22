@@ -14,7 +14,8 @@ public class DesktopLauncher {
 		config.backgroundFPS = 60;
 		config.foregroundFPS = 60;
 
-
+		
+		config.resizable = false;
 		config.samples = 14;
 		config.depth = 24;
 		config.allowSoftwareMode = true;

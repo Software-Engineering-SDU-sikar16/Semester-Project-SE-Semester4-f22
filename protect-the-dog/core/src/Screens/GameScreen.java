@@ -48,7 +48,7 @@ public class GameScreen extends ScreenAdapter
 		{
 			world.step(1 / 60f, 6, 2);
 			
-			//	cameraUpdate(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		//	cameraUpdate(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			
 			Constants.Camera.update();
 			
@@ -65,6 +65,8 @@ public class GameScreen extends ScreenAdapter
 		Overlay.UpdateAllOverlays();
 		
 		
+	
+
 	}
 	
 	private void cameraUpdate(int width, int height)
@@ -78,7 +80,7 @@ public class GameScreen extends ScreenAdapter
 		// camera.position.set(position);
 		
 		Constants.Camera.position.set(width / 2f, height / 2f, 0); //by default camera position on (0,0,0)
-		//camera.position.set(new Vector3(0, 0, 0));
+        //camera.position.set(new Vector3(0, 0, 0));
 		Constants.Camera.update();
 		
 	}
@@ -99,10 +101,11 @@ public class GameScreen extends ScreenAdapter
 		batch.begin();
 		// render objects
 		this.enemy.getSprite().draw(batch);
+		;
 		this.enemy.getSprite().translate(20, 20);
 		
 		
-		Vector2 pos = MouseOperator.GetMouseWorldPosition();
+		Vector2 pos =MouseOperator.GetMouseWorldPosition();
 		MyGdxGame.sprite.SetPosition(pos.x, pos.y);
 		
 		
@@ -134,7 +137,7 @@ public class GameScreen extends ScreenAdapter
 		Entity.RenderAllEntities();
 		
 		Overlay.RenderAllOverlays();
-		
+	
 		
 		Constants.Stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
 		Constants.Stage.draw();
