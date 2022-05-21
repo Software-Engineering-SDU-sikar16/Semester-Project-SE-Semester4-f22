@@ -21,11 +21,6 @@
             <artifactId>org.osgi.core</artifactId>
             <scope>provided</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>${project.groupId}</groupId>-->
-<!--            <artifactId>OSGiCommonEnemy</artifactId>-->
-<!--            <version>${project.version}</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>OSGiLibGDX</artifactId>
@@ -37,17 +32,6 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-        <!--        <dependency>-->
-<!--            <groupId>com.badlogicgames.gdx</groupId>-->
-<!--            <artifactId>gdx</artifactId>-->
-<!--            <version>1.5.0</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
-        <!--        <dependency>-->
-<!--            <groupId>${project.groupId}</groupId>-->
-<!--            <artifactId>OSGiCommonBullet</artifactId>-->
-<!--            <version>${project.version}</version>-->
-<!--        </dependency>-->
     </dependencies>
 
     <build>

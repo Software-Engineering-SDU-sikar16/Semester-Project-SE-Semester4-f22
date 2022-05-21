@@ -38,15 +38,7 @@ public class MyGame implements ApplicationListener {
     public static MyGame INSTANCE;
     private int widthScreen, heightScreen;
     private OrthographicCamera camera;
-    SpriteBatch spriteBatch;
-    Sprite sprite;
-    Texture texture;
-    SpriteLoaderPart sl;
-//    private SpriteBatch batch;
-//    private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
-    private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-    private TiledMap tiledMap;
 
     public MyGame(){
         init();

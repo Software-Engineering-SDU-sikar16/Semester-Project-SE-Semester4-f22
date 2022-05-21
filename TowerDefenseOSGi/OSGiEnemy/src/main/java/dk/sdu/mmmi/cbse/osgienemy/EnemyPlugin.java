@@ -7,10 +7,10 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
-//import dk.sdu.mmmi.cbse.common.enemy.Enemy;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 public class EnemyPlugin implements IGamePluginService {
+
     private String enemyID;
 
     public EnemyPlugin() {
@@ -26,7 +26,7 @@ public class EnemyPlugin implements IGamePluginService {
     private Entity createEnemy(GameData gameData) {
         Entity enemyThing = new Enemy();
 
-        float deacceleration = 10;
+        float deceleration = 10;
         float acceleration = 200;
         float maxSpeed = 300;
         float rotationSpeed = 5;
@@ -35,7 +35,7 @@ public class EnemyPlugin implements IGamePluginService {
         float radians = 3.1415f / 2;
         enemyThing.add(new LifePart(3));
         enemyThing.setRadius(4);
-        enemyThing.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
+        enemyThing.add(new MovingPart(deceleration, acceleration, maxSpeed, rotationSpeed));
         enemyThing.add(new PositionPart(x, y, radians));
         SpriteLoaderPart spriteLoaderPart = new SpriteLoaderPart("images/v3.png", 0, 192, 16, 16, false, false);
         enemyThing.add(spriteLoaderPart);
