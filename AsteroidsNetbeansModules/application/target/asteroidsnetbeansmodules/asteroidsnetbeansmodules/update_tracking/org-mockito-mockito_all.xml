@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module codename="org.mockito.mockito_all">
-    <module_version install_time="1652265481695" last="true" origin="installer" specification_version="1.9.5">
-        <file crc="3430235412" name="config/Modules/org-mockito-mockito_all.xml"/>
-        <file crc="1334637553" name="modules/org-mockito-mockito_all.jar"/>
-    </module_version>
-</module>
