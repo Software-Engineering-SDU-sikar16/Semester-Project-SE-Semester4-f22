@@ -5,9 +5,9 @@ https://www.mapeditor.org/
 
 
 ## How to run protect-the-dog
-Gradle:
-- build `build.gradle` 
-- build protect-the-dog module
+- Settings -> Build, Execution, Deployment -> Gradle
+- Change Gradle JVM to 1.8
+- Go to Project Structure and change Project SDK to 1.8
 - run DesktopLauncher
 
 ## How to run with OSGi in IntelliJ
