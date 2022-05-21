@@ -15,7 +15,7 @@ public class DesktopLauncher {
 		config.foregroundFPS = 60;
 
 		
-		config.useHDPI = true;
+		config.resizable = false;
 		config.samples = 14;
 		config.depth = 24;
 		config.allowSoftwareMode = true;
