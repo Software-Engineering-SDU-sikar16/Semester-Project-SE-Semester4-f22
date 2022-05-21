@@ -24,7 +24,7 @@ public class Player extends AnimatedSprite
 	{
 		super(MouseOperator.ScreenToWorldPoint(Constants.GlobalWidth / 2, Constants.GlobalHeight / 2), 150, 150);
 		
-		AddAnimation("default", Resources.LoadTexture("entities/enemies/enemies/sheet_0.png "), 1, 4, 12, Animation.PlayMode.NORMAL);
+		AddAnimation("default", Resources.LoadTexture("entities/enemies/sheet_0.png "), 1, 4, 12, Animation.PlayMode.NORMAL);
 		
 		SetZIndex(100);
 	}
@@ -118,9 +118,7 @@ public class Player extends AnimatedSprite
 		//System.out.println("x: " + mosp.x + " y: " + mosp.y);
 	//	System.out.println("x: " + getX() + " y: " + getY());
 		
-		
 		Vector2 TilePos = MouseOperator.GetTilePositionUnderMousePosition();
-		
 		Constants.MouseTileSelector.setPosition(TilePos.x, TilePos.y);
 		Constants.MouseTileSelector.setSize(Constants.TileMapHelper.TilePixelWidth, Constants.TileMapHelper.TilePixelHeight);
 		
