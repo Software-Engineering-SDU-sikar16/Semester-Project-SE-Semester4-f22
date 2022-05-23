@@ -11,10 +11,10 @@
         <bundle.namespace>dk.sdu.mmmi</bundle.namespace>
     </properties>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>OSGiEnemy</artifactId>
+    <artifactId>OSGiTower</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
-    <name>OSGiEnemy</name>
+    <name>OSGiTower</name>
     <dependencies>
         <dependency>
             <groupId>org.osgi</groupId>
@@ -32,7 +32,6 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-
     </dependencies>
 
     <build>
