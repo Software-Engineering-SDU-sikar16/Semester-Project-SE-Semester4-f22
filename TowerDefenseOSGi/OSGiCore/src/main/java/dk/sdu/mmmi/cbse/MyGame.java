@@ -69,9 +69,9 @@ public class MyGame implements ApplicationListener {
         this.box2DDebugRenderer = new Box2DDebugRenderer();
 
         mapService.createMap();
-                for (   IGamePluginService gamePluginService : gamePluginList) {         
-                    gamePluginService.start(gameData, world);
-                }                                                                        
+        for (   IGamePluginService gamePluginService : gamePluginList) {
+            gamePluginService.start(gameData, world);
+        }
 
         for(Entity entity : world.getEntities()) {
             SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
@@ -127,8 +127,8 @@ public class MyGame implements ApplicationListener {
             postEntityProcessorService.process(gameData, world);
         }
         for(Entity entity : world.getEntities()) {
-                                                                        //sl.process(gameData, new Entity());
-          SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
+            //sl.process(gameData, new Entity());
+            SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
             sl.process(gameData, entity);
        }
     }
@@ -157,6 +157,7 @@ public class MyGame implements ApplicationListener {
         gamePluginList.remove(plugin);
         plugin.stop(gameData, world);
     }
+
     public void addMapService(IMapService map) {
         mapService = map;
     }

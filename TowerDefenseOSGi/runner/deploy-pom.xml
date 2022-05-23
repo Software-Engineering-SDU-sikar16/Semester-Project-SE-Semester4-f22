@@ -93,6 +93,13 @@
       <type>bundle</type>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>dk.sdu.mmmi.build</groupId>
+      <artifactId>OSGiTower</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>bundle</type>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
   <repositories>
     <repository>

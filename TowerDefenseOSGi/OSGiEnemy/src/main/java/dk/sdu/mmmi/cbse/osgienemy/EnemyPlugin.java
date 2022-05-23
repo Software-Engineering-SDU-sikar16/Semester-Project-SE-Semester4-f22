@@ -25,7 +25,6 @@ public class EnemyPlugin implements IGamePluginService {
 
     private Entity createEnemy(GameData gameData) {
         Entity enemyThing = new Enemy();
-
         float deceleration = 10;
         float acceleration = 200;
         float maxSpeed = 300;
@@ -37,7 +36,7 @@ public class EnemyPlugin implements IGamePluginService {
         enemyThing.setRadius(4);
         enemyThing.add(new MovingPart(deceleration, acceleration, maxSpeed, rotationSpeed));
         enemyThing.add(new PositionPart(x, y, radians));
-        SpriteLoaderPart spriteLoaderPart = new SpriteLoaderPart("images/v3.png", 6*16, 176, 16*2, 16*2, false, false);
+        SpriteLoaderPart spriteLoaderPart = new SpriteLoaderPart("images/v3.png", 2*16, 9*16, 16, 16, false, false);
         enemyThing.add(spriteLoaderPart);
         return enemyThing;
     }

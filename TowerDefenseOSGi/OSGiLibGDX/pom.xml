@@ -77,6 +77,11 @@
             <version>${libGDX.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.badlogicgames.gdx</groupId>
+            <artifactId>gdx-ai</artifactId>
+            <version>${libGDX.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.diffplug.osgi</groupId>
             <artifactId>com.diffplug.osgi.extension.sun.misc</artifactId>
             <version>0.0.0</version>
