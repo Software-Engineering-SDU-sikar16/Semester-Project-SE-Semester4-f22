@@ -157,6 +157,7 @@ public class MyGame implements ApplicationListener {
         gamePluginList.remove(plugin);
         plugin.stop(gameData, world);
     }
+
     public void addMapService(IMapService map) {
         mapService = map;
     }
