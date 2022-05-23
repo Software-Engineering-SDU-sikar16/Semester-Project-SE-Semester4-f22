@@ -46,16 +46,16 @@ public class MyGame implements ApplicationListener {
     }
 
     public void init() {
-        LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.width = 960;
-        cfg.height = 640;
-        cfg.title = "Protect the dog";
-        cfg.resizable = false;
-        cfg.vSyncEnabled = true;
-        cfg.backgroundFPS = 60;
-        cfg.foregroundFPS = 60;
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.width = 960;
+        config.height = 640;
+        config.title = "Protect the dog";
+        config.resizable = false;
+        config.vSyncEnabled = true;
+        config.backgroundFPS = 60;
+        config.foregroundFPS = 60;
 
-        new LwjglApplication(this, cfg);
+        new LwjglApplication(this, config);
     }
 
     @Override
