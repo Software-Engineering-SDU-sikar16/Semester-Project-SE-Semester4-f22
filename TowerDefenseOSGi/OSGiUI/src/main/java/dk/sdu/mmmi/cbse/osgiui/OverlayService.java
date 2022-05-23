@@ -15,7 +15,7 @@ public abstract class OverlayService implements IOverlayService {
         Overlays.add(this);
     }
 
-    public static void OnCreate() {
+    public static void OnCreateAll() {
         for (IOverlayService overlay : Overlays)
         {
             overlay.OnCreate();
@@ -24,7 +24,7 @@ public abstract class OverlayService implements IOverlayService {
     }
 
 
-    public static void OnRender() {
+    public static void OnRenderAll() {
         for (IOverlayService overlay : Overlays) {
             overlay.OnRender();
         }
@@ -32,7 +32,7 @@ public abstract class OverlayService implements IOverlayService {
     }
 
 
-    public static void OnUpdate(float DeltaTime) {
+    public static void OnUpdateALl(float DeltaTime) {
         for (IOverlayService overlay : Overlays)
         {
             overlay.OnUpdate(Gdx.graphics.getDeltaTime());
