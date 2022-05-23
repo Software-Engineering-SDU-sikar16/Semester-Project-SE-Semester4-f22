@@ -127,8 +127,8 @@ public class MyGame implements ApplicationListener {
             postEntityProcessorService.process(gameData, world);
         }
         for(Entity entity : world.getEntities()) {
-                                                                        //sl.process(gameData, new Entity());
-          SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
+            //sl.process(gameData, new Entity());
+            SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
             sl.process(gameData, entity);
        }
     }

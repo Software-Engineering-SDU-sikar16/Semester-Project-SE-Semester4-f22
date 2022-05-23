@@ -11,10 +11,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class MapService implements IMapService {
+
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
+
     @Override
     public void createMap() {
+        // Finds the location of where the function looks for files
 //        Path currentRelativePath = Paths.get("..");
 //        String s = currentRelativePath.toAbsolutePath().toString();
 //        System.out.println("Current absolute path is: " + s);
