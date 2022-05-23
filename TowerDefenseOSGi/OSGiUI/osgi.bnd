@@ -1,3 +1,3 @@
-Bundle-SymbolicName: OSGiMap
+Bundle-SymbolicName: OSGiUI
 Bundle-ActivationPolicy: lazy
 Service-Component: META-INF/overlayService.xml

@@ -119,6 +119,10 @@ public class MyGame implements ApplicationListener {
         if(mapService != null) {
         mapService.updateMap(camera);
         }
+
+        if (overlayService != null) {
+            overlayService.
+        }
         // Update
         for (IEntityProcessingService entityProcessorService : entityProcessorList) {
             entityProcessorService.process(gameData, world);

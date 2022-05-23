@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
 
-public class OverlayService implements IOverlayService {
+public abstract class OverlayService implements IOverlayService {
 
     public static Array<IOverlayService> Overlays = new Array<IOverlayService>();
 
@@ -15,9 +15,7 @@ public class OverlayService implements IOverlayService {
         Overlays.add(this);
     }
 
-
-    @Override
-    public void OnCreate() {
+    public static void OnCreate() {
         for (IOverlayService overlay : Overlays)
         {
             overlay.OnCreate();
@@ -25,16 +23,16 @@ public class OverlayService implements IOverlayService {
 
     }
 
-    @Override
-    public void OnRender() {
+
+    public static void OnRender() {
         for (IOverlayService overlay : Overlays) {
             overlay.OnRender();
         }
 
     }
 
-    @Override
-    public void OnUpdate(float DeltaTime) {
+
+    public static void OnUpdate(float DeltaTime) {
         for (IOverlayService overlay : Overlays)
         {
             overlay.OnUpdate(Gdx.graphics.getDeltaTime());
