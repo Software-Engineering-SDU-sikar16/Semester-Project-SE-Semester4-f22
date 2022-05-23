@@ -3,7 +3,7 @@
 - Add new run configuration from top right.
 - Choose maven and give it a name
 - Choose the project directory
-- Write `install pas:provision` in the command line parameter
+- Write `install pax:provision` in the command line parameter
 - Now ya gucci to run
 
 
@@ -14,3 +14,4 @@ Rename folders og filer
 Rename pom.xml
 Tilføj module til ydre pom
 Ændre Meta-inf.xml
+tiløj service-components to core.xml

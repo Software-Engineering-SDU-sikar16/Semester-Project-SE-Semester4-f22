@@ -178,4 +178,3 @@ public class Turret extends AnimatedSprite
 		
 	}
 }
-

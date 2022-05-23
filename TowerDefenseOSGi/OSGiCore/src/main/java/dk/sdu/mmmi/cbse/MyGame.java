@@ -18,10 +18,7 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
 import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
-import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
-import dk.sdu.mmmi.cbse.common.services.IMapService;
-import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
+import dk.sdu.mmmi.cbse.common.services.*;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -34,6 +31,7 @@ public class MyGame implements ApplicationListener {
     private static final List<IEntityProcessingService> entityProcessorList = new CopyOnWriteArrayList<>();
     private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
     private IMapService mapService;
+    private IOverlayService overlayService;
     private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
     public static MyGame INSTANCE;
     private int widthScreen, heightScreen;
@@ -54,9 +52,10 @@ public class MyGame implements ApplicationListener {
         config.vSyncEnabled = true;
         config.backgroundFPS = 60;
         config.foregroundFPS = 60;
-        //config.pauseWhenBackground = true;
+
+
         config.pauseWhenBackground = true;
-        config.pauseWhenMinimized = true;
+        //config.pauseWhenMinimized = true;
 
         new LwjglApplication(this, config);
     }
@@ -167,6 +166,14 @@ public class MyGame implements ApplicationListener {
 
     public void removeMapService(IMapService map) {
         mapService = null;
+    }
+
+    public void addUIService(IOverlayService overlay) {
+        overlayService  = overlay;
+    }
+
+    public void removeUIService(IOverlayService overlay) {
+        overlayService = null;
     }
 
 }
