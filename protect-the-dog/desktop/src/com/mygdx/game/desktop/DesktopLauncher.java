@@ -19,7 +19,9 @@ public class DesktopLauncher {
 		config.samples = 14;
 		config.depth = 24;
 		config.allowSoftwareMode = true;
-		
+
+
+		config.pauseWhenMinimized = true;
 		config.pauseWhenBackground = true;
 
 

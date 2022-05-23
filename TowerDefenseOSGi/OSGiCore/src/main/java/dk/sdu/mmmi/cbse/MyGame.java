@@ -54,6 +54,9 @@ public class MyGame implements ApplicationListener {
         config.vSyncEnabled = true;
         config.backgroundFPS = 60;
         config.foregroundFPS = 60;
+        //config.pauseWhenBackground = true;
+        config.pauseWhenBackground = true;
+        config.pauseWhenMinimized = true;
 
         new LwjglApplication(this, config);
     }
