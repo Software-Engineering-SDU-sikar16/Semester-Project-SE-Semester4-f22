@@ -3,8 +3,10 @@ package Overlays;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
+
 public abstract class Overlay implements IOverlay
 {
+	
 	public static Array<IOverlay> Overlays = new Array<IOverlay>();
 	
 	public Overlay()

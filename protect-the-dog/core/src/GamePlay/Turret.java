@@ -1,18 +1,16 @@
 package GamePlay;
 
 import Entities.AnimatedSprite;
+import Overlays.GameUIOverlay;
+import Overlays.Overlay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g3d.particles.influencers.RegionInfluencer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import helper.BodyHelperService;
 import helper.Constants;
@@ -23,8 +21,6 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static helper.Constants.PPM;
 
 public class Turret extends AnimatedSprite
 {
@@ -95,6 +91,8 @@ public class Turret extends AnimatedSprite
 	@Override
 	public void OnRender()
 	{
+		
+		
 		super.OnRender();
 		
 	/*	Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
