@@ -23,187 +23,158 @@ import dk.sdu.mmmi.cbse.common.services.*;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class MyGame implements ApplicationListener
-{
-	
-	//    private ShapeRenderer sr;
-	private final GameData gameData = new GameData();
-	private static World world = new World();
-	private static final List<IEntityProcessingService> entityProcessorList = new CopyOnWriteArrayList<>();
-	private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
-	private IMapService mapService;
-	private IOverlayService overlayService;
-	private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
-	public static MyGame INSTANCE;
-	private int widthScreen, heightScreen;
-	private OrthographicCamera camera;
-	private Box2DDebugRenderer box2DDebugRenderer;
-	
-	public MyGame()
-	{
-		init();
-		INSTANCE = this;
-	}
-	
-	public void init()
-	{
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 960;
-		config.height = 640;
-		config.title = "Protect the dog";
-		config.resizable = false;
-		config.vSyncEnabled = true;
-		config.backgroundFPS = 60;
-		config.foregroundFPS = 60;
-		
-		
-		config.pauseWhenBackground = true;
-		//config.pauseWhenMinimized = true;
-		
-		new LwjglApplication(this, config);
-	}
-	
-	@Override
-	public void create()
-	{
-		this.widthScreen = Gdx.graphics.getWidth();
-		this.heightScreen = Gdx.graphics.getHeight();
-		this.gameData.setDisplayHeight(this.heightScreen);
-		this.gameData.setDisplayWidth(this.widthScreen);
-		this.camera = new OrthographicCamera();
-		this.camera.setToOrtho(false, widthScreen, heightScreen);
-		this.box2DDebugRenderer = new Box2DDebugRenderer();
-		
-		mapService.createMap();
-		for (IGamePluginService gamePluginService : gamePluginList)
-		{
-			gamePluginService.start(gameData, world);
-		}
-		
-		for (Entity entity : world.getEntities())
-		{
-			SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
-			sl.createSprite();
-		}
+public class MyGame implements ApplicationListener {
+
+//    private ShapeRenderer sr;
+    private final GameData gameData = new GameData();
+    private static World world = new World();
+    private static final List<IEntityProcessingService> entityProcessorList = new CopyOnWriteArrayList<>();
+    private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
+    private IMapService mapService;
+    private IOverlayService overlayService;
+    private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
+    public static MyGame INSTANCE;
+    private int widthScreen, heightScreen;
+    private OrthographicCamera camera;
+    private Box2DDebugRenderer box2DDebugRenderer;
+
+    public MyGame(){
+        init();
+        INSTANCE = this;
+    }
+
+    public void init() {
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.width = 960;
+        config.height = 640;
+        config.title = "Protect the dog";
+        config.resizable = false;
+        config.vSyncEnabled = true;
+        config.backgroundFPS = 60;
+        config.foregroundFPS = 60;
+
+
+        config.pauseWhenBackground = true;
+        //config.pauseWhenMinimized = true;
+
+        new LwjglApplication(this, config);
+    }
+
+    @Override
+    public void create() {
+        this.widthScreen = Gdx.graphics.getWidth();
+        this.heightScreen = Gdx.graphics.getHeight();
+        this.gameData.setDisplayHeight(this.heightScreen);
+        this.gameData.setDisplayWidth(this.widthScreen);
+        this.camera = new OrthographicCamera();
+        this.camera.setToOrtho(false, widthScreen, heightScreen);
+        this.box2DDebugRenderer = new Box2DDebugRenderer();
+
+        mapService.createMap();
+        for (   IGamePluginService gamePluginService : gamePluginList) {
+            gamePluginService.start(gameData, world);
+        }
+
+        for(Entity entity : world.getEntities()) {
+            SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
+            sl.createSprite();
+        }
 //        setScreen(new GameScreen(camera));
-	}
-	
-	@Override
-	public void render()
-	{
+    }
+
+    @Override
+    public void render() {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        //orthogonalTiledMapRenderer.setView(camera);
+        //orthogonalTiledMapRenderer.render();
         update();
-        
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		//orthogonalTiledMapRenderer.setView(camera);
-		//orthogonalTiledMapRenderer.render();
-  
-	}
-	
-	@Override
-	public void resize(int width, int height)
-	{
-		camera.viewportWidth = width;
-		camera.viewportHeight = height;
-		camera.update();
-	}
-	
-	@Override
-	public void pause()
-	{
-	
-	}
-	
-	@Override
-	public void resume()
-	{
-	
-	}
-	
-	@Override
-	public void dispose()
-	{
-	
-	}
-	
-	private void update()
-	{
-		// always draw the map first with the camera because components are renders synchronously.
-		if (mapService != null)
-		{
-			mapService.updateMap(camera);
-		}
-		
-		
-		// Update
-		for (IEntityProcessingService entityProcessorService : entityProcessorList)
-		{
-			entityProcessorService.process(gameData, world);
-		}
-		
-		// Post Update
-		for (IPostEntityProcessingService postEntityProcessorService : postEntityProcessorList)
-		{
-			postEntityProcessorService.process(gameData, world);
-		}
-		for (Entity entity : world.getEntities())
-		{
-			//sl.process(gameData, new Entity());
-			SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
-			sl.process(gameData, entity);
-		}
-	}
-	
-	public void addEntityProcessingService(IEntityProcessingService eps)
-	{
-		entityProcessorList.add(eps);
-	}
-	
-	public void removeEntityProcessingService(IEntityProcessingService eps)
-	{
-		entityProcessorList.remove(eps);
-	}
-	
-	public void addPostEntityProcessingService(IPostEntityProcessingService eps)
-	{
-		postEntityProcessorList.add(eps);
-	}
-	
-	public void removePostEntityProcessingService(IPostEntityProcessingService eps)
-	{
-		postEntityProcessorList.remove(eps);
-	}
-	
-	public void addGamePluginService(IGamePluginService plugin)
-	{
-		gamePluginList.add(plugin);
-	}
-	
-	public void removeGamePluginService(IGamePluginService plugin)
-	{
-		gamePluginList.remove(plugin);
-		plugin.stop(gameData, world);
-	}
-	
-	public void addMapService(IMapService map)
-	{
-		mapService = map;
-	}
-	
-	public void removeMapService(IMapService map)
-	{
-		mapService = null;
-	}
-	
-	public void addUIService(IOverlayService overlay)
-	{
-		overlayService = overlay;
-	}
-	
-	public void removeUIService(IOverlayService overlay)
-	{
-		overlayService = null;
-	}
-	
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
+        camera.update();
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+
+    private void update() {
+        // always draw the map first with the camera because components are renders synchronously.
+        if(mapService != null) {
+        mapService.updateMap(camera);
+        }
+
+        // Update
+        for (IEntityProcessingService entityProcessorService : entityProcessorList) {
+            entityProcessorService.process(gameData, world);
+        }
+
+        // Post Update
+        for (IPostEntityProcessingService postEntityProcessorService : postEntityProcessorList) {
+            postEntityProcessorService.process(gameData, world);
+        }
+        for(Entity entity : world.getEntities()) {
+            //sl.process(gameData, new Entity());
+            SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
+            sl.process(gameData, entity);
+       }
+    }
+
+    public void addEntityProcessingService(IEntityProcessingService eps) {
+        entityProcessorList.add(eps);
+    }
+
+    public void removeEntityProcessingService(IEntityProcessingService eps) {
+        entityProcessorList.remove(eps);
+    }
+
+    public void addPostEntityProcessingService(IPostEntityProcessingService eps) {
+        postEntityProcessorList.add(eps);
+    }
+
+    public void removePostEntityProcessingService(IPostEntityProcessingService eps) {
+        postEntityProcessorList.remove(eps);
+    }
+
+    public void addGamePluginService(IGamePluginService plugin) {
+        gamePluginList.add(plugin);
+    }
+
+    public void removeGamePluginService(IGamePluginService plugin) {
+        gamePluginList.remove(plugin);
+        plugin.stop(gameData, world);
+    }
+
+    public void addMapService(IMapService map) {
+        mapService = map;
+    }
+
+    public void removeMapService(IMapService map) {
+        mapService = null;
+    }
+
+    public void addUIService(IOverlayService overlay) {
+        overlayService  = overlay;
+    }
+
+    public void removeUIService(IOverlayService overlay) {
+        overlayService = null;
+    }
+
 }
