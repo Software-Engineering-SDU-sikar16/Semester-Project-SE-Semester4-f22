@@ -231,8 +231,12 @@ public class TileMapHelper
 	public Tile GetNextEnemyPathTileFromCurrentTileAt(float x, float y)
 	{
 		Tile currentTile = EnemyPath.get(new Vector2(x, y));
+		if (currentTile == null)
+		{
+			 currentTile = Start;
+		}
 		
-		if (Constants.GameMapPath.getCount() - 1 >= currentTile.index + 1)
+		if ( Constants.GameMapPath.getCount() - 1 >= currentTile.index + 1)
 		{
 			Tile nextTile = Constants.GameMapPath.get(currentTile.index + 1);
 			return nextTile;
@@ -241,7 +245,6 @@ public class TileMapHelper
 		{
 			return null;
 		}
-		
 	}
 	
 	

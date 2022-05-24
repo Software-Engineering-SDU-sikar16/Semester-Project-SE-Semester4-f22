@@ -1,24 +1,22 @@
 package Screens;
 
+import Algorithms.EnemyQuadTree;
 import Entities.Entity;
+import GamePlay.Bullet;
 import GamePlay.EnemyEntity;
 import GamePlay.Turret;
-import Map.Tile;
-import Map.TilePath;
+import GamePlay.WaveManager;
 import Overlays.Overlay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.MyGdxGame;
 import helper.Constants;
-import helper.MouseOperator;
 import helper.TileMapHelper;
 import objects.player.Enemy;
 
@@ -43,10 +41,17 @@ public class GameScreen extends ScreenAdapter
 		
 		Constants.TileMapHelper = new TileMapHelper(this);
 		this.orthogonalTiledMapRenderer = Constants.TileMapHelper.setupMap();
+		
+		Constants.EnemyQuadTree = new EnemyQuadTree();
+		Constants.WaveManager = new WaveManager();
+		
 	}
 	
 	private void update()
 	{
+		
+		Constants.WaveManager.OnUpdate();
+		
 		
 		if (!Constants.IsPauseScreenVisible)
 		{
@@ -71,20 +76,50 @@ public class GameScreen extends ScreenAdapter
 		
 		Turret.TryBuildTurret();
 		
+		
+		// update turrets
 		for (Turret turret : Turret.Turrets)
 		{
 			for (EnemyEntity enemy : EnemyManager.enemiesOnScreen)
 			{
+				if (enemy.IsDead())
+				{
+					continue;
+				}
 				if (turret.circle.contains(enemy.getX(), enemy.getY()))
 				{
 					turret.EnemyIsClose(enemy);
-				} else {
+				}
+				else
+				{
 					turret.EnemyIsClose(null);
-
+					
 				}
 			}
 		}
 		
+		
+		
+		Constants.EnemyQuadTree.OnUpdate();
+		
+		// update bullets
+		//loop through all our active bullets
+		for (Bullet bullet : Constants.ActiveBullets)
+		{
+			bullet.OnUpdate(); // update bullet
+		}
+		
+		// loop through bullets again
+		for (Bullet bullet : Constants.ActiveBullets)
+		{
+			Vector2 bulletPos = bullet.getPosition();
+			if (bulletPos.x > Constants.GlobalWidth || bulletPos.x < -50 || bulletPos.y < -50 || bulletPos.y > Constants.GlobalHeight)
+			{
+				// bullet is off screen so free it and then remove it
+				Constants.BulletPool.free(bullet); // place back in pool
+				Constants.ActiveBullets.removeValue(bullet, true); // remove bullet from our array so we don't render it anymore
+			}
+		}
 	}
 	
 	private void cameraUpdate(int width, int height)
@@ -133,6 +168,19 @@ public class GameScreen extends ScreenAdapter
 		Entity.RenderAllEntities();
 		
 		Overlay.RenderAllOverlays();
+		
+		// render bullets
+		
+		
+		// update bullets
+		//loop through all our active bullets
+		for (Bullet bullet : Constants.ActiveBullets)
+		{
+			bullet.OnRender(); // update bullet
+		}
+		
+		
+		//Constants.EnemyQuadTree.OnRender();
 		
 		
 		Constants.Stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));

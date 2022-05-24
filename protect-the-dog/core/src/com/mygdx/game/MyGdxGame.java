@@ -17,7 +17,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.brashmonkey.spriter.Player;
 import helper.Constants;
 import helper.CustomCursorDrawer;
 import helper.Resources;
@@ -76,10 +75,7 @@ public class MyGdxGame extends Game
 		Constants.batch = new SpriteBatch();
 		Constants.font = new BitmapFont();
 		
-		
-		
-		Constants.EnemyManager.SpawnEnemy();
-		
+
 	}
 	
 	public static Table table;

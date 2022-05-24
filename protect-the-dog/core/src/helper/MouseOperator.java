@@ -66,7 +66,7 @@ public class MouseOperator
 	{
 		int mx = Gdx.input.getX();
 		int my = Gdx.input.getY();
-		return MousePosition.set(mx, my);
+		return MousePosition.set(mx, Constants.Camera.viewportHeight - my);
 	}
 	
 	public static Vector2 GetMouseWorldPosition()

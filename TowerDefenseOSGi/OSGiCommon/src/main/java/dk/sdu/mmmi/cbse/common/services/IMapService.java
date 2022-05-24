@@ -6,5 +6,4 @@ public interface IMapService {
     public void createMap();
     public void updateMap(OrthographicCamera camera);
 
-
 }

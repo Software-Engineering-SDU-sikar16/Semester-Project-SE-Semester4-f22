@@ -7,11 +7,11 @@ import com.badlogic.gdx.utils.Array;
 
 public abstract class Entity extends Sprite implements IEntity
 {
-	public static Array<Entity> Entities = new Array<Entity>(); // Data Oriented Programming!
+	public static Array<Entity> Entities = new Array<Entity>();
 	public static EntityComparator EntityComparator = new EntityComparator(); // for z sorting
 	
 	private int ZIndex = 0; // Z Sorting of the sprite [-100, ..., 0, ..., +100]. default 0. => All entities are sorted each frame before being drawn.
-	private boolean Enabled = false;
+	private boolean Enabled = true;
 	
 	public void SetEnabled(boolean value)
 	{
@@ -44,11 +44,22 @@ public abstract class Entity extends Sprite implements IEntity
 		ZIndex = other.GetZIndex() + 1;
 	}
 	
+	
+	@Override
+	public void setPosition(float x, float y)
+	{
+		super.setPosition(x, y);
+	}
+	
 	public void setPosition(Vector2 pos)
 	{
 		setPosition(pos.x, pos.y);
 	}
 	
+	public Vector2 getPosition()
+	{
+		return new Vector2(getX(), getY());
+	}
 	
 	public Entity()
 	{
@@ -56,19 +67,13 @@ public abstract class Entity extends Sprite implements IEntity
 		Enabled = true;
 	}
 	
-	
-	public void OnRenderInternal()
+	public Entity(int x, int y, int width, int height)
 	{
+		super();
+		setPosition(x, y);
+		setSize(width, height);
 	}
 	
-	public void OnCreateInternal()
-	{
-		Enabled = true;
-	}
-	
-	public void OnUpdateInternal()
-	{
-	}
 	
 	public static void RenderAllEntities()
 	{
@@ -81,7 +86,6 @@ public abstract class Entity extends Sprite implements IEntity
 			{
 				continue;
 			}
-			entity.OnRenderInternal();
 			entity.OnRender();
 		}
 	}
@@ -91,7 +95,6 @@ public abstract class Entity extends Sprite implements IEntity
 		//Create Entities
 		for (Entity entity : Entities)
 		{
-			entity.OnCreateInternal();
 			entity.OnCreate();
 		}
 	}
@@ -104,7 +107,6 @@ public abstract class Entity extends Sprite implements IEntity
 			{
 				continue;
 			}
-			entity.OnUpdateInternal();
 			entity.OnUpdate(Gdx.graphics.getDeltaTime());
 		}
 	}
