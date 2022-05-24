@@ -33,7 +33,7 @@ public class Turret extends AnimatedSprite
 	public float TurretShootSpeedInSeconds = 1.5f; // lower numbers are faster
 	float timeSinceLastBullet = 0;
 	
-	public static int TurretPriceInCoins = 1000;
+	public static int TurretPriceInCoins = 500;
 	
 	
 	public Circle circle; // this circle is for checking whether the enemy is getting close to the turret.
