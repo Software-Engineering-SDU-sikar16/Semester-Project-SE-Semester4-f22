@@ -128,18 +128,19 @@ public class EnemyEntity extends AnimatedSprite
 		
 	}
 	
+	
 	public void GotHit(Bullet bullet)
 	{
 		health.SubstractHealth();
 		if (health.IsDead())
 		{
 			health.SetEnabled(false);
-			setPosition(0,0);
+			setPosition(new Vector2(-50, -50));
 			//play coin sound.
 			// add coins
 			// remove entity from screen.
 			Constants.Coins += 50;
-			this.rotate(90);
+			this.SetEnabled(false);
 		}
 	}
 	

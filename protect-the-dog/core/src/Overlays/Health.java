@@ -123,7 +123,7 @@ public class Health extends Entity
 		for (int i = healthCounter; i < hearts.length; i++)
 		{
 			hearts[i].setTexture(HeartTextureNull);
-			hearts[i].setSize(HeartTextureNull.getWidth() * 1.7f, HeartTextureNull.getHeight() * 1.7f);
+			//hearts[i].setSize(HeartTextureNull.getWidth() * 1.7f, HeartTextureNull.getHeight() * 1.7f);
 		}
 	}
 	
@@ -136,7 +136,7 @@ public class Health extends Entity
 		{
 			hearts[i].setTexture(HeartTexture);
 			hearts[i].setTexture(HeartTexture);
-			hearts[i].setSize(HeartTexture.getWidth() * 1.6f, HeartTexture.getHeight() * 1.6f);
+		//hearts[i].setSize(HeartTexture.getWidth() * 1.6f, HeartTexture.getHeight() * 1.6f);
 		}
 	}
 	

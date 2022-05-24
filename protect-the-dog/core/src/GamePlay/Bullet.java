@@ -1,10 +1,8 @@
 package GamePlay;
 
 import Entities.AnimatedSprite;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -85,10 +83,10 @@ public class Bullet extends AnimatedSprite implements Pool.Poolable
 	{
 		super.OnRender();
 		
-		Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+	/*	Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 		Constants.shapeRenderer.setColor(Color.WHITE);
 		Constants.shapeRenderer.rect(rect.x, rect.y, rect.width, rect.height);
-		Constants.shapeRenderer.end();
+		Constants.shapeRenderer.end();*/
 		
 	}
 	

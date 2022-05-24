@@ -9,6 +9,7 @@ import GamePlay.WaveManager;
 import Overlays.Overlay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -16,11 +17,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import helper.Constants;
+import helper.DrawUtil;
+import helper.MouseOperator;
 import helper.TileMapHelper;
 import objects.player.Enemy;
 
-import static helper.Constants.EnemyManager;
 import static helper.Constants.PPM;
 
 public class GameScreen extends ScreenAdapter
@@ -80,24 +83,17 @@ public class GameScreen extends ScreenAdapter
 		// update turrets
 		for (Turret turret : Turret.Turrets)
 		{
-			for (EnemyEntity enemy : EnemyManager.enemiesOnScreen)
+			//use quad tree for better performance.
+			Array<EnemyEntity> hitEntities = Constants.EnemyQuadTree.Query(turret.hitRect);
+			for (EnemyEntity enemy : hitEntities)
 			{
 				if (enemy.IsDead())
 				{
 					continue;
 				}
-				if (turret.circle.contains(enemy.getX(), enemy.getY()))
-				{
-					turret.EnemyIsClose(enemy);
-				}
-				else
-				{
-					turret.EnemyIsClose(null);
-					
-				}
+				turret.EnemyIsClose(enemy);
 			}
 		}
-		
 		
 		
 		Constants.EnemyQuadTree.OnUpdate();
@@ -120,6 +116,8 @@ public class GameScreen extends ScreenAdapter
 				Constants.ActiveBullets.removeValue(bullet, true); // remove bullet from our array so we don't render it anymore
 			}
 		}
+		
+	
 	}
 	
 	private void cameraUpdate(int width, int height)
@@ -182,6 +180,19 @@ public class GameScreen extends ScreenAdapter
 		
 		//Constants.EnemyQuadTree.OnRender();
 		
+		
+		
+		Vector2 mousePosition = MouseOperator.GetMouseWorldPosition();
+		Constants.batch.begin();
+		if (Constants.Coins < Turret.TurretPriceInCoins)
+		{
+			DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFont, "" + Turret.TurretPriceInCoins, mousePosition.x + 20, mousePosition.y - 5, new Color(1.0f, 0.2f, 0.2f, 1.0f));
+		}
+		else
+		{
+			DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFont, "" + Turret.TurretPriceInCoins, mousePosition.x + 20, mousePosition.y - 5, new Color(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		Constants.batch.end();
 		
 		Constants.Stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
 		Constants.Stage.draw();

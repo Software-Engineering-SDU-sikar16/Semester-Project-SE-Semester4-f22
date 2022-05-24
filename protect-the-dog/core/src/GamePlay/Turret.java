@@ -31,6 +31,7 @@ public class Turret extends AnimatedSprite
 	public boolean IsShooting = false;
 	public Vector2 EnemyPosition;
 	public float TurretShootSpeedInSeconds = 1.5f; // lower numbers are faster
+	public Rectangle hitRect;
 	float timeSinceLastBullet = 0;
 	
 	public static int TurretPriceInCoins = 500;
@@ -52,8 +53,14 @@ public class Turret extends AnimatedSprite
 		
 		setSize(width, height);
 		
-		circle = new Circle(x, y, 150);
+		float radius = 100;
+		circle = new Circle(getEntityX(), getEntityY(), radius);
 		rect = new Rectangle(x, y, width, height);
+		
+		float radiusTimesTwoCircumfrence = 2 * radius;
+		float radiusSquared = radiusTimesTwoCircumfrence * radiusTimesTwoCircumfrence;
+		float rectCircleSize = (float) Math.sqrt(radiusSquared);
+		hitRect = new Rectangle(getEntityX() - rectCircleSize / 2, getEntityY() - rectCircleSize / 2, rectCircleSize, rectCircleSize);
 		
 		
 		setTexture(turret1);
@@ -78,12 +85,15 @@ public class Turret extends AnimatedSprite
 	{
 		super.OnUpdate(DeltaTime);
 		
-		if (TargetEnemy == null || TargetEnemy.IsDead()) return;
+		if (TargetEnemy == null || TargetEnemy.IsDead())
+		{
+			return;
+		}
 		
 		if (IsShooting)
 		{
 			timeSinceLastBullet += Gdx.graphics.getDeltaTime();
-			if (timeSinceLastBullet > TurretShootSpeedInSeconds)
+			if (timeSinceLastBullet > TurretShootSpeedInSeconds + (random.nextInt(500) * 0.001f))
 			{
 				SpawnBullet();
 				timeSinceLastBullet = 0;
@@ -103,15 +113,23 @@ public class Turret extends AnimatedSprite
 		super.OnRender();
 		
 		
-		Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-		if (IsShooting)
-		{
-			Constants.shapeRenderer.setColor(0.0f, 1.0f, 0.0f, 1);
-		} else {
-			Constants.shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1);
-		}
-		Constants.shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
-		Constants.shapeRenderer.end();
+/*		{
+			Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+			if (IsShooting)
+			{
+				Constants.shapeRenderer.setColor(0.0f, 1.0f, 0.0f, 1);
+			}
+			else
+			{
+				Constants.shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1);
+			}
+			Constants.shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
+			Constants.shapeRenderer.setColor(1.0f, 0.0f, 1.0f, 1);
+			Constants.shapeRenderer.rect(hitRect.x, hitRect.y, hitRect.width, hitRect.height);
+			Constants.shapeRenderer.end();
+		}*/
+
+
 		
 	/*	Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 		Constants.shapeRenderer.setColor(1.0f, 1.0f, 1.0f, 1);
@@ -123,7 +141,12 @@ public class Turret extends AnimatedSprite
 		{
 			Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 			Constants.shapeRenderer.setColor(1.0f, 1.0f, 1.0f, 1);
-			Constants.shapeRenderer.circle(getEntityX(), getEntityY(), 150);
+			if (IsShooting)
+			{
+				Constants.shapeRenderer.setColor(0.0f, 1.0f, 0.0f, 1);
+			}
+			Constants.shapeRenderer.circle(circle.x, circle.y, circle.radius);
+			Constants.shapeRenderer.setColor(1.0f, 1.0f, 1.0f, 1);
 			Constants.shapeRenderer.end();
 		}
 		
@@ -136,6 +159,7 @@ public class Turret extends AnimatedSprite
 		
 		Constants.MouseTileSelector.setPosition(TilePos.x, TilePos.y);
 		Constants.MouseTileSelector.setSize(Constants.TileMapHelper.TilePixelWidth, Constants.TileMapHelper.TilePixelHeight);
+		
 		
 		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && !Constants.IsBuildingTurret)
 		{
