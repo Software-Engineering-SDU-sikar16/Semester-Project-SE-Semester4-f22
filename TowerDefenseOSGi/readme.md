@@ -4,11 +4,10 @@
 - Choose maven and give it a name
 - Choose the project directory
 - Write `install pax:provision` in the command line parameter
-<<<<<<< Updated upstream:TowerDefenseOSGi/readme.txt
 - Now ya gucci to run
 
 
-##Tilføj nyt component-tutorial:
+## Tilføj nyt component-tutorial:
 
 Copy pasta et component som virker (Map er en god en)
 Rename folders og filer
@@ -16,6 +15,4 @@ Rename pom.xml
 Tilføj module til ydre pom
 Ændre Meta-inf.xml
 tiløj service-components to core.xml
-=======
-- Now ya gucci to run
->>>>>>> Stashed changes:TowerDefenseOSGi/readme.md
+

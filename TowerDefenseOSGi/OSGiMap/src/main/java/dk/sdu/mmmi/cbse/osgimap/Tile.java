@@ -1,6 +1,5 @@
 package dk.sdu.mmmi.cbse.osgimap;
 
-import com.badlogic.gdx.ai.pfa.indexed.IndexedNode;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
