@@ -1,28 +1,29 @@
 package Screens;
 
+import Algorithms.EnemyQuadTree;
 import Entities.Entity;
+import GamePlay.Bullet;
 import GamePlay.EnemyEntity;
 import GamePlay.Turret;
-import Map.Tile;
-import Map.TilePath;
+import GamePlay.WaveManager;
 import Overlays.Overlay;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.MyGdxGame;
+import com.badlogic.gdx.utils.Array;
 import helper.Constants;
+import helper.DrawUtil;
 import helper.MouseOperator;
 import helper.TileMapHelper;
 import objects.player.Enemy;
 
-import static helper.Constants.EnemyManager;
 import static helper.Constants.PPM;
 
 public class GameScreen extends ScreenAdapter
@@ -43,10 +44,17 @@ public class GameScreen extends ScreenAdapter
 		
 		Constants.TileMapHelper = new TileMapHelper(this);
 		this.orthogonalTiledMapRenderer = Constants.TileMapHelper.setupMap();
+		
+		Constants.EnemyQuadTree = new EnemyQuadTree();
+		Constants.WaveManager = new WaveManager();
+		
 	}
 	
 	private void update()
 	{
+		
+		Constants.WaveManager.OnUpdate();
+		
 		
 		if (!Constants.IsPauseScreenVisible)
 		{
@@ -71,20 +79,45 @@ public class GameScreen extends ScreenAdapter
 		
 		Turret.TryBuildTurret();
 		
+		
+		// update turrets
 		for (Turret turret : Turret.Turrets)
 		{
-			for (EnemyEntity enemy : EnemyManager.enemiesOnScreen)
+			//use quad tree for better performance.
+			Array<EnemyEntity> hitEntities = Constants.EnemyQuadTree.Query(turret.hitRect);
+			for (EnemyEntity enemy : hitEntities)
 			{
-				if (turret.circle.contains(enemy.getX(), enemy.getY()))
+				if (enemy.IsDead())
 				{
-					turret.EnemyIsClose(enemy);
-				} else {
-					turret.EnemyIsClose(null);
-
+					continue;
 				}
+				turret.EnemyIsClose(enemy);
 			}
 		}
 		
+		
+		Constants.EnemyQuadTree.OnUpdate();
+		
+		// update bullets
+		//loop through all our active bullets
+		for (Bullet bullet : Constants.ActiveBullets)
+		{
+			bullet.OnUpdate(); // update bullet
+		}
+		
+		// loop through bullets again
+		for (Bullet bullet : Constants.ActiveBullets)
+		{
+			Vector2 bulletPos = bullet.getPosition();
+			if (bulletPos.x > Constants.GlobalWidth || bulletPos.x < -50 || bulletPos.y < -50 || bulletPos.y > Constants.GlobalHeight)
+			{
+				// bullet is off screen so free it and then remove it
+				Constants.BulletPool.free(bullet); // place back in pool
+				Constants.ActiveBullets.removeValue(bullet, true); // remove bullet from our array so we don't render it anymore
+			}
+		}
+		
+	
 	}
 	
 	private void cameraUpdate(int width, int height)
@@ -134,6 +167,32 @@ public class GameScreen extends ScreenAdapter
 		
 		Overlay.RenderAllOverlays();
 		
+		// render bullets
+		
+		
+		// update bullets
+		//loop through all our active bullets
+		for (Bullet bullet : Constants.ActiveBullets)
+		{
+			bullet.OnRender(); // update bullet
+		}
+		
+		
+		//Constants.EnemyQuadTree.OnRender();
+		
+		
+		
+		Vector2 mousePosition = MouseOperator.GetMouseWorldPosition();
+		Constants.batch.begin();
+		if (Constants.Coins < Turret.TurretPriceInCoins)
+		{
+			DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFont, "" + Turret.TurretPriceInCoins, mousePosition.x + 20, mousePosition.y - 5, new Color(1.0f, 0.2f, 0.2f, 1.0f));
+		}
+		else
+		{
+			DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFont, "" + Turret.TurretPriceInCoins, mousePosition.x + 20, mousePosition.y - 5, new Color(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		Constants.batch.end();
 		
 		Constants.Stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
 		Constants.Stage.draw();
