@@ -22,64 +22,43 @@ import helper.Constants;
 import helper.DrawUtil;
 import helper.MouseOperator;
 import helper.TileMapHelper;
-import objects.player.Enemy;
+//import objects.player.Enemy;
 
 import static helper.Constants.PPM;
 
 public class GameScreen extends ScreenAdapter
 {
 	private SpriteBatch batch;
-	
 	private Box2DDebugRenderer box2DDebugRenderer;
-	
 	private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-	
-	private Enemy enemy;
 	
 	public GameScreen()
 	{
 		this.batch = new SpriteBatch();
 		Constants.World = new World(new Vector2(0, 0), false); //gravity is -9.81f in y direction
 		this.box2DDebugRenderer = new Box2DDebugRenderer();
-		
 		Constants.TileMapHelper = new TileMapHelper(this);
 		this.orthogonalTiledMapRenderer = Constants.TileMapHelper.setupMap();
-		
 		Constants.EnemyQuadTree = new EnemyQuadTree();
 		Constants.WaveManager = new WaveManager();
-		
 	}
 	
 	private void update()
 	{
-		
 		Constants.WaveManager.OnUpdate();
-		
-		
 		if (!Constants.IsPauseScreenVisible)
 		{
 			Constants.World.step(1 / 60f, 6, 2);
-			
 			//	cameraUpdate(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-			
 			Constants.Camera.update();
-			
 			batch.setProjectionMatrix(Constants.Camera.combined);
 			orthogonalTiledMapRenderer.setView(Constants.Camera);
-			enemy.update();
-			
 		}
 		
 		Constants.EnemyManager.SteerEnemies();
-		
 		Entity.UpdateAllEntities();
-		
 		Overlay.UpdateAllOverlays();
-		
-		
 		Turret.TryBuildTurret();
-		
-		
 		// update turrets
 		for (Turret turret : Turret.Turrets)
 		{
@@ -123,17 +102,12 @@ public class GameScreen extends ScreenAdapter
 	private void cameraUpdate(int width, int height)
 	{
 		Vector3 position = Constants.Camera.position;
-		position.x = Math.round(enemy.getBody().getPosition().x * PPM * 10) / 10f;
-		position.y = Math.round(enemy.getBody().getPosition().y * PPM * 10) / 10f;
-		
 		Constants.Camera.viewportHeight = height;
 		Constants.Camera.viewportWidth = width;
 		// camera.position.set(position);
-		
 		Constants.Camera.position.set(width / 2f, height / 2f, 0); //by default camera position on (0,0,0)
 		//camera.position.set(new Vector3(0, 0, 0));
 		Constants.Camera.update();
-		
 	}
 	
 	
@@ -151,9 +125,8 @@ public class GameScreen extends ScreenAdapter
 		
 		batch.begin();
 		// render objects
-		this.enemy.getSprite().draw(batch);
-		;
-		this.enemy.getSprite().translate(20, 20);
+//		this.enemy.getSprite().draw(batch);
+//		this.enemy.getSprite().translate(20, 20);
 		
 		
 		batch.end();
@@ -203,8 +176,8 @@ public class GameScreen extends ScreenAdapter
 		return Constants.World;
 	}
 	
-	public void setEnemy(Enemy enemy)
-	{
-		this.enemy = enemy;
-	}
+//	public void setEnemy(Enemy enemy)
+//	{
+//		this.enemy = enemy;
+//	}
 }

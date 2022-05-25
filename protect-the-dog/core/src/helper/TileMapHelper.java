@@ -54,18 +54,14 @@ public class TileMapHelper
 	{
 		String TilemapPath = "maps/map1.tmx";
 		tiledMap = new TmxMapLoader().load("maps/map1.tmx");
-//		parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
-		
+		parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
 		TiledMapTileLayer tileid = (TiledMapTileLayer) tiledMap.getLayers().get(0);
-		
 		TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-		
-		System.out.print(tileid.getCell(0, 0).getTile().getObjects().toString());
-		
-		
+
+//		System.out.print(tileid.getCell(0, 0).getTile().getObjects().toString());
+//		System.out.println();
+
 		MapProperties prop = tiledMap.getProperties();
-		
-		System.out.println();
 		MapWidth = prop.get("width", Integer.class);
 		MapHeight = prop.get("height", Integer.class);
 		TilePixelWidth = prop.get("tilewidth", Integer.class);
@@ -73,14 +69,11 @@ public class TileMapHelper
 		
 		MapPixelWidth = MapWidth * TilePixelWidth;
 		MapPixelHeight = MapHeight * TilePixelHeight;
-		
-		
+
 		System.out.println("Loaded TileMap " + TilemapPath + "\nMapWidth: " + MapWidth + "\nMapHeight: " + MapHeight + "\nTilePixelWidth: " + TilePixelWidth + "\nTilePixelHeight: " + TilePixelHeight + "\nMapPixelWidth: " + MapPixelWidth + "\nMapPixelHeight: " + MapPixelHeight);
 		
 		CalculateGraph();
-		
 		BuildHashmapOfBuildableAreas();
-		
 		return new OrthogonalTiledMapRenderer(tiledMap);
 	}
 	
@@ -100,7 +93,6 @@ public class TileMapHelper
 				int y = (int) rectangle.getY();
 				
 				Tile graphTile = new Tile(x, y, rectangleMapObject.getName());
-				
 				BuildableTiles.put(new Vector2(x, y), graphTile);
 			}
 		}
@@ -109,11 +101,8 @@ public class TileMapHelper
 	public void CalculateGraph()
 	{
 		Constants.GameMapGraph = new GameMapGraph();
-		
 		Tile PreviousTile = null;
-		
 		MapLayer layer = tiledMap.getLayers().get("PathLayer");
-		
 		MapObjects mapObjects = layer.getObjects();
 		
 		for (MapObject mapObject : mapObjects)
@@ -149,7 +138,6 @@ public class TileMapHelper
 		End = PreviousTile;
 		EnemyPath.put(new Vector2(End.x, End.y), End);
 		Constants.GameMapPath = Constants.GameMapGraph.FindPath(Start, End);
-		
 	}
 	
 	private void parseMapObjects(MapObjects mapObjects)
@@ -160,15 +148,11 @@ public class TileMapHelper
 			{
 				createStaticBody((PolygonMapObject) mapObject);
 			}
-			
-			
 			if (mapObject instanceof RectangleMapObject)
 			{
 				Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();
 				String rectangleName = mapObject.getName();
-				
 				boolean findEnemy = rectangleName.equals("enemy");
-				
 				if (findEnemy)
 				{
 					Body body = BodyHelperService.createBody(
@@ -178,13 +162,9 @@ public class TileMapHelper
 							rectangle.getHeight(),
 							false,
 							gameScreen.getWorld());
-					gameScreen.setEnemy(new Enemy(rectangle.getWidth(), rectangle.getHeight(), body));
 				}
-				
 			}
-			
 		}
-		
 	}
 	
 	private void createStaticBody(PolygonMapObject polygonMapObject)
