@@ -46,15 +46,7 @@ public class EnemyManager
 		int randomSheetIndex = EnemyRandomNumberGenerator.nextInt(23 - 1);
 		
 		EnemyEntity enemy = new EnemyEntity(EnemiesSpawnPosition.x, EnemiesSpawnPosition.y, 24, 24, Type);
-
-		System.out.println(randomSheetIndex);
-
-		String randomSheetIndexToString = Integer.toString(randomSheetIndex);
-
-
-
-		//enemy.AddAnimation("default", Resources.LoadTexture("entities/enemies/sheet_0.png"), 1, 4, 12, Animation.PlayMode.NORMAL);
-		enemy.AddAnimation("default", Resources.LoadTexture("entities/enemies/sheet_" + randomSheetIndexToString + ".png"), 1, 4, 12, Animation.PlayMode.NORMAL);
+		enemy.AddAnimation("default", Resources.LoadTexture("entities/enemies/sheet_" + randomSheetIndex + ".png"), 1, 4, 12, Animation.PlayMode.NORMAL);
 
 		// enemies are already loaded and created, all we have to do is to move the enemies in the correct place.
 		//EnemyEntity enemy = Enemies.get(EnemyRandomNumberGenerator.nextInt(23 - 1));
