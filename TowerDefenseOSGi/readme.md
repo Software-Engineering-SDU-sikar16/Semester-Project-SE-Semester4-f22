@@ -7,12 +7,12 @@
 - Now ya gucci to run
 
 
-## Tilføj nyt component-tutorial:
+## How to add a new a component:
 
-Copy pasta et component som virker (Map er en god en)
-Rename folders og filer
-Rename pom.xml
-Tilføj module til ydre pom
-Ændre Meta-inf.xml
-tiløj service-components to core.xml
+- Copy pasta an existing component (enemy or map)
+- Rename folders and filer
+- Rename `pom.xml`
+- Add the module name to projects `pom.xml`
+- Fix Meta-inf.xml files if needed
+- Add service-components to `core/src/main/resources/meta-inf/core.xml`
 
