@@ -3,11 +3,9 @@ package Entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.esotericsoftware.spine.*;
+import com.esotericsoftware.spine.AnimationState;
 import helper.Constants;
 
 import java.util.HashMap;
@@ -41,30 +39,10 @@ public class AnimatedSprite extends Entity
 		setPosition(x, y);
 	}
 	
-	public AnimatedSprite(Vector2 Pos, int width, int height)
-	{
-		setSize(width, height);
-		setPosition(Pos.x, Pos.y);
-	}
-	
-	public AnimatedSprite(Texture texture)
-	{
-		setSize(texture.getWidth(), texture.getHeight());
-		setTexture(texture);
-		setPosition(0, 0);
-	}
-	
 	
 	public AnimatedSprite(Texture texture, float x, float y, int width, int height)
 	{
 		setSize(width, height);
-		setPosition(x, y);
-		setTexture(texture);
-	}
-	
-	public AnimatedSprite(Texture texture, float x, float y)
-	{
-		setSize(texture.getWidth(), texture.getHeight());
 		setPosition(x, y);
 		setTexture(texture);
 	}
@@ -133,6 +111,11 @@ public class AnimatedSprite extends Entity
 		return getX() + (getWidth() / 2);
 	}
 	
+	public Vector2 getCenteredPosition()
+	{
+		return new Vector2(getEntityX(), getEntityY());
+	}
+	
 	
 	@Override
 	public void OnCreate()
@@ -143,6 +126,8 @@ public class AnimatedSprite extends Entity
 	@Override
 	public void OnRender()
 	{
+		if (!this.IsEnabled()) return;
+		
 		if (currentAnimation == null && getTexture() == null) // end early
 		{
 			return;
@@ -167,6 +152,7 @@ public class AnimatedSprite extends Entity
 	@Override
 	public void OnUpdate(float DeltaTime)
 	{
+		if (!this.IsEnabled()) return;
 	}
 	
 	

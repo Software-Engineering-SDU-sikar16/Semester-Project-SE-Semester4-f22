@@ -54,7 +54,7 @@ public class TileMapHelper
 	{
 		String TilemapPath = "maps/map1.tmx";
 		tiledMap = new TmxMapLoader().load("maps/map1.tmx");
-		parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
+//		parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
 		
 		TiledMapTileLayer tileid = (TiledMapTileLayer) tiledMap.getLayers().get(0);
 		
@@ -109,11 +109,8 @@ public class TileMapHelper
 	public void CalculateGraph()
 	{
 		Constants.GameMapGraph = new GameMapGraph();
-		
 		Tile PreviousTile = null;
-		
 		MapLayer layer = tiledMap.getLayers().get("PathLayer");
-		
 		MapObjects mapObjects = layer.getObjects();
 		
 		for (MapObject mapObject : mapObjects)
@@ -160,7 +157,6 @@ public class TileMapHelper
 			{
 				createStaticBody((PolygonMapObject) mapObject);
 			}
-			
 			
 			if (mapObject instanceof RectangleMapObject)
 			{
@@ -231,8 +227,12 @@ public class TileMapHelper
 	public Tile GetNextEnemyPathTileFromCurrentTileAt(float x, float y)
 	{
 		Tile currentTile = EnemyPath.get(new Vector2(x, y));
+		if (currentTile == null)
+		{
+			 currentTile = Start;
+		}
 		
-		if (Constants.GameMapPath.getCount() - 1 >= currentTile.index + 1)
+		if ( Constants.GameMapPath.getCount() - 1 >= currentTile.index + 1)
 		{
 			Tile nextTile = Constants.GameMapPath.get(currentTile.index + 1);
 			return nextTile;
@@ -241,7 +241,6 @@ public class TileMapHelper
 		{
 			return null;
 		}
-		
 	}
 	
 	

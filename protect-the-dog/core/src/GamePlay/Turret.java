@@ -1,76 +1,67 @@
 package GamePlay;
 
 import Entities.AnimatedSprite;
-import Overlays.GameUIOverlay;
-import Overlays.Overlay;
+import Map.Tile;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
-import helper.BodyHelperService;
 import helper.Constants;
 import helper.MouseOperator;
 import helper.Resources;
 
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 public class Turret extends AnimatedSprite
 {
+	
 	public static Array<Turret> Turrets = new Array<Turret>();
+	
+	public static Array<AnimatedSprite> bullets = new Array<AnimatedSprite>(100); // global list of bullets //make a bullet service?
 	public static HashMap<Vector2, Turret> turretPositions = new HashMap<Vector2, Turret>();
 	public static Random random = new Random();
 	
-	public AnimatedSprite sprite;
-	public Body body;
-	
 	public boolean IsShooting = false;
 	public Vector2 EnemyPosition;
-	public float EnemyDistance = 0;
+	public float TurretShootSpeedInSeconds = 1.5f; // lower numbers are faster
+	public Rectangle hitRect;
+	float timeSinceLastBullet = 0;
+	
+	public static int TurretPriceInCoins = 500;
+	
 	
 	public Circle circle; // this circle is for checking whether the enemy is getting close to the turret.
 	
 	public Rectangle rect; // this rectangle is for checking whether the mouse is hovering over the turret
+	private EnemyEntity TargetEnemy;
 	
 	public Turret(int x, int y)
 	{
 		super(x, y, 50, 50);
 		
 		Texture turret1 = Resources.LoadTexture("turrets/4shot.png");
-		sprite = new AnimatedSprite(turret1, x,y);
 		
 		int width = turret1.getWidth();
 		int height = turret1.getHeight();
 		
 		setSize(width, height);
 		
-		circle = new Circle(x, y, 90);
+		float radius = 100;
+		circle = new Circle(getEntityX(), getEntityY(), radius);
 		rect = new Rectangle(x, y, width, height);
 		
-		int initialDelay = random.nextInt(500) * 10; // start after 1 seconds
-		int period = 500;        // repeat every 0.5 seconds
-		Timer timer = new Timer();
-		TimerTask task = new TimerTask()
-		{
-			public void run()
-			{
-				SpawnBullet();
-			}
-		};
-		timer.schedule(task, initialDelay, period);
+		float radiusTimesTwoCircumfrence = 2 * radius;
+		float radiusSquared = radiusTimesTwoCircumfrence * radiusTimesTwoCircumfrence;
+		float rectCircleSize = (float) Math.sqrt(radiusSquared);
+		hitRect = new Rectangle(getEntityX() - rectCircleSize / 2, getEntityY() - rectCircleSize / 2, rectCircleSize, rectCircleSize);
 		
-		
-		body = BodyHelperService.createBody(x + width / 2, y + height / 2, width, height, false, Constants.World);
-		
-		
-		body.setBullet(true);
 		
 		setTexture(turret1);
 		Turrets.add(this);
@@ -79,6 +70,14 @@ public class Turret extends AnimatedSprite
 	
 	private void SpawnBullet()
 	{
+		if (IsShooting)
+		{
+			Bullet bullet = Constants.BulletPool.obtain();
+			Vector2 bulletPos = new Vector2(getX() + getWidth() / 4, getY() + getHeight() / 2 - 2);
+			
+			bullet.fireBullet(bulletPos, EnemyPosition);
+			Constants.ActiveBullets.add(bullet);
+		}
 	}
 	
 	@Override
@@ -86,7 +85,27 @@ public class Turret extends AnimatedSprite
 	{
 		super.OnUpdate(DeltaTime);
 		
+		if (TargetEnemy == null || TargetEnemy.IsDead())
+		{
+			return;
+		}
+		
+		if (IsShooting)
+		{
+			timeSinceLastBullet += Gdx.graphics.getDeltaTime();
+			if (timeSinceLastBullet > TurretShootSpeedInSeconds + (random.nextInt(500) * 0.001f))
+			{
+				SpawnBullet();
+				timeSinceLastBullet = 0;
+			}
+			else
+			{
+			
+			}
+		}
+		
 	}
+	
 	
 	@Override
 	public void OnRender()
@@ -94,6 +113,25 @@ public class Turret extends AnimatedSprite
 		
 		
 		super.OnRender();
+		
+		
+/*		{
+			Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+			if (IsShooting)
+			{
+				Constants.shapeRenderer.setColor(0.0f, 1.0f, 0.0f, 1);
+			}
+			else
+			{
+				Constants.shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1);
+			}
+			Constants.shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
+			Constants.shapeRenderer.setColor(1.0f, 0.0f, 1.0f, 1);
+			Constants.shapeRenderer.rect(hitRect.x, hitRect.y, hitRect.width, hitRect.height);
+			Constants.shapeRenderer.end();
+		}*/
+
+
 		
 	/*	Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 		Constants.shapeRenderer.setColor(1.0f, 1.0f, 1.0f, 1);
@@ -105,31 +143,14 @@ public class Turret extends AnimatedSprite
 		{
 			Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 			Constants.shapeRenderer.setColor(1.0f, 1.0f, 1.0f, 1);
-			Constants.shapeRenderer.circle(getEntityX(), getEntityY(), 100);
+			if (IsShooting)
+			{
+				Constants.shapeRenderer.setColor(0.0f, 1.0f, 0.0f, 1);
+			}
+			Constants.shapeRenderer.circle(circle.x, circle.y, circle.radius);
+			Constants.shapeRenderer.setColor(1.0f, 1.0f, 1.0f, 1);
 			Constants.shapeRenderer.end();
 		}
-		
-		if (IsShooting)
-		{
-			
-			Vector2 Origin = new Vector2(getX(), getY());
-			Origin = MouseOperator.ScreenToWorldPoint(Origin);
-			if (body.getPosition().x > Constants.GlobalWidth || body.getPosition().x < 0 || body.getPosition().y < 0 || body.getPosition().y > Constants.GlobalHeight)
-			{
-				
-				//body.setTransform(Origin.x / 100, Origin.y / 100, body.getAngle());
-			}
-			
-			Vector2 Direction = Origin.sub(EnemyPosition);
-			Vector2 endpoint = Origin.add(Direction).scl(1);
-			EnemyDistance++;
-			
-			sprite.translate(endpoint.x, endpoint.y);
-			//body.setLinearVelocity(endpoint);
-		} else {
-			sprite.setPosition(0,0);
-		}
-		
 		
 	}
 	
@@ -141,15 +162,16 @@ public class Turret extends AnimatedSprite
 		Constants.MouseTileSelector.setPosition(TilePos.x, TilePos.y);
 		Constants.MouseTileSelector.setSize(Constants.TileMapHelper.TilePixelWidth, Constants.TileMapHelper.TilePixelHeight);
 		
+		
 		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && !Constants.IsBuildingTurret)
 		{
 			if (Constants.TileMapHelper.IsTileAtPositionAValidBuildableTile(TilePos))
 			{
-				if (Constants.Coins - 500 < 0) // if the user has money to build this turret
+				if (Constants.Coins - TurretPriceInCoins < 0) // if the user has money to build this turret
 				{
 					return;
 				}
-				Constants.Coins -= 500;
+				Constants.Coins -= TurretPriceInCoins;
 				
 				if (!turretPositions.containsKey(TilePos))
 				{
@@ -161,6 +183,7 @@ public class Turret extends AnimatedSprite
 	
 	public void EnemyIsClose(EnemyEntity enemy)
 	{
+		this.TargetEnemy = enemy;
 		if (enemy == null)
 		{
 			IsShooting = false;
@@ -168,12 +191,13 @@ public class Turret extends AnimatedSprite
 		else
 		{
 			IsShooting = true;
-			System.out.println("Is Shooting");
-			EnemyPosition = new Vector2(enemy.getX(), enemy.getY());
-			EnemyDistance = EnemyPosition.len();
+			
+			// be smart and look ahead one tile and shoot at the one tile ahead of the enemy!
+			int tileIndex = MathUtils.clamp(enemy.TileIndex + 1, 0, Constants.GameMapPath.getCount() - 1);
+			Tile tile = Constants.GameMapPath.get(tileIndex);
+			// can do smarter ai, but this is fine for now.
+			
+			EnemyPosition = new Vector2(tile.x, tile.y);
 		}
-		
-		
 	}
 }
-
