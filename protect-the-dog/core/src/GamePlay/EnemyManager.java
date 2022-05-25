@@ -37,9 +37,9 @@ public class EnemyManager
 	// todo implement wave manager and spawn enemies there.
 	public void SpawnEnemy(EnemyEntity.EnemyType Type)
 	{
-		Path currentRelativePath = Paths.get("");
-		String s = currentRelativePath.toAbsolutePath().toString();
-		System.out.println("Current absolute path is: " + s);
+//		Path currentRelativePath = Paths.get("");
+//		String s = currentRelativePath.toAbsolutePath().toString();
+//		System.out.println("Current absolute path is: " + s);
 
 //		Gdx.app.log("AssetPath", Gdx.files.internal("entities/enemies/sheet_0.png").file().getAbsolutePath());
 

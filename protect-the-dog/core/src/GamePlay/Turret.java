@@ -110,8 +110,6 @@ public class Turret extends AnimatedSprite
 	@Override
 	public void OnRender()
 	{
-		
-		
 		super.OnRender();
 		
 		

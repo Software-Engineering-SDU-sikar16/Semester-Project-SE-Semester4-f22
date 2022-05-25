@@ -109,8 +109,11 @@ public class TileMapHelper
 	public void CalculateGraph()
 	{
 		Constants.GameMapGraph = new GameMapGraph();
+		
 		Tile PreviousTile = null;
+		
 		MapLayer layer = tiledMap.getLayers().get("PathLayer");
+		
 		MapObjects mapObjects = layer.getObjects();
 		
 		for (MapObject mapObject : mapObjects)
@@ -157,6 +160,7 @@ public class TileMapHelper
 			{
 				createStaticBody((PolygonMapObject) mapObject);
 			}
+			
 			
 			if (mapObject instanceof RectangleMapObject)
 			{
