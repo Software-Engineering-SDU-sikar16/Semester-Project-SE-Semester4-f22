@@ -13,26 +13,19 @@ import helper.Util;
 public class EnemyEntity extends AnimatedSprite
 {
 	private boolean DidReachEndTile = false;
-	
 	private float enemySpeed = 40.0f;
-	
 	private Health health;
-	
-	
-	
 	public enum EnemyType
 	{
 		normal, boss, superboss, elite, kingkong,
 	}
 	
 	private EnemyType Type = EnemyType.normal;
-	
 	public int TileIndex = 0;
-	
+
 	public boolean IsDead() {
 		return health.IsDead();
 	}
-	
 	
 	public EnemyEntity(float x, float y, int width, int height, EnemyType type)
 	{
@@ -59,7 +52,6 @@ public class EnemyEntity extends AnimatedSprite
 		{
 			health = new Health((int) x - 3, (int) y + height + 18, width / 2, height / 2, 5, 5);
 		}
-		
 	}
 	
 	@Override
@@ -114,18 +106,13 @@ public class EnemyEntity extends AnimatedSprite
 		
 		TileIndex = MathUtils.clamp(TileIndex, 0, Constants.GameMapPath.getCount() - 1);
 		Tile tile = Constants.GameMapPath.get(TileIndex);
-		if (tile == null)
-		{
-		
-		}
+		if (tile == null) {}
 		else
 		{
 			Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 			Constants.shapeRenderer.rect(tile.x, tile.y, Constants.TileMapHelper.TilePixelWidth, Constants.TileMapHelper.TilePixelHeight);
 			Constants.shapeRenderer.end();
 		}
-		
-		
 	}
 	
 	
@@ -189,14 +176,9 @@ public class EnemyEntity extends AnimatedSprite
 					setPosition(origin.add(direction));
 				}
 			}
-			
-			
 		}
-		
-		
 	}
-	
-	
+
 	public void SetDidReachEndTile()
 	{
 		DidReachEndTile = true;

@@ -53,8 +53,7 @@ public class TileMapHelper
 	public OrthogonalTiledMapRenderer setupMap()
 	{
 		String TilemapPath = "maps/map1.tmx";
-		tiledMap = new TmxMapLoader().load("maps/map1.tmx");
-		parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
+		tiledMap = new TmxMapLoader().load(TilemapPath);
 		TiledMapTileLayer tileid = (TiledMapTileLayer) tiledMap.getLayers().get(0);
 		TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
 
@@ -138,44 +137,6 @@ public class TileMapHelper
 		End = PreviousTile;
 		EnemyPath.put(new Vector2(End.x, End.y), End);
 		Constants.GameMapPath = Constants.GameMapGraph.FindPath(Start, End);
-	}
-	
-	private void parseMapObjects(MapObjects mapObjects)
-	{
-		for (MapObject mapObject : mapObjects)
-		{
-			if (mapObject instanceof PolygonMapObject)
-			{
-				createStaticBody((PolygonMapObject) mapObject);
-			}
-			if (mapObject instanceof RectangleMapObject)
-			{
-				Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();
-				String rectangleName = mapObject.getName();
-				boolean findEnemy = rectangleName.equals("enemy");
-				if (findEnemy)
-				{
-					Body body = BodyHelperService.createBody(
-							rectangle.getX() + rectangle.getWidth() / 2,
-							rectangle.getY() + rectangle.getHeight() / 2,
-							rectangle.getWidth(),
-							rectangle.getHeight(),
-							false,
-							gameScreen.getWorld());
-				}
-			}
-		}
-	}
-	
-	private void createStaticBody(PolygonMapObject polygonMapObject)
-	{
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyDef.BodyType.StaticBody;
-		Body body = gameScreen.getWorld().createBody(bodyDef);
-		Shape shape = createPolygonShape(polygonMapObject);
-		body.createFixture(shape, 1000f);
-		System.out.println(body.getPosition());
-		shape.dispose();
 	}
 	
 	private Shape createPolygonShape(PolygonMapObject polygonMapObject)
