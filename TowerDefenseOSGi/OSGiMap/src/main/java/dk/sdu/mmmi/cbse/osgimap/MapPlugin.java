@@ -2,7 +2,6 @@ package dk.sdu.mmmi.cbse.osgimap;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
@@ -14,7 +13,7 @@ public class MapPlugin implements IGamePluginService {
         GameData.assetManager.setLoader(TiledMap.class, new TmxMapLoader());
             GameData.loadAsset("../assets/maps/map1.tmx", TiledMap.class);
             GameData.assetManager.finishLoading();
-            
+
 
 
 
