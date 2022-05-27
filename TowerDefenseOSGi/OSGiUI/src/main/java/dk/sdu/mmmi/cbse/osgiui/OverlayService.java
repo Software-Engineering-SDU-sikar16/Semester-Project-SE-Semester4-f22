@@ -32,7 +32,7 @@ public abstract class OverlayService implements IOverlayService {
     }
 
 
-    public static void OnUpdateALl(float DeltaTime) {
+    public static void OnUpdateALl() {
         for (IOverlayService overlay : Overlays)
         {
             overlay.onUpdate(Gdx.graphics.getDeltaTime());

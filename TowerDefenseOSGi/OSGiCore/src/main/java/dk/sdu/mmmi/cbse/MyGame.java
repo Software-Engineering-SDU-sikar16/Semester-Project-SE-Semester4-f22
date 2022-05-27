@@ -19,6 +19,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.*;
+import dk.sdu.mmmi.cbse.osgiui.OverlayService;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -75,10 +76,12 @@ public class MyGame implements ApplicationListener {
             gamePluginService.start(gameData, world);
         }
 
+
         for(Entity entity : world.getEntities()) {
             SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
             sl.createSprite();
         }
+        overlayService.onCreate();
 //        setScreen(new GameScreen(camera));
     }
 
@@ -119,6 +122,7 @@ public class MyGame implements ApplicationListener {
         if(mapService != null) {
         mapService.updateMap(camera);
         }
+        OverlayService.OnUpdateALl();
 
         // Update
         for (IEntityProcessingService entityProcessorService : entityProcessorList) {
