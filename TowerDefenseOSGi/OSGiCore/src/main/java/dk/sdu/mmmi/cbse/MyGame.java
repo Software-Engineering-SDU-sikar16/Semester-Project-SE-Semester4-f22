@@ -115,7 +115,7 @@ public class MyGame implements ApplicationListener {
     private void update() {
         // always draw the map first with the camera because components are renders synchronously.
         if(mapService != null) {
-        mapService.updateMap(camera);
+            mapService.updateMap(camera);
         }
 
         // Update

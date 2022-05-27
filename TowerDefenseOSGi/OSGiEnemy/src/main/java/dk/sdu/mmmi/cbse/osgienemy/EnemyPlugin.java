@@ -23,6 +23,12 @@ public class EnemyPlugin implements IGamePluginService {
         enemyID = world.addEntity(enemy);
     }
 
+    @Override
+    public void stop(GameData gameData, World world) {
+        // Remove entities
+        world.removeEntity(enemyID);
+    }
+
     private Entity createEnemy(GameData gameData) {
         Entity enemyThing = new Enemy();
         float deceleration = 10;
@@ -39,12 +45,6 @@ public class EnemyPlugin implements IGamePluginService {
         SpriteLoaderPart spriteLoaderPart = new SpriteLoaderPart("images/v3.png", 2*16, 9*16, 16, 16, false, false);
         enemyThing.add(spriteLoaderPart);
         return enemyThing;
-    }
-
-    @Override
-    public void stop(GameData gameData, World world) {
-        // Remove entities
-        world.removeEntity(enemyID);
     }
 
 }

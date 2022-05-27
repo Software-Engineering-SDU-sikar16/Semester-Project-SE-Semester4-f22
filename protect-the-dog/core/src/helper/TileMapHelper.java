@@ -19,7 +19,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
-import objects.player.Enemy;
+//import objects.player.Enemy;
 
 import java.util.HashMap;
 
@@ -65,6 +65,7 @@ public class TileMapHelper
 		MapHeight = prop.get("height", Integer.class);
 		TilePixelWidth = prop.get("tilewidth", Integer.class);
 		TilePixelHeight = prop.get("tileheight", Integer.class);
+		System.out.println("Tile Width: " + TilePixelWidth);
 		
 		MapPixelWidth = MapWidth * TilePixelWidth;
 		MapPixelHeight = MapHeight * TilePixelHeight;

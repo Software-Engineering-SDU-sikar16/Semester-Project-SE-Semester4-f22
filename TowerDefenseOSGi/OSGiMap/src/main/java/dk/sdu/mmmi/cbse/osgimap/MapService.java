@@ -23,7 +23,7 @@ import java.util.HashMap;
 
 public class MapService implements IMapService {
 
-    private TiledMap tiledMap;
+    public static TiledMap tiledMap;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     public Tile start = null;
     public Tile end = null;
