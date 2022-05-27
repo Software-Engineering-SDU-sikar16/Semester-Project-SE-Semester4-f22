@@ -117,6 +117,7 @@ public class MyGame implements ApplicationListener {
         if(mapService != null) {
         mapService.updateMap(camera);
         }
+
         // Update
         for (IEntityProcessingService entityProcessorService : entityProcessorList) {
             entityProcessorService.process(gameData, world);
@@ -126,6 +127,7 @@ public class MyGame implements ApplicationListener {
         for (IPostEntityProcessingService postEntityProcessorService : postEntityProcessorList) {
             postEntityProcessorService.process(gameData, world);
         }
+
         for(Entity entity : world.getEntities()) {
             //sl.process(gameData, new Entity());
             SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
