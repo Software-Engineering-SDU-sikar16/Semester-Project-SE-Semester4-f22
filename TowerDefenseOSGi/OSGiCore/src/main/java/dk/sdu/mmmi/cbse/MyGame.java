@@ -49,7 +49,7 @@ public class MyGame implements ApplicationListener {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.width = 960;
         cfg.height = 640;
-        cfg.title = "Protect the dog";
+        cfg.title = "Tower Defense";
         cfg.resizable = false;
         cfg.vSyncEnabled = true;
         cfg.backgroundFPS = 60;
