@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 //import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
@@ -21,6 +22,7 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.*;
 //import dk.sdu.mmmi.cbse.osgiui.OverlayService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -69,8 +71,15 @@ public class MyGame implements ApplicationListener {
         this.gameData.camera.setToOrtho(false, widthScreen, heightScreen);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
 
-        for (   IGamePluginService gamePluginService : gamePluginList) {
-            gamePluginService.start(gameData, world);
+       for (   IGamePluginService gamePluginService : gamePluginList) {
+           gamePluginService.start(gameData, world);
+        }
+
+        Array<TiledMap> maps = new Array<TiledMap>();
+        GameData.getListOfAssets(TiledMap.class, maps);
+
+        for (TiledMap map : maps) {
+            gameData.orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
         }
 
 
@@ -128,6 +137,7 @@ public class MyGame implements ApplicationListener {
 //        if (overlayService != null) {
 //            overlayService.onUpdate();
 //        }
+//        GameData.assetManager.update();
 
         // Update
         for (IEntityProcessingService entityProcessorService : entityProcessorList) {
@@ -138,6 +148,8 @@ public class MyGame implements ApplicationListener {
         for (IPostEntityProcessingService postEntityProcessorService : postEntityProcessorList) {
             postEntityProcessorService.process(gameData, world);
         }
+
+
         for(Entity entity : world.getEntities()) {
             //sl.process(gameData, new Entity());
             SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
@@ -163,13 +175,12 @@ public class MyGame implements ApplicationListener {
 
     public void addGamePluginService(IGamePluginService plugin) {
         gamePluginList.add(plugin);
-        plugin.start(this.gameData, world);
         //plugin.start(gameData, world);
     }
 
     public void removeGamePluginService(IGamePluginService plugin) {
         gamePluginList.remove(plugin);
-        plugin.stop(this.gameData, world);
+        plugin.stop(gameData, world);
     }
 
 

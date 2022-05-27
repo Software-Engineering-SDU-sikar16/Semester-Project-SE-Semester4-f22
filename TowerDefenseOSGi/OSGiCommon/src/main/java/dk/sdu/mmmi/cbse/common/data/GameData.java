@@ -1,8 +1,10 @@
 package dk.sdu.mmmi.cbse.common.data;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.Array;
 import dk.sdu.mmmi.cbse.common.events.Event;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,16 @@ public class GameData {
     public void addEvent(Event e) {
         events.add(e);
     }
+    public static AssetManager assetManager = new AssetManager();
+
+    public static void loadAsset( String path, Class type) {
+        assetManager.load( path, type);
+    }
+
+    public static <T> Array<T> getListOfAssets(Class<T> type, Array<T> array) {
+        return assetManager.getAll(type, array);
+    }
+
 
     public void removeEvent(Event e) {
         events.remove(e);

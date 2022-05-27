@@ -10,13 +10,6 @@ import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 public class MapProcessingService implements  IEntityProcessingService {
 
-
-
-
-
-
-
-
     @Override
     public void process(GameData gameData, World world) {
         if (gameData.orthogonalTiledMapRenderer != null) {
