@@ -85,4 +85,5 @@ public class SpriteLoaderPart implements EntityPart {
         this.textureRegion.flip(this.flipX, flipY);
         this.flipY = flipY;
     }
+
 }

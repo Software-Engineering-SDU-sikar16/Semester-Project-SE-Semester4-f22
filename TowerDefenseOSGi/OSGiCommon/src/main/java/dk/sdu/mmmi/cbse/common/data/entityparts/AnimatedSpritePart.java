@@ -23,12 +23,10 @@ public class AnimatedSpritePart extends Sprite implements EntityPart{
 
     }
 
-    // this uses a custom lookup into a texture atlas
     public AnimatedSpritePart()
     {
     }
 
-    // this uses a custom lookup into a texture atlas
     public AnimatedSpritePart(float x, float y, int width, int height)
     {
         setSize(width, height);

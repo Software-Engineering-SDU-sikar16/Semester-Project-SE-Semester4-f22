@@ -17,6 +17,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
+import dk.sdu.mmmi.cbse.common.data.entityparts.AnimatedSpritePart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
 import dk.sdu.mmmi.cbse.common.services.IMapService;
 
 import java.util.HashMap;
@@ -30,8 +32,9 @@ public class MapService implements IMapService {
     public static HashMap<Vector2, Tile> enemyPath = new HashMap<Vector2, Tile>();
     public static HashMap<Vector2, Tile> buildableTiles = new HashMap<Vector2, Tile>();
     public GameMapGraph gameMapGraph;
-    public GraphPath<Tile> gameMapPath;
+    public static GraphPath<Tile> gameMapPath;
     public final float PPM = 32.0f;
+    public static AnimatedSpritePart MouseTileSelector;
 
     @Override
     public void createMap() {
@@ -161,7 +164,7 @@ public class MapService implements IMapService {
         return enemyPath.get(vector);
     }
 
-    public boolean IsTileAtPositionAValidBuildableTile(Vector2 vector)
+    public static boolean IsTileAtPositionAValidBuildableTile(Vector2 vector)
     {
         return buildableTiles.containsKey(vector);
     }
