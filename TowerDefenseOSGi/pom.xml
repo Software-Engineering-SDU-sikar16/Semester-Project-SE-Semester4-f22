@@ -56,7 +56,6 @@
       <module>OSGiEnemy</module>
       <module>OSGiLibGDX</module>
       <module>OSGiMap</module>
-      <module>OSGiUI</module>
       <module>OSGiTower</module>
   </modules>
       

@@ -15,11 +15,7 @@
                name="IGamePluginService" policy="dynamic" unbind="removeGamePluginService"/>
 
 
-    <reference bind="addMapService" cardinality="0..n"
-               interface="dk.sdu.mmmi.cbse.common.services.IMapService"
-               name="IMapService" policy="dynamic" unbind="removeMapService"/>
-
-    <reference bind="addUIService" cardinality="0..n"
-               interface="dk.sdu.mmmi.cbse.common.services.IOverlayService"
-               name="UIService" policy="dynamic" unbind="removeOverlayService"/>
+<!--    <reference bind="addMapService" cardinality="0..n"-->
+<!--               interface="dk.sdu.mmmi.cbse.common.services.IMapService"-->
+<!--               name="IMapService" policy="dynamic" unbind="removeMapService"/>-->
 </scr:component>

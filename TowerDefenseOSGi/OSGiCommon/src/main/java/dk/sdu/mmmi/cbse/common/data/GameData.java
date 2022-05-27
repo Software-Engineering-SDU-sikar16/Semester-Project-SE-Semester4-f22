@@ -1,5 +1,8 @@
 package dk.sdu.mmmi.cbse.common.data;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import dk.sdu.mmmi.cbse.common.events.Event;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,9 @@ public class GameData {
     private int displayHeight;
     private final GameKeys keys = new GameKeys();
     private List<Event> events = new CopyOnWriteArrayList<>();
-
+    public OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
+    public TiledMap tiledMap;
+    public OrthographicCamera camera;
     public void addEvent(Event e) {
         events.add(e);
     }

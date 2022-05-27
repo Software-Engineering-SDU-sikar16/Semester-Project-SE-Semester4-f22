@@ -19,7 +19,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.*;
-import dk.sdu.mmmi.cbse.osgiui.OverlayService;
+//import dk.sdu.mmmi.cbse.osgiui.OverlayService;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -31,12 +31,10 @@ public class MyGame implements ApplicationListener {
     private static World world = new World();
     private static final List<IEntityProcessingService> entityProcessorList = new CopyOnWriteArrayList<>();
     private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
-    private IMapService mapService;
-    private IOverlayService overlayService;
     private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
     public static MyGame INSTANCE;
     private int widthScreen, heightScreen;
-    private OrthographicCamera camera;
+
     private Box2DDebugRenderer box2DDebugRenderer;
 
     public MyGame(){
@@ -67,11 +65,10 @@ public class MyGame implements ApplicationListener {
         this.heightScreen = Gdx.graphics.getHeight();
         this.gameData.setDisplayHeight(this.heightScreen);
         this.gameData.setDisplayWidth(this.widthScreen);
-        this.camera = new OrthographicCamera();
-        this.camera.setToOrtho(false, widthScreen, heightScreen);
+        this.gameData.camera = new OrthographicCamera();
+        this.gameData.camera.setToOrtho(false, widthScreen, heightScreen);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
 
-        mapService.createMap();
         for (   IGamePluginService gamePluginService : gamePluginList) {
             gamePluginService.start(gameData, world);
         }
@@ -81,7 +78,10 @@ public class MyGame implements ApplicationListener {
             SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
             sl.createSprite();
         }
-        overlayService.onCreate();
+
+
+        //OverlayService.CreateAllOverlays();
+        //overlayService.onCreate();
 //        setScreen(new GameScreen(camera));
     }
 
@@ -92,14 +92,16 @@ public class MyGame implements ApplicationListener {
 
         //orthogonalTiledMapRenderer.setView(camera);
         //orthogonalTiledMapRenderer.render();
+        //overlayService.onRender();
+        //OverlayService.RenderAllOverlays();
         update();
     }
 
     @Override
     public void resize(int width, int height) {
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
-        camera.update();
+        this.gameData.camera.viewportWidth = width;
+        this.gameData.camera.viewportHeight = height;
+        this.gameData.camera.update();
     }
 
     @Override
@@ -119,10 +121,13 @@ public class MyGame implements ApplicationListener {
 
     private void update() {
         // always draw the map first with the camera because components are renders synchronously.
-        if(mapService != null) {
-        mapService.updateMap(camera);
-        }
-        OverlayService.OnUpdateALl();
+//        if(mapService != null) {
+//        mapService.updateMap(this.gameData.camera);
+//        }
+//
+//        if (overlayService != null) {
+//            overlayService.onUpdate();
+//        }
 
         // Update
         for (IEntityProcessingService entityProcessorService : entityProcessorList) {
@@ -158,27 +163,30 @@ public class MyGame implements ApplicationListener {
 
     public void addGamePluginService(IGamePluginService plugin) {
         gamePluginList.add(plugin);
+        plugin.start(this.gameData, world);
+        //plugin.start(gameData, world);
     }
 
     public void removeGamePluginService(IGamePluginService plugin) {
         gamePluginList.remove(plugin);
-        plugin.stop(gameData, world);
+        plugin.stop(this.gameData, world);
     }
 
-    public void addMapService(IMapService map) {
-        mapService = map;
-    }
 
-    public void removeMapService(IMapService map) {
-        mapService = null;
-    }
-
-    public void addUIService(IOverlayService overlay) {
-        overlayService  = overlay;
-    }
-
-    public void removeUIService(IOverlayService overlay) {
-        overlayService = null;
-    }
+//    public void addMapService(IMapService map) {
+//        mapService = map;
+//    }
+//
+//    public void removeMapService(IMapService map) {
+//        mapService = null;
+//    }
+//
+//    public void addUIService(IOverlayService overlay) {
+//        overlayService  = overlay;
+//    }
+//
+//    public void removeUIService(IOverlayService overlay) {
+//        overlayService = null;
+//    }
 
 }
