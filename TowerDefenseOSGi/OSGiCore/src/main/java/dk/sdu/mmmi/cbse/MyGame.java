@@ -20,7 +20,6 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.*;
-//import dk.sdu.mmmi.cbse.osgiui.OverlayService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,10 +54,10 @@ public class MyGame implements ApplicationListener {
         cfg.foregroundFPS = 60;
 
 
-        config.pauseWhenBackground = true;
+        cfg.pauseWhenBackground = true;
         //config.pauseWhenMinimized = true;
 
-        new LwjglApplication(this, config);
+        new LwjglApplication(this, cfg);
     }
 
     @Override

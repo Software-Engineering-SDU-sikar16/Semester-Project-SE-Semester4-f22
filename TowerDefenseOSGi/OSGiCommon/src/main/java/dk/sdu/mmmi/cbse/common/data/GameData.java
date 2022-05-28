@@ -33,7 +33,6 @@ public class GameData {
         return assetManager.getAll(type, array);
     }
 
-
     public void removeEvent(Event e) {
         events.remove(e);
     }

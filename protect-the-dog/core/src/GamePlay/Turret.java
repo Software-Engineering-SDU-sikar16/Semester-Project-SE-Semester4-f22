@@ -92,12 +92,8 @@ public class Turret extends AnimatedSprite
 				SpawnBullet();
 				timeSinceLastBullet = 0;
 			}
-			else
-			{
-			
-			}
+			else {}
 		}
-		
 	}
 	
 	
@@ -105,30 +101,6 @@ public class Turret extends AnimatedSprite
 	public void OnRender()
 	{
 		super.OnRender();
-		
-		
-/*		{
-			Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-			if (IsShooting)
-			{
-				Constants.shapeRenderer.setColor(0.0f, 1.0f, 0.0f, 1);
-			}
-			else
-			{
-				Constants.shapeRenderer.setColor(1.0f, 0.0f, 0.0f, 1);
-			}
-			Constants.shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
-			Constants.shapeRenderer.setColor(1.0f, 0.0f, 1.0f, 1);
-			Constants.shapeRenderer.rect(hitRect.x, hitRect.y, hitRect.width, hitRect.height);
-			Constants.shapeRenderer.end();
-		}*/
-
-
-		
-	/*	Constants.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-		Constants.shapeRenderer.setColor(1.0f, 1.0f, 1.0f, 1);
-		Constants.shapeRenderer.rect(getX(), getY(), getWidth(), getHeight());
-		Constants.shapeRenderer.end();*/
 		
 		Vector2 mousePosition = MouseOperator.GetMouseWorldPosition();
 		if (rect.contains(mousePosition))

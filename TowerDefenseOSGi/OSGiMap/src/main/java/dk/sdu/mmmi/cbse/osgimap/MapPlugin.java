@@ -9,13 +9,10 @@ import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 public class MapPlugin implements IGamePluginService {
     @Override
     public void start(GameData gameData, World world) {
-        //call functionality to add the map to the game, so it is visible
+        // call functionality to add the map to the game, so it is visible
         GameData.assetManager.setLoader(TiledMap.class, new TmxMapLoader());
-            GameData.loadAsset("../assets/maps/map1.tmx", TiledMap.class);
-            GameData.assetManager.finishLoading();
-
-
-
+        GameData.loadAsset("../assets/maps/map1.tmx", TiledMap.class);
+        GameData.assetManager.finishLoading();
 
             //TmxMapLoader tmxMapLoader = new TmxMapLoader();
 //            gameData.tiledMap = tmxMapLoader.load("../assets/maps/map1.tmx");
