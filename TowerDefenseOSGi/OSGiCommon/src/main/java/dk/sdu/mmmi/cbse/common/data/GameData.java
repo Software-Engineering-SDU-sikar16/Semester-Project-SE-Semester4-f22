@@ -21,20 +21,20 @@ public class GameData {
     private List<Event> events = new CopyOnWriteArrayList<>();
     public OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     public TiledMap tiledMap;
-    public static OrthographicCamera camera;
+    public OrthographicCamera camera;
     public MouseOperator mouseOperator;
     public static Sprite MouseTileSelector;
 
     public void addEvent(Event e) {
         events.add(e);
     }
-    public static AssetManager assetManager = new AssetManager();
+    public AssetManager assetManager = new AssetManager();
 
-    public static void loadAsset( String path, Class type) {
+    public void loadAsset( String path, Class type) {
         assetManager.load( path, type);
     }
 
-    public static <T> Array<T> getListOfAssets(Class<T> type, Array<T> array) {
+    public  <T> Array<T> getListOfAssets(Class<T> type, Array<T> array) {
         return assetManager.getAll(type, array);
     }
 

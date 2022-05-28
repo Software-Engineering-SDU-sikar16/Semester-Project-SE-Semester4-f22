@@ -22,16 +22,16 @@ public class Constants
 	//~ Application Specific
 	public static int GlobalWidth = 0;
 	public static int GlobalHeight = 0;
-	
+
 	public static final float PPM = 32.0f;
-	
-	
+
+
 	//~ Game
 	public static boolean IsPauseScreenVisible = false;
 	public static boolean IsGamePaused = false;
 	public static boolean IsBuildingTurret = false;
-	
-	
+
+
 	public static BulletPool BulletPool = new BulletPool(10000, 0);
 	public static Array<Bullet> ActiveBullets = new Array<Bullet>();
 	
