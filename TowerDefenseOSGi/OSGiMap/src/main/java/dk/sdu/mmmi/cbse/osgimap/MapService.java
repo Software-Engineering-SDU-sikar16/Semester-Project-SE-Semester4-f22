@@ -23,7 +23,7 @@ import dk.sdu.mmmi.cbse.common.services.IMapService;
 
 import java.util.HashMap;
 
-public class MapService implements IMapService {
+public class MapService {
 
     public static TiledMap tiledMap;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
@@ -35,26 +35,6 @@ public class MapService implements IMapService {
     public static GraphPath<Tile> gameMapPath;
     public final float PPM = 32.0f;
     public static AnimatedSpritePart MouseTileSelector;
-
-    @Override
-    public void createMap() {
-        // Finds the location of where the function looks for files
-//        Path currentRelativePath = Paths.get("..");
-//        String s = currentRelativePath.toAbsolutePath().toString();
-//        System.out.println("Current absolute path is: " + s);
-
-        tiledMap = new TmxMapLoader().load("../assets/maps/map1.tmx");
-        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-    }
-
-    @Override
-    public void updateMap(OrthographicCamera camera) {
-        if (orthogonalTiledMapRenderer == null) {
-            createMap();
-        }
-        orthogonalTiledMapRenderer.setView(camera);
-        orthogonalTiledMapRenderer.render();
-    }
 
     public void CalculateGraph()
     {

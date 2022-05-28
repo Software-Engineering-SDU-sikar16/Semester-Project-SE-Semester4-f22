@@ -14,9 +14,7 @@ public class GameMapGraph implements IndexedGraph<Tile>
 	TileHeuristic GameMapNodeHeuristic = new TileHeuristic();
 	public Array<Tile> Tiles = new Array<>();
 	public Array<TilePath> Paths = new Array<>();
-	
 	public ObjectMap<Tile, Array<Connection<Tile>>> PathsMap = new ObjectMap<>();
-	
 	private int lastNodeIndex = 0;
 	
 	public void AddTile(Tile tile)

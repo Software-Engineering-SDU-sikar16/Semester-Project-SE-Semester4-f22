@@ -17,6 +17,7 @@ import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.osgimap.MapService;
 import dk.sdu.mmmi.cbse.osgimap.helper.MouseOperator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -26,9 +27,10 @@ public class TowerPlugin implements IGamePluginService {
     public static boolean isBuildingTurret = false;
 
     // from gibson
-    public static Array<TowerPlugin> towers = new Array<TowerPlugin>();
-    public static Array<AnimatedSpritePart> bullets = new Array<AnimatedSpritePart>(100); // global list of bullets //make a bullet service?
-    public static HashMap<Vector2, TowerPlugin> turretPositions = new HashMap<Vector2, TowerPlugin>();
+    public static Array<TowerPlugin> towers = new Array<>();
+    public static ArrayList<Entity> towerTest = new ArrayList<>();
+    public static Array<AnimatedSpritePart> bullets = new Array<>(100); // global list of bullets //make a bullet service?
+    public static HashMap<Vector2, TowerPlugin> turretPositions = new HashMap<>();
     public static Random random = new Random();
     public boolean IsShooting = false;
     public Vector2 EnemyPosition;
@@ -45,8 +47,13 @@ public class TowerPlugin implements IGamePluginService {
 
     @Override
     public void start(GameData gameData, World world) {
-        Entity tower = createTower(gameData);
+        Entity tower = createTower(gameData, world, gameData.getDisplayWidth() / 2f, gameData.getDisplayHeight() / 2f);
+//        Entity tower = towers.get(0);
+//        Entity tower = TryBuildTurret(gameData, world);
         towerID = world.addEntity(tower);
+//        TryBuildTurret(gameData, world);
+
+//        createTower(gameData, world, gameData.getDisplayWidth() / 2f, gameData.getDisplayHeight() / 2f);
     }
 
     @Override
@@ -54,9 +61,9 @@ public class TowerPlugin implements IGamePluginService {
         world.removeEntity(towerID);
     }
 
-    private Entity createTower(GameData gameData) {
-        float x = gameData.getDisplayWidth() / 2f;
-        float y = gameData.getDisplayHeight() / 2f;
+    private Entity createTower(GameData gameData, World world, float x, float y) {
+//        float x = gameData.getDisplayWidth() / 2f;
+//        float y = gameData.getDisplayHeight() / 2f;
         float radians = 3.1415f / 2;
 
         Entity towerThing = new Tower();
@@ -65,7 +72,13 @@ public class TowerPlugin implements IGamePluginService {
         SpriteLoaderPart spriteLoaderPart = new SpriteLoaderPart("turrets/4shot.png", 0*16, 0*16, 41, 37, false, false);
         towerThing.add(spriteLoaderPart);
         towers.add(this);
+        world.addEntity(towerThing);
         turretPositions.put(new Vector2(x, y), this);
+
+//        Vector2 TilePos = MouseOperator.GetTilePositionUnderMousePosition();
+//        MapService.MouseTileSelector.setPosition(TilePos.x, TilePos.y);
+//        MapService.MouseTileSelector.setSize(32, 32);
+//        System.out.println("TilePos: " + TilePos);
         return towerThing;
     }
 
@@ -179,21 +192,20 @@ public class TowerPlugin implements IGamePluginService {
 //
 //    }
 //
-    public static void TryBuildTurret()
+    public Entity TryBuildTurret(GameData gameData, World world)
     {
-
         Vector2 TilePos = MouseOperator.GetTilePositionUnderMousePosition();
-
         MapService.MouseTileSelector.setPosition(TilePos.x, TilePos.y);
         MapService.MouseTileSelector.setSize(32, 32);
 
-
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && !isBuildingTurret)
         {
+//            createTower(gameData, world, TilePos.x, TilePos.y);
             if (MapService.IsTileAtPositionAValidBuildableTile(TilePos))
             {
-                new Tower();
-
+//                createTower(gameData, world, TilePos.x, TilePos.y);
+//                new Tower();
+//
 //                if (Constants.Coins - TurretPriceInCoins < 0) // if the user has money to build this turret
 //                {
 //                    return;
@@ -206,6 +218,7 @@ public class TowerPlugin implements IGamePluginService {
 //                }
             }
         }
+        return null;
     }
 
 //    public void EnemyIsClose(Entity enemy)

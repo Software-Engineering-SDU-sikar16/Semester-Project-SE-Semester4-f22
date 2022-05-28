@@ -13,21 +13,11 @@ public class MapPlugin implements IGamePluginService {
         GameData.assetManager.setLoader(TiledMap.class, new TmxMapLoader());
         GameData.loadAsset("../assets/maps/map1.tmx", TiledMap.class);
         GameData.assetManager.finishLoading();
-
-            //TmxMapLoader tmxMapLoader = new TmxMapLoader();
-//            gameData.tiledMap = tmxMapLoader.load("../assets/maps/map1.tmx");
-//            //timeout for 2 seconds before running the code
-        //gameData.orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(gameData.tiledMap);
-
     }
 
     @Override
     public void stop(GameData gameData, World world) {
+        // call functionality to remove the map from the game, so it is no longer visible
         GameData.assetManager.unload("../assets/maps/map1.tmx");
-        //call functionality to remove the map from the game, so ti not visible anymore
-        //GameData.assetManager
-//        gameData.tiledMap = null;
-//        gameData.orthogonalTiledMapRenderer = null;
-
     }
 }

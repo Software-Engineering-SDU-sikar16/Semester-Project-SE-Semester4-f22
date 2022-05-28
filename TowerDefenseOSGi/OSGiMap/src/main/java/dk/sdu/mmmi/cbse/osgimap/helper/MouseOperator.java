@@ -8,15 +8,15 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import dk.sdu.mmmi.cbse.osgimap.MapService;
+import dk.sdu.mmmi.cbse.common.data.GameData;
 
-public class MouseOperator extends MapService
+public class MouseOperator //extends MapService
 {
     public static Vector3 UnprojectVector = new Vector3();
     public static Vector2 WorldMousePosition = new Vector2();
     public static Vector2 WorldPosition = new Vector2();
     public static Vector2 TileUnderMouseWorldPosition = new Vector2();
     public static Vector2 MousePosition = new Vector2();
-    public static OrthographicCamera Camera;
     public static int GlobalWidth = 0;
     public static int GlobalHeight = 0;
 //    public static TileMapHelper TileMapHelper;
@@ -25,7 +25,7 @@ public class MouseOperator extends MapService
 
     public static Vector2 ScreenToWorldPoint(float x, float y)
     {
-        Camera.unproject(UnprojectVector.set(x, y, 0.0f));
+        gameData.camera.unproject(UnprojectVector.set(x, y, 0.0f));
         WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);
         return new Vector2(UnprojectVector.x, UnprojectVector.y);
     }

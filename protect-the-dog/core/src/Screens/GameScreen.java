@@ -31,7 +31,7 @@ public class GameScreen extends ScreenAdapter
 	private SpriteBatch batch;
 	private Box2DDebugRenderer box2DDebugRenderer;
 	private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-	
+
 	public GameScreen()
 	{
 		this.batch = new SpriteBatch();
@@ -42,7 +42,7 @@ public class GameScreen extends ScreenAdapter
 		Constants.EnemyQuadTree = new EnemyQuadTree();
 		Constants.WaveManager = new WaveManager();
 	}
-	
+
 	private void update()
 	{
 		Constants.WaveManager.OnUpdate();
@@ -54,7 +54,7 @@ public class GameScreen extends ScreenAdapter
 			batch.setProjectionMatrix(Constants.Camera.combined);
 			orthogonalTiledMapRenderer.setView(Constants.Camera);
 		}
-		
+
 		Constants.EnemyManager.SteerEnemies();
 		Entity.UpdateAllEntities();
 		Overlay.UpdateAllOverlays();
@@ -73,17 +73,17 @@ public class GameScreen extends ScreenAdapter
 				turret.EnemyIsClose(enemy);
 			}
 		}
-		
-		
+
+
 		Constants.EnemyQuadTree.OnUpdate();
-		
+
 		// update bullets
 		//loop through all our active bullets
 		for (Bullet bullet : Constants.ActiveBullets)
 		{
 			bullet.OnUpdate(); // update bullet
 		}
-		
+
 		// loop through bullets again
 		for (Bullet bullet : Constants.ActiveBullets)
 		{
@@ -95,10 +95,8 @@ public class GameScreen extends ScreenAdapter
 				Constants.ActiveBullets.removeValue(bullet, true); // remove bullet from our array so we don't render it anymore
 			}
 		}
-		
-	
 	}
-	
+
 	private void cameraUpdate(int width, int height)
 	{
 		Vector3 position = Constants.Camera.position;
@@ -109,52 +107,52 @@ public class GameScreen extends ScreenAdapter
 		//camera.position.set(new Vector3(0, 0, 0));
 		Constants.Camera.update();
 	}
-	
-	
+
+
 	@Override
 	public void render(float delta)
 	{
 		this.update();
-		
+
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		//	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling ? GL20.GL_COVERAGE_BUFFER_BIT_NV : 0));
-		
-		
+
+
 		orthogonalTiledMapRenderer.render();
-		
+
 		batch.begin();
 		// render objects
 //		this.enemy.getSprite().draw(batch);
 //		this.enemy.getSprite().translate(20, 20);
-		
-		
+
+
 		batch.end();
 		box2DDebugRenderer.render(Constants.World, Constants.Camera.combined.scl(PPM));
-		
-		
+
+
 		// DEBUG
-		
-		
+
+
 		Entity.RenderAllEntities();
-		
+
 		Overlay.RenderAllOverlays();
-		
+
 		// render bullets
-		
-		
+
+
 		// update bullets
 		//loop through all our active bullets
 		for (Bullet bullet : Constants.ActiveBullets)
 		{
 			bullet.OnRender(); // update bullet
 		}
-		
-		
+
+
 		//Constants.EnemyQuadTree.OnRender();
-		
-		
-		
+
+
+
 		Vector2 mousePosition = MouseOperator.GetMouseWorldPosition();
 		Constants.batch.begin();
 		if (Constants.Coins < Turret.TurretPriceInCoins)
@@ -166,16 +164,16 @@ public class GameScreen extends ScreenAdapter
 			DrawUtil.DrawText(Constants.batch, Constants.ScoreUIFont, "" + Turret.TurretPriceInCoins, mousePosition.x + 20, mousePosition.y - 5, new Color(1.0f, 1.0f, 1.0f, 1.0f));
 		}
 		Constants.batch.end();
-		
+
 		Constants.Stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
 		Constants.Stage.draw();
 	}
-	
+
 	public World getWorld()
 	{
 		return Constants.World;
 	}
-	
+
 //	public void setEnemy(Enemy enemy)
 //	{
 //		this.enemy = enemy;
