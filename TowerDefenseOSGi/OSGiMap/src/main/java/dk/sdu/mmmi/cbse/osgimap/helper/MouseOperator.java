@@ -19,13 +19,14 @@ public class MouseOperator //extends MapService
     public static Vector2 MousePosition = new Vector2();
     public static int GlobalWidth = 0;
     public static int GlobalHeight = 0;
+    public static OrthographicCamera Camera;
 //    public static TileMapHelper TileMapHelper;
     public static int TILE_WIDTH = 32;
     public static int TILE_HEIGHT = 32;
 
     public static Vector2 ScreenToWorldPoint(float x, float y)
     {
-        gameData.camera.unproject(UnprojectVector.set(x, y, 0.0f));
+        Camera.unproject(UnprojectVector.set(x, y, 0.0f));
         WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);
         return new Vector2(UnprojectVector.x, UnprojectVector.y);
     }

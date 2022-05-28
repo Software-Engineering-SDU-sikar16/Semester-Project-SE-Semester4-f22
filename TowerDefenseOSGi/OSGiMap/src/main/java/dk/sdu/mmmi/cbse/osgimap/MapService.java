@@ -19,7 +19,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import dk.sdu.mmmi.cbse.common.data.entityparts.AnimatedSpritePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
-import dk.sdu.mmmi.cbse.common.services.IMapService;
 
 import java.util.HashMap;
 
