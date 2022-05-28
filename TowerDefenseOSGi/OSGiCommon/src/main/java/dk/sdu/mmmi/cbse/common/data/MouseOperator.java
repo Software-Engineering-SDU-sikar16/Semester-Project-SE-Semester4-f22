@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import static dk.sdu.mmmi.cbse.common.data.GameData.camera;
 
 public class MouseOperator
 {
@@ -20,7 +19,7 @@ public class MouseOperator
 
     public static Vector2 ScreenToWorldPoint(float x, float y)
     {
-        camera.unproject(UnprojectVector.set(x, y, 0.0f));
+        GameData.camera.unproject(UnprojectVector.set(x, y, 0.0f));
         WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);
         return new Vector2(UnprojectVector.x, UnprojectVector.y);
     }
@@ -46,10 +45,18 @@ public class MouseOperator
 
     public static Vector2 WorldToScreenPoint(float x, float y)
     {
-        Matrix4 V = camera.view;
-        Matrix4 P = camera.projection;
+
+        Matrix4 V = GameData.camera.view;
+        Matrix4 P = GameData.camera.projection;
+
         Matrix4 MVP = P.mul(V); // Skipping M, point in world coordinates
         Vector3 screenPos = MultiplyPoint(MVP, new Vector3(x, y, 0));
+
+
+//        Matrix4 V = GameData.camera.view;
+//        Matrix4 P = GameData.camera.projection;
+//        Matrix4 MVP = P.mul(V); // Skipping M, point in world coordinates
+//        Vector3 screenPos = MultiplyPoint(MVP, new Vector3(x, y, 0));
         Vector3 screenPoint = new Vector3(screenPos.x + 1f, screenPos.y + 1f, screenPos.z + 1f).scl(0.5f); // returns x, y in [0, 1] internal.
 
         return new Vector2(screenPoint.x * GlobalWidth, screenPoint.y * GlobalHeight); // multiply by viewport width and height to get the actual screen coordinates.
@@ -57,7 +64,7 @@ public class MouseOperator
 
     public static Vector2 WorldToScreenPoint(Vector2 ScreenPoint)
     {
-        camera.unproject(UnprojectVector.set(ScreenPoint.x, camera.viewportHeight - ScreenPoint.y, 0.0f));
+        GameData.camera.unproject(UnprojectVector.set(ScreenPoint.x, GameData.camera.viewportHeight - ScreenPoint.y, 0.0f));
         WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);
         return new Vector2(UnprojectVector.x, UnprojectVector.y);
     }
@@ -67,14 +74,14 @@ public class MouseOperator
     {
         int mx = Gdx.input.getX();
         int my = Gdx.input.getY();
-        return MousePosition.set(mx, camera.viewportHeight - my);
+        return MousePosition.set(mx, GameData.camera.viewportHeight - my);
     }
 
     public static Vector2 GetMouseWorldPosition()
     {
         int mx = Gdx.input.getX();
         int my = Gdx.input.getY();
-        camera.unproject(UnprojectVector.set(mx, my, 0.0f));
+        GameData.camera.unproject(UnprojectVector.set(mx, my, 0.0f));
         WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);
 
         return WorldMousePosition;
