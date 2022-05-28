@@ -25,79 +25,70 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class MyGame implements ApplicationListener
-{
-	
-	//    private ShapeRenderer sr;
-	private final GameData gameData = new GameData();
-	private static World world = new World();
-	private static final List<IEntityProcessingService> entityProcessorList = new CopyOnWriteArrayList<>();
-	private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
-	private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
-	public static MyGame INSTANCE;
-	private int widthScreen, heightScreen;
-	
-	private Box2DDebugRenderer box2DDebugRenderer;
-	
-	public MyGame()
-	{
-		init();
-		INSTANCE = this;
-	}
-	
-	public void init()
-	{
-		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.width = 960;
-		cfg.height = 640;
-		cfg.title = "Tower Defense";
-		cfg.resizable = false;
-		cfg.vSyncEnabled = true;
-		cfg.backgroundFPS = 60;
-		cfg.foregroundFPS = 60;
-		
-		
-		cfg.pauseWhenBackground = true;
-		//config.pauseWhenMinimized = true;
-		
-		new LwjglApplication(this, cfg);
-	}
-	
-	@Override
-	public void create()
-	{
-		this.widthScreen = Gdx.graphics.getWidth();
-		this.heightScreen = Gdx.graphics.getHeight();
-		this.gameData.setDisplayHeight(this.heightScreen);
-		this.gameData.setDisplayWidth(this.widthScreen);
-		this.gameData.camera = new OrthographicCamera();
-		this.gameData.camera.setToOrtho(false, widthScreen, heightScreen);
-		this.box2DDebugRenderer = new Box2DDebugRenderer();
+public class MyGame implements ApplicationListener {
+
+    public static final GameData gameData = new GameData();
+    private static World world = new World();
+    private static final List<IEntityProcessingService> entityProcessorList = new CopyOnWriteArrayList<>();
+    private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
+    private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
+    public static MyGame INSTANCE;
+    private int widthScreen, heightScreen;
+
+//    private Box2DDebugRenderer box2DDebugRenderer;
+
+    public MyGame(){
+        init();
+        INSTANCE = this;
+    }
+
+    public void init() {
+        LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+        cfg.width = 960;
+        cfg.height = 640;
+        cfg.title = "Tower Defense";
+        cfg.resizable = false;
+        cfg.vSyncEnabled = true;
+        cfg.backgroundFPS = 60;
+        cfg.foregroundFPS = 60;
+
+        cfg.pauseWhenBackground = true;
+        //config.pauseWhenMinimized = true;
+
+        new LwjglApplication(this, cfg);
+    }
+
+    @Override
+    public void create() {
+        this.widthScreen = Gdx.graphics.getWidth();
+        this.heightScreen = Gdx.graphics.getHeight();
+        this.gameData.setDisplayHeight(this.heightScreen);
+        this.gameData.setDisplayWidth(this.widthScreen);
+        this.gameData.camera = new OrthographicCamera();
+        this.gameData.camera.setToOrtho(false, widthScreen, heightScreen);
 		this.gameData.Initialize();
-		
-		for (IGamePluginService gamePluginService : gamePluginList)
-		{
-			gamePluginService.start(gameData, world);
-		}
-		
-		Array<TiledMap> maps = new Array<TiledMap>();
-		GameData.getListOfAssets(TiledMap.class, maps);
-		
-		for (TiledMap map : maps)
-		{
-			gameData.orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
-		}
-		
-		
-		for (Entity entity : world.getEntities())
-		{
-			SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
-			sl.createSprite();
-		}
-		
-		
-		//OverlayService.CreateAllOverlays();
-		//overlayService.onCreate();
+//        this.box2DDebugRenderer = new Box2DDebugRenderer();
+
+       for (   IGamePluginService gamePluginService : gamePluginList) {
+           gamePluginService.start(gameData, world);
+        }
+
+        Array<TiledMap> maps = new Array<TiledMap>();
+        GameData.getListOfAssets(TiledMap.class, maps);
+
+        for (TiledMap map : maps) {
+            gameData.orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
+        }
+
+
+        for(Entity entity : world.getEntities()) {
+            SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
+            sl.createSprite();
+        }
+
+
+        //OverlayService.CreateAllOverlays();
+        //overlayService.onCreate();
 //        setScreen(new GameScreen(camera));
 	}
 	

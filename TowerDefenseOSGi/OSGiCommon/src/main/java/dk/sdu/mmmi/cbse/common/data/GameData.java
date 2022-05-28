@@ -3,6 +3,7 @@ package dk.sdu.mmmi.cbse.common.data;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -30,6 +31,7 @@ public class GameData
 	public BitmapFont ScoreUIFontIcons;
 	public boolean IsPauseScreenVisible = false;
 	
+	public static Sprite MouseTileSelector;
 	
 	//
 	
@@ -123,6 +125,6 @@ public class GameData
 	{
 		UIStage = new com.badlogic.gdx.scenes.scene2d.Stage();
 		GlobalSpriteBatch = new SpriteBatch();
-		
+		MouseTileSelector = new Sprite();
 	}
 }
