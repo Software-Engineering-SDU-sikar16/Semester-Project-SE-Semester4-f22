@@ -2,9 +2,11 @@ package dk.sdu.mmmi.cbse.common.data;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Array;
+import dk.sdu.mmmi.cbse.common.data.entityparts.AnimatedSpritePart;
 import dk.sdu.mmmi.cbse.common.events.Event;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,10 @@ public class GameData {
     private List<Event> events = new CopyOnWriteArrayList<>();
     public OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     public TiledMap tiledMap;
-    public OrthographicCamera camera;
+    public static OrthographicCamera camera;
+    public MouseOperator mouseOperator;
+    public static Sprite MouseTileSelector;
+
     public void addEvent(Event e) {
         events.add(e);
     }

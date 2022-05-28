@@ -1,16 +1,12 @@
-package dk.sdu.mmmi.cbse.osgimap.helper;
+package dk.sdu.mmmi.cbse.common.data;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import dk.sdu.mmmi.cbse.osgimap.MapService;
-import dk.sdu.mmmi.cbse.common.data.GameData;
+import static dk.sdu.mmmi.cbse.common.data.GameData.camera;
 
-public class MouseOperator //extends MapService
+public class MouseOperator
 {
     public static Vector3 UnprojectVector = new Vector3();
     public static Vector2 WorldMousePosition = new Vector2();
@@ -19,14 +15,12 @@ public class MouseOperator //extends MapService
     public static Vector2 MousePosition = new Vector2();
     public static int GlobalWidth = 0;
     public static int GlobalHeight = 0;
-    public static OrthographicCamera Camera;
-//    public static TileMapHelper TileMapHelper;
     public static int TILE_WIDTH = 32;
     public static int TILE_HEIGHT = 32;
 
     public static Vector2 ScreenToWorldPoint(float x, float y)
     {
-        Camera.unproject(UnprojectVector.set(x, y, 0.0f));
+        camera.unproject(UnprojectVector.set(x, y, 0.0f));
         WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);
         return new Vector2(UnprojectVector.x, UnprojectVector.y);
     }
@@ -52,8 +46,8 @@ public class MouseOperator //extends MapService
 
     public static Vector2 WorldToScreenPoint(float x, float y)
     {
-        Matrix4 V = Camera.view;
-        Matrix4 P = Camera.projection;
+        Matrix4 V = camera.view;
+        Matrix4 P = camera.projection;
         Matrix4 MVP = P.mul(V); // Skipping M, point in world coordinates
         Vector3 screenPos = MultiplyPoint(MVP, new Vector3(x, y, 0));
         Vector3 screenPoint = new Vector3(screenPos.x + 1f, screenPos.y + 1f, screenPos.z + 1f).scl(0.5f); // returns x, y in [0, 1] internal.
@@ -63,7 +57,7 @@ public class MouseOperator //extends MapService
 
     public static Vector2 WorldToScreenPoint(Vector2 ScreenPoint)
     {
-        Camera.unproject(UnprojectVector.set(ScreenPoint.x, Camera.viewportHeight - ScreenPoint.y, 0.0f));
+        camera.unproject(UnprojectVector.set(ScreenPoint.x, camera.viewportHeight - ScreenPoint.y, 0.0f));
         WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);
         return new Vector2(UnprojectVector.x, UnprojectVector.y);
     }
@@ -73,14 +67,14 @@ public class MouseOperator //extends MapService
     {
         int mx = Gdx.input.getX();
         int my = Gdx.input.getY();
-        return MousePosition.set(mx, Camera.viewportHeight - my);
+        return MousePosition.set(mx, camera.viewportHeight - my);
     }
 
     public static Vector2 GetMouseWorldPosition()
     {
         int mx = Gdx.input.getX();
         int my = Gdx.input.getY();
-        Camera.unproject(UnprojectVector.set(mx, my, 0.0f));
+        camera.unproject(UnprojectVector.set(mx, my, 0.0f));
         WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);
 
         return WorldMousePosition;
@@ -97,11 +91,13 @@ public class MouseOperator //extends MapService
         int tileIndexX = (int) Math.floor(mx / TILE_WIDTH + 0.5f);
         int tileIndexY = (int) Math.floor(my / TILE_HEIGHT + 0.5f);
 
-        TiledMapTileLayer tileid = (TiledMapTileLayer) MapService.tiledMap.getLayers().get(0);
+    return new Vector2(tileIndexX, tileIndexY);
 
-        Vector2 WorldPoint = new Vector2(tileIndexX * TILE_WIDTH, ((tileid.getHeight() - 1) - tileIndexY) * TILE_HEIGHT);
+        //TiledMapTileLayer tileid = (TiledMapTileLayer) MapService.tiledMap.getLayers().get(0);
 
-        return TileUnderMouseWorldPosition.set(WorldPoint.x, WorldPoint.y);
+        //Vector2 WorldPoint = new Vector2(tileIndexX * TILE_WIDTH, ((tileid.getHeight() - 1) - tileIndexY) * TILE_HEIGHT);
+
+        //return TileUnderMouseWorldPosition.set(tileIndexX, tileIndexY);
     }
 
     public static Vector2 GetTilePositionAt(float x, float y)
@@ -117,28 +113,4 @@ public class MouseOperator //extends MapService
         return TileUnderMouseWorldPosition.set(WorldPoint.x, WorldPoint.y);
     }
 
-
-    public static Vector2 GetTilePositionUnderMousePosition2()
-    {
-        int mx = Gdx.input.getX();
-        int my = Gdx.input.getY();
-
-//        int TILE_HEIGHT = Constants.TileMapHelper.TilePixelHeight;
-//        int TILE_WIDTH = Constantsts.TileMapHelper.TilePixelHeight;
-
-        Camera.unproject(UnprojectVector.set(mx, my, 0.0f));
-        WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);
-
-        float mapx = WorldMousePosition.x / TILE_WIDTH + 0.5f;
-        float mapy = WorldMousePosition.y / TILE_HEIGHT + 0.5f;
-
-        WorldPosition = new Vector2(mapx, mapy);
-
-        int tileX = (int) WorldPosition.x;
-        int tileY = (int) WorldPosition.y;
-
-        TileUnderMouseWorldPosition.set(tileX, tileY);
-        return TileUnderMouseWorldPosition;
-
-    }
 }

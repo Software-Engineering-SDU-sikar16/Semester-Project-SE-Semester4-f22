@@ -27,8 +27,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MyGame implements ApplicationListener {
 
-//    private ShapeRenderer sr;
-    private final GameData gameData = new GameData();
+    public static final GameData gameData = new GameData();
     private static World world = new World();
     private static final List<IEntityProcessingService> entityProcessorList = new CopyOnWriteArrayList<>();
     private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
@@ -36,7 +35,7 @@ public class MyGame implements ApplicationListener {
     public static MyGame INSTANCE;
     private int widthScreen, heightScreen;
 
-    private Box2DDebugRenderer box2DDebugRenderer;
+//    private Box2DDebugRenderer box2DDebugRenderer;
 
     public MyGame(){
         init();
@@ -53,7 +52,6 @@ public class MyGame implements ApplicationListener {
         cfg.backgroundFPS = 60;
         cfg.foregroundFPS = 60;
 
-
         cfg.pauseWhenBackground = true;
         //config.pauseWhenMinimized = true;
 
@@ -68,7 +66,7 @@ public class MyGame implements ApplicationListener {
         this.gameData.setDisplayWidth(this.widthScreen);
         this.gameData.camera = new OrthographicCamera();
         this.gameData.camera.setToOrtho(false, widthScreen, heightScreen);
-        this.box2DDebugRenderer = new Box2DDebugRenderer();
+//        this.box2DDebugRenderer = new Box2DDebugRenderer();
 
        for (   IGamePluginService gamePluginService : gamePluginList) {
            gamePluginService.start(gameData, world);

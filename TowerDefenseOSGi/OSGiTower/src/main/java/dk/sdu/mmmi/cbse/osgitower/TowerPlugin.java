@@ -15,7 +15,7 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.osgimap.MapService;
-import dk.sdu.mmmi.cbse.osgimap.helper.MouseOperator;
+import dk.sdu.mmmi.cbse.common.data.MouseOperator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,9 +75,10 @@ public class TowerPlugin implements IGamePluginService {
         world.addEntity(towerThing);
         turretPositions.put(new Vector2(x, y), this);
 
+//        Testing mouseoperator and mousetileselctor here and it works
 //        Vector2 TilePos = MouseOperator.GetTilePositionUnderMousePosition();
-//        MapService.MouseTileSelector.setPosition(TilePos.x, TilePos.y);
-//        MapService.MouseTileSelector.setSize(32, 32);
+//        gameData.MouseTileSelector.setPosition(TilePos.x, TilePos.y);
+//        gameData.MouseTileSelector.setSize(32, 32);
 //        System.out.println("TilePos: " + TilePos);
         return towerThing;
     }
@@ -195,15 +196,17 @@ public class TowerPlugin implements IGamePluginService {
     public Entity TryBuildTurret(GameData gameData, World world)
     {
         Vector2 TilePos = MouseOperator.GetTilePositionUnderMousePosition();
-        MapService.MouseTileSelector.setPosition(TilePos.x, TilePos.y);
-        MapService.MouseTileSelector.setSize(32, 32);
-
+        gameData.MouseTileSelector.setPosition(TilePos.x, TilePos.y);
+        gameData.MouseTileSelector.setSize(32, 32);
+        System.out.println("TilePos: " + TilePos);
+//        createTower(gameData, world, TilePos.x, TilePos.y);
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && !isBuildingTurret)
         {
+            System.out.println("Left Click");
 //            createTower(gameData, world, TilePos.x, TilePos.y);
             if (MapService.IsTileAtPositionAValidBuildableTile(TilePos))
             {
-//                createTower(gameData, world, TilePos.x, TilePos.y);
+                createTower(gameData, world, TilePos.x, TilePos.y);
 //                new Tower();
 //
 //                if (Constants.Coins - TurretPriceInCoins < 0) // if the user has money to build this turret
