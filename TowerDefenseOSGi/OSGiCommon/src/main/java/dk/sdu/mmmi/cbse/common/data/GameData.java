@@ -43,7 +43,7 @@ public class GameData
 	private List<Event> events = new CopyOnWriteArrayList<>();
 	public OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
 	public TiledMap tiledMap;
-	public OrthographicCamera camera;
+	public static  OrthographicCamera camera;
 	
 	public void addEvent(Event e)
 	{

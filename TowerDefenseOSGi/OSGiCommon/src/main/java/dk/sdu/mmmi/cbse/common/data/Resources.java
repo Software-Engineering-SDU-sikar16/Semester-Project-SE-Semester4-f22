@@ -50,11 +50,11 @@ public class Resources
 			@Override
 			public void run()
 			{
-				LoadTexture("./assets/images/star_tiny.png");
-				LoadTexture("./assets/ui/start_button.png");
-				LoadTexture("./assets/ui/UI_BUTTON_BKG.png");
-				LoadTexture("./assets/ui/UI_LEFT_SELECTOR.png");
-				LoadTexture("./assets/ui/UI_TOP_SCORE.png");
+				LoadTexture("../assets/images/star_tiny.png");
+				LoadTexture("../assets/ui/start_button.png");
+				LoadTexture("../assets/ui/UI_BUTTON_BKG.png");
+				LoadTexture("../assets/ui/UI_LEFT_SELECTOR.png");
+				LoadTexture("../assets/ui/UI_TOP_SCORE.png");
 			}
 		});
 		

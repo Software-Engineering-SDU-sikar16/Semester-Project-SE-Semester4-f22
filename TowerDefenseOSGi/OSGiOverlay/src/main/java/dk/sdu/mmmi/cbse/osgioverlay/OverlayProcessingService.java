@@ -9,7 +9,9 @@ public class OverlayProcessingService implements IEntityProcessingService
 	@Override
 	public void process(GameData gameData, World world)
 	{
+		System.out.println("habib");
 		Overlay.UpdateAllOverlays(gameData, world);
 		Overlay.RenderAllOverlays(gameData, world);
+		
 	}
 }

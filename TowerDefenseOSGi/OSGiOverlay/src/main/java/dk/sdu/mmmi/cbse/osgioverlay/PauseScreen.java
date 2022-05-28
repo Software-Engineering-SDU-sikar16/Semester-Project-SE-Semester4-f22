@@ -39,10 +39,11 @@ public class PauseScreen extends Overlay
 	@Override
 	public void OnCreate(GameData gameData, World world)
 	{
+		System.out.println("pause screen created");
 		
 		SelectorSprite = new Sprite(Resources.LoadTexture("../assets/images/star_tiny.png"));
 		SelectorSpriteTwo = new Sprite(Resources.LoadTexture("../assets/images/star_tiny.png"));
-		
+		System.out.println("pause screen created 2");
 		CenterPoint = new Vector2(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
 		
 		TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();

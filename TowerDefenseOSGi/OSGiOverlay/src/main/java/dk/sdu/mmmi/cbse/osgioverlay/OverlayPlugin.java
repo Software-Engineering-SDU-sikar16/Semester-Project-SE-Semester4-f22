@@ -11,11 +11,11 @@ public class OverlayPlugin implements IGamePluginService {
         //call functionality to add the map to the game, so it is visible
         
         Resources.LoadAllAssets(gameData);
-        
+        System.out.println("loaded all assets");
         new PauseScreen();
-        
+        System.out.println("new pause screeen");
         Overlay.CreateAllOverlays(gameData, world);
-
+        System.out.println("create all overlayas");
     }
 
     @Override
