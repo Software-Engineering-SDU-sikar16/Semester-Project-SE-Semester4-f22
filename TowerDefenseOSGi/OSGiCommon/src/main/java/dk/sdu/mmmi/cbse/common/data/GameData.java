@@ -14,117 +14,76 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class GameData
-{
-	
-	// UI
-	public com.badlogic.gdx.scenes.scene2d.Stage UIStage;
-	
-	
-	public SpriteBatch GlobalSpriteBatch;
-	
-	
-	//Fonts
-	public BitmapFont BigPauseScreenFont;
-	public BitmapFont ScoreUIFont;
-	public BitmapFont PixelFont;
-	public BitmapFont ScoreUIFontIcons;
-	public boolean IsPauseScreenVisible = false;
-	
-	public static Sprite MouseTileSelector;
-	
-	//
-	
-	
-	private float delta;
-	private int displayWidth;
-	private int displayHeight;
-	private final GameKeys keys = new GameKeys();
-	private List<Event> events = new CopyOnWriteArrayList<>();
-	public OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-	public TiledMap tiledMap;
-	public static  OrthographicCamera camera;
-	
-	public void addEvent(Event e)
-	{
-		events.add(e);
-	}
-	
-	public static AssetManager assetManager = new AssetManager();
-	
-	public static void loadAsset(String path, Class type)
-	{
-		assetManager.load(path, type);
-	}
-	
-	public static <T> Array<T> getListOfAssets(Class<T> type, Array<T> array)
-	{
-		return assetManager.getAll(type, array);
-	}
-	
-	public void removeEvent(Event e)
-	{
-		events.remove(e);
-	}
-	
-	public List<Event> getEvents()
-	{
-		return events;
-	}
-	
-	public GameKeys getKeys()
-	{
-		return keys;
-	}
-	
-	public void setDelta(float delta)
-	{
-		this.delta = delta;
-	}
-	
-	public float getDelta()
-	{
-		return delta;
-	}
-	
-	public void setDisplayWidth(int width)
-	{
-		this.displayWidth = width;
-	}
-	
-	public int getDisplayWidth()
-	{
-		return displayWidth;
-	}
-	
-	public void setDisplayHeight(int height)
-	{
-		this.displayHeight = height;
-	}
-	
-	public int getDisplayHeight()
-	{
-		return displayHeight;
-	}
-	
-	public <E extends Event> List<Event> getEvents(Class<E> type, String sourceID)
-	{
-		List<Event> r = new ArrayList();
-		for (Event event : events)
-		{
-			if (event.getClass().equals(type) && event.getSource().getID().equals(sourceID))
-			{
-				r.add(event);
-			}
-		}
-		
-		return r;
-	}
-	
-	public void Initialize()
-	{
-		UIStage = new com.badlogic.gdx.scenes.scene2d.Stage();
-		GlobalSpriteBatch = new SpriteBatch();
-		MouseTileSelector = new Sprite();
-	}
+public class GameData {
+
+    private float delta;
+    private int displayWidth;
+    private int displayHeight;
+    private final GameKeys keys = new GameKeys();
+    private List<Event> events = new CopyOnWriteArrayList<>();
+    public OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
+    public TiledMap tiledMap;
+    public OrthographicCamera camera;
+    public MouseOperator mouseOperator;
+    public static Sprite MouseTileSelector;
+
+    public void addEvent(Event e) {
+        events.add(e);
+    }
+    public AssetManager assetManager = new AssetManager();
+
+    public void loadAsset( String path, Class type) {
+        assetManager.load( path, type);
+    }
+
+    public  <T> Array<T> getListOfAssets(Class<T> type, Array<T> array) {
+        return assetManager.getAll(type, array);
+    }
+
+    public void removeEvent(Event e) {
+        events.remove(e);
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public GameKeys getKeys() {
+        return keys;
+    }
+
+    public void setDelta(float delta) {
+        this.delta = delta;
+    }
+
+    public float getDelta() {
+        return delta;
+    }
+
+    public void setDisplayWidth(int width) {
+        this.displayWidth = width;
+    }
+
+    public int getDisplayWidth() {
+        return displayWidth;
+    }
+
+    public void setDisplayHeight(int height) {
+        this.displayHeight = height;
+    }
+
+    public int getDisplayHeight() {
+        return displayHeight;
+    }
+
+    public <E extends Event> List<Event> getEvents(Class<E> type, String sourceID) {
+        List<Event> r = new ArrayList();
+        for (Event event : events) {
+            if (event.getClass().equals(type) && event.getSource().getID().equals(sourceID)) {
+                r.add(event);
+            }
+        }
+
+        return r;
+    }
 }
