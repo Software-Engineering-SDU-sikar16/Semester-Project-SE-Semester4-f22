@@ -11,17 +11,12 @@ public class Health extends Entity
 {
 	AnimatedSprite[] hearts;
 	public static Texture HeartTexture = Resources.LoadTexture("ui/hp.png");
-	
 	public static Texture HeartTextureNull = Resources.LoadTexture("ui/hp_null.png");
-	
-	
 	int healthCounter = 0;
-	
 	public int GetHealth()
 	{
 		return Util.Clamp(healthCounter, 0, hearts.length - 1);
 	}
-	
 	public boolean IsDead()
 	{
 		return healthCounter <= 0;

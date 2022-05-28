@@ -22,8 +22,7 @@ public abstract class Entity extends Sprite implements IEntity
 	{
 		return Enabled;
 	}
-	
-	
+
 	public void SetZIndex(int NewZIndex)
 	{
 		ZIndex = NewZIndex;

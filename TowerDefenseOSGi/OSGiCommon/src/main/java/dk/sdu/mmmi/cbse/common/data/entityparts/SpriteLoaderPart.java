@@ -36,6 +36,13 @@ public class SpriteLoaderPart implements EntityPart {
         this.flipY = flipY;
     }
 
+    public SpriteLoaderPart(String path) {
+        texture = new Texture(initPath + path);
+        sprite = new Sprite(texture);
+        spriteBatch = new SpriteBatch();
+
+    }
+
     public void createSprite() {
         texture = new Texture(this.path);
         spriteBatch = new SpriteBatch();
@@ -78,4 +85,5 @@ public class SpriteLoaderPart implements EntityPart {
         this.textureRegion.flip(this.flipX, flipY);
         this.flipY = flipY;
     }
+
 }

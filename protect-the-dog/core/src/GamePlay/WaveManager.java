@@ -4,15 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import helper.Constants;
 
-
 public class WaveManager
 {
 	
 	private int SpawnedEnemies = 0;
-	
 	public float WaveSpawnSpeed = 1.5f; // lower numbers are faster
 	float timeSinceLastSpawned = 0;
-	
 	int currentWaveIndex = 0;
 	
 	private WaveSettings GetWave()
@@ -71,7 +68,6 @@ public class WaveManager
 							EnemyEntity.EnemyType.kingkong,
 							EnemyEntity.EnemyType.kingkong,
 							EnemyEntity.EnemyType.boss,
-						
 					}),
 					
 					new WaveSettings(new EnemyEntity.EnemyType[]{
@@ -85,7 +81,6 @@ public class WaveManager
 							EnemyEntity.EnemyType.boss,
 							EnemyEntity.EnemyType.boss,
 							EnemyEntity.EnemyType.boss,
-						
 					}),
 			};
 	

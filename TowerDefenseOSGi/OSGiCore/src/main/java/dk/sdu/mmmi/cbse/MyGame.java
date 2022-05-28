@@ -45,14 +45,14 @@ public class MyGame implements ApplicationListener {
     }
 
     public void init() {
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 960;
-        config.height = 640;
-        config.title = "Protect the dog";
-        config.resizable = false;
-        config.vSyncEnabled = true;
-        config.backgroundFPS = 60;
-        config.foregroundFPS = 60;
+        LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+        cfg.width = 960;
+        cfg.height = 640;
+        cfg.title = "Tower Defense";
+        cfg.resizable = false;
+        cfg.vSyncEnabled = true;
+        cfg.backgroundFPS = 60;
+        cfg.foregroundFPS = 60;
 
 
         config.pauseWhenBackground = true;

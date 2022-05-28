@@ -23,22 +23,16 @@ public class Turret extends AnimatedSprite
 {
 	
 	public static Array<Turret> Turrets = new Array<Turret>();
-	
 	public static Array<AnimatedSprite> bullets = new Array<AnimatedSprite>(100); // global list of bullets //make a bullet service?
 	public static HashMap<Vector2, Turret> turretPositions = new HashMap<Vector2, Turret>();
 	public static Random random = new Random();
-	
 	public boolean IsShooting = false;
 	public Vector2 EnemyPosition;
 	public float TurretShootSpeedInSeconds = 1.5f; // lower numbers are faster
 	public Rectangle hitRect;
 	float timeSinceLastBullet = 0;
-	
 	public static int TurretPriceInCoins = 500;
-	
-	
 	public Circle circle; // this circle is for checking whether the enemy is getting close to the turret.
-	
 	public Rectangle rect; // this rectangle is for checking whether the mouse is hovering over the turret
 	private EnemyEntity TargetEnemy;
 	

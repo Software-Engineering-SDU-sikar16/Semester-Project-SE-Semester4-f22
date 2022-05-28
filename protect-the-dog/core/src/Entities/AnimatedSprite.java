@@ -16,7 +16,6 @@ public class AnimatedSprite extends Entity
 	AnimationState animationState;
 	AnimationState.TrackEntry CurrentTrack;
 	
-	
 	// Non Spine custom animated spritesheets
 	TextureRegion[][] TextureRegions = null;
 	TextureRegion[] AnimationFrames = null;
@@ -104,8 +103,7 @@ public class AnimatedSprite extends Entity
 	{
 		return getY() + (getHeight() / 2);
 	}
-	
-	
+
 	public float getEntityX()
 	{
 		return getX() + (getWidth() / 2);
