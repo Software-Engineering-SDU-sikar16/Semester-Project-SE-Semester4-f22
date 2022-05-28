@@ -15,7 +15,7 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.osgimap.MapService;
-import dk.sdu.mmmi.cbse.common.data.MouseOperator;
+import dk.sdu.mmmi.cbse.osgimap.helper.MouseOperator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
