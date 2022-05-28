@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import dk.sdu.mmmi.cbse.common.events.Event;
 
@@ -15,7 +16,13 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameData {
-
+    
+    public BitmapFont BigPauseScreenFont;
+    public SpriteBatch GlobalSpriteBatch;
+    public BitmapFont ScoreUIFontIcons;
+    public BitmapFont ScoreUIFont;
+    public BitmapFont PixelFont;
+    public boolean IsPauseScreenVisible = false;
     private float delta;
     private int displayWidth;
     private int displayHeight;
@@ -26,7 +33,8 @@ public class GameData {
     public static OrthographicCamera camera;
     public MouseOperator mouseOperator;
     public static Sprite MouseTileSelector;
-
+    public Stage UIStage;
+    
     public void addEvent(Event e) {
         events.add(e);
     }
@@ -86,4 +94,12 @@ public class GameData {
 
         return r;
     }
+    
+    public void Initialize()
+    {
+        UIStage = new com.badlogic.gdx.scenes.scene2d.Stage();
+        GlobalSpriteBatch = new SpriteBatch();
+        MouseTileSelector = new Sprite();
+    }
+ 
 }
