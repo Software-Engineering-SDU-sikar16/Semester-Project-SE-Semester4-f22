@@ -6,14 +6,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-//import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-//import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -21,7 +15,6 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -35,7 +28,6 @@ public class MyGame implements ApplicationListener {
     public static MyGame INSTANCE;
     private int widthScreen, heightScreen;
 
-//    private Box2DDebugRenderer box2DDebugRenderer;
 
     public MyGame(){
         init();
@@ -53,7 +45,6 @@ public class MyGame implements ApplicationListener {
         cfg.foregroundFPS = 60;
 
         cfg.pauseWhenBackground = true;
-        //config.pauseWhenMinimized = true;
 
         new LwjglApplication(this, cfg);
     }
@@ -67,7 +58,6 @@ public class MyGame implements ApplicationListener {
         this.gameData.camera = new OrthographicCamera();
         this.gameData.camera.setToOrtho(false, widthScreen, heightScreen);
 		this.gameData.Initialize();
-//        this.box2DDebugRenderer = new Box2DDebugRenderer();
 
        for (   IGamePluginService gamePluginService : gamePluginList) {
            gamePluginService.start(gameData, world);
@@ -162,6 +152,11 @@ public class MyGame implements ApplicationListener {
 			SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
 			sl.process(gameData, entity);
 		}
+		
+		
+		
+		this.gameData.UIStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
+		this.gameData.UIStage.draw();
 	}
 	
 	public void addEntityProcessingService(IEntityProcessingService eps)

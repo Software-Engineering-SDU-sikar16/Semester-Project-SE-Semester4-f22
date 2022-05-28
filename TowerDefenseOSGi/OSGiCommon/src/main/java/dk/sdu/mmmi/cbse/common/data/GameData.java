@@ -1,5 +1,6 @@
 package dk.sdu.mmmi.cbse.common.data;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -98,6 +99,8 @@ public class GameData {
     public void Initialize()
     {
         UIStage = new com.badlogic.gdx.scenes.scene2d.Stage();
+        Gdx.input.setInputProcessor(UIStage);
+        
         GlobalSpriteBatch = new SpriteBatch();
         MouseTileSelector = new Sprite();
     }
