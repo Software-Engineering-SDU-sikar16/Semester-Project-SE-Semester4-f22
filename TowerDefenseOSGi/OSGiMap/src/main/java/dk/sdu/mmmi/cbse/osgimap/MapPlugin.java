@@ -18,6 +18,6 @@ public class MapPlugin implements IGamePluginService {
     @Override
     public void stop(GameData gameData, World world) {
         // call functionality to remove the map from the game, so it is no longer visible
-        GameData.assetManager.unload("../assets/maps/map1.tmx");
+       // GameData.assetManager.unload("../assets/maps/map1.tmx");
     }
 }
