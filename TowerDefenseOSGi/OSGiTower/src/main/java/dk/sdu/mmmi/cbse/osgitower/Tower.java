@@ -23,4 +23,10 @@ public class Tower extends Entity {
 	{
 	
 	}
+	
+	@Override
+	public void OnDispose(GameData gameData, World world)
+	{
+	
+	}
 }

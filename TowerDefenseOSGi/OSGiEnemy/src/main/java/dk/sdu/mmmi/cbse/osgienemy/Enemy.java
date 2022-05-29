@@ -47,4 +47,10 @@ public class Enemy extends Entity
 	{
 	
 	}
+	
+	@Override
+	public void OnDispose(GameData gameData, World world)
+	{
+	
+	}
 }

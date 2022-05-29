@@ -23,6 +23,13 @@ public class Resources
 	public static ConcurrentHashMap<String, FontResource> Fonts = new ConcurrentHashMap<String, FontResource>();
 	public static ConcurrentHashMap<String, Music> Musics = new ConcurrentHashMap<String, Music>();
 	
+	
+	
+	
+
+	
+	
+	
 	public static Texture LoadTexture(String FilePath)
 	{
 		if (Textures.containsKey(FilePath))
@@ -55,6 +62,10 @@ public class Resources
 				LoadTexture("../assets/ui/UI_BUTTON_BKG.png");
 				LoadTexture("../assets/ui/UI_LEFT_SELECTOR.png");
 				LoadTexture("../assets/ui/UI_TOP_SCORE.png");
+				
+				LoadTexture("../assets/ui/hp.png");
+				LoadTexture("../assets/ui/hp_null.png");
+				
 			}
 		});
 		

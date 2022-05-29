@@ -83,8 +83,7 @@ public class GameUIOverlay extends Overlay
 		
 		
 		gameData.UIStage.addActor(StartButton);
-		
-		//gameData.Health = new Health(20, Constants.GlobalHeight - 70);
+		gameData.UIHealth.OnCreate(gameData, world);
 	}
 	
 	@Override
@@ -97,6 +96,7 @@ public class GameUIOverlay extends Overlay
 		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFontIcons, "\u0183", 25, gameData.getDisplayHeight() - 118, Color.WHITE);
 		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFont, "" + gameData.Coins, 41, gameData.getDisplayHeight() - 99, Color.WHITE);
 		
+		gameData.UIHealth.OnRender(gameData, world);
 		
 		gameData.GlobalSpriteBatch.end();
 	}
@@ -104,12 +104,11 @@ public class GameUIOverlay extends Overlay
 	@Override
 	public void OnUpdate(GameData gameData, World world)
 	{
-	
+		gameData.UIHealth.OnUpdate(gameData, world);
 	}
 	
 	@Override
 	public void OnDispose(GameData gameData, World world)
 	{
-	
 	}
 }

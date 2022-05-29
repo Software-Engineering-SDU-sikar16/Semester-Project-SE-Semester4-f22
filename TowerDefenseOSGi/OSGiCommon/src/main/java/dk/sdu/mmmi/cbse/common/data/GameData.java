@@ -21,10 +21,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameData
 {
-
+	
 	//Bullets
 /*	public static BulletPool BulletPool = new BulletPool(10000, 0);
 	public static Array<Bullet> ActiveBullets = new Array<Bullet>();*/
+	
+	public Resources assets;
+	
+	public Health UIHealth;
 	
 	public static ShapeRenderer GlobalShapeRenderer;
 	
@@ -33,15 +37,13 @@ public class GameData
 	public static GraphPath<Tile> GameMapPath;
 	
 	
-	
-	
 	// Fonts
 	public BitmapFont BigPauseScreenFont;
 	public SpriteBatch GlobalSpriteBatch;
 	public BitmapFont ScoreUIFontIcons;
 	public BitmapFont ScoreUIFont;
 	public BitmapFont PixelFont;
-
+	
 	
 	// Game
 	public static int Coins = 2500;
@@ -146,7 +148,9 @@ public class GameData
 		MouseTileSelector = new Sprite();
 		GlobalShapeRenderer = new ShapeRenderer();
 		waveManager = new WaveManager();
+		
+		UIHealth = new Health(20, displayHeight - 70, 50, 50, 7, 7);
 	}
-	
+}
 
 
