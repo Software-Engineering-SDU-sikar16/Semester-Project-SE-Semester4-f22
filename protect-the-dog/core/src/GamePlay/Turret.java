@@ -23,7 +23,6 @@ public class Turret extends AnimatedSprite
 {
 	
 	public static Array<Turret> Turrets = new Array<Turret>();
-	public static Array<AnimatedSprite> bullets = new Array<AnimatedSprite>(100); // global list of bullets //make a bullet service?
 	public static HashMap<Vector2, Turret> turretPositions = new HashMap<Vector2, Turret>();
 	public static Random random = new Random();
 	public boolean IsShooting = false;

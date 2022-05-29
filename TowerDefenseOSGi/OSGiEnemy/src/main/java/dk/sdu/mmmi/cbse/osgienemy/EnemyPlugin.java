@@ -1,13 +1,6 @@
 package dk.sdu.mmmi.cbse.osgienemy;
 
-import dk.sdu.mmmi.cbse.common.data.EnemyType;
-import dk.sdu.mmmi.cbse.common.data.Entity;
-import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
+import dk.sdu.mmmi.cbse.common.data.*;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 public class EnemyPlugin implements IGamePluginService {
@@ -31,7 +24,7 @@ public class EnemyPlugin implements IGamePluginService {
     }
 
     private Entity createEnemy(GameData gameData) {
-        Entity enemyThing = new Enemy(0.0f, 0.0f, 0.0f, 0.0f, EnemyType.normal);
+        Entity enemyThing = new Enemy(0, 0, 0, 0, EnemyType.normal);
         /*   Entity enemyThing = new Enemy();
         float deceleration = 10;
         float acceleration = 200;

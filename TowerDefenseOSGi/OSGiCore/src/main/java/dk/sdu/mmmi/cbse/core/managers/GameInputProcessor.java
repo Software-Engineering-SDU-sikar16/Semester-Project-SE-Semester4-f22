@@ -3,7 +3,7 @@ package dk.sdu.mmmi.cbse.core.managers;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.GameKeys;
+import dk.sdu.mmmi.cbse.common.data.helpers.GameKeys;
 
 public class GameInputProcessor extends InputAdapter {
     private final GameData gameData;

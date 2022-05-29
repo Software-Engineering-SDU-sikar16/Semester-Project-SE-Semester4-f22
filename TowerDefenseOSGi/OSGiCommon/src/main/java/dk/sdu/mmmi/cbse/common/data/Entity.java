@@ -2,7 +2,7 @@ package dk.sdu.mmmi.cbse.common.data;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import dk.sdu.mmmi.cbse.common.data.entityparts.EntityPart;
+import dk.sdu.mmmi.cbse.common.data.components.EntityPart;
 import dk.sdu.mmmi.cbse.common.services.EntityComparator;
 
 import java.io.Serializable;
@@ -11,7 +11,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-public abstract class Entity extends Sprite implements IEntity, Serializable {
+public abstract class Entity extends Sprite implements IRenderable, Serializable {
     private final UUID ID = UUID.randomUUID();
     
     
@@ -35,7 +35,7 @@ public abstract class Entity extends Sprite implements IEntity, Serializable {
         return (E) parts.get(partClass);
     }
     
-
+    
     public String getID() {
         return ID.toString();
     }
@@ -97,7 +97,20 @@ public abstract class Entity extends Sprite implements IEntity, Serializable {
     
     
     
+    public float getCenterY()
+    {
+        return getY() + (getHeight() / 2);
+    }
     
+    public float getCenterX()
+    {
+        return getX() + (getWidth() / 2);
+    }
+    
+    public Vector2 getCenteredPosition()
+    {
+        return new Vector2(getCenterX(), getCenterY());
+    }
     
     
     

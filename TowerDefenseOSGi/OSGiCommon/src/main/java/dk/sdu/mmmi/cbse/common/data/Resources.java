@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import dk.sdu.mmmi.cbse.common.data.helpers.FontResource;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -65,7 +66,7 @@ public class Resources
 				
 				LoadTexture("../assets/ui/hp.png");
 				LoadTexture("../assets/ui/hp_null.png");
-				
+				LoadTexture("../assets/ui/selected_tile.png");
 			}
 		});
 		

@@ -1,4 +1,4 @@
-package dk.sdu.mmmi.cbse.common.data;
+package dk.sdu.mmmi.cbse.common.data.helpers;
 
 
 import com.badlogic.gdx.graphics.Color;

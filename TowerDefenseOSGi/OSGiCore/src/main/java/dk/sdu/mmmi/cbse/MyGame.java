@@ -4,16 +4,19 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import dk.sdu.mmmi.cbse.common.data.Bullets.Bullet;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
+import dk.sdu.mmmi.cbse.common.data.components.SpriteLoaderPart;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.helpers.DrawUtil;
+import dk.sdu.mmmi.cbse.common.data.helpers.MouseOperator;
 import dk.sdu.mmmi.cbse.common.services.*;
 import dk.sdu.mmmi.cbse.core.managers.CustomCursorDrawer;
 
@@ -29,8 +32,10 @@ public class MyGame implements ApplicationListener
 	private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
 	private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
 	public static MyGame INSTANCE;
-	private int widthScreen, heightScreen;
 	CustomCursorDrawer cursor;
+	
+	
+	private boolean IsInitialized = false;
 	
 	
 	public MyGame()
@@ -56,14 +61,10 @@ public class MyGame implements ApplicationListener
 	@Override
 	public void create()
 	{
-		this.widthScreen = Gdx.graphics.getWidth();
-		this.heightScreen = Gdx.graphics.getHeight();
-		this.gameData.setDisplayHeight(this.heightScreen);
-		this.gameData.setDisplayWidth(this.widthScreen);
-		this.gameData.camera = new OrthographicCamera();
-		this.gameData.camera.setToOrtho(false, widthScreen, heightScreen);
 		this.gameData.Initialize();
 		
+		
+		System.out.println("Game created");
 		for (IGamePluginService gamePluginService : gamePluginList)
 		{
 			gamePluginService.start(gameData, world);
@@ -76,7 +77,7 @@ public class MyGame implements ApplicationListener
 		{
 			gameData.orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
 		}
-
+		
 		for (Entity entity : world.getEntities())
 		{
 			SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
@@ -86,15 +87,19 @@ public class MyGame implements ApplicationListener
 			}
 		}
 		cursor = new CustomCursorDrawer();
-
-        //OverlayService.CreateAllOverlays();
-        //overlayService.onCreate();
+		
+		IsInitialized = true;
+		
+		//OverlayService.CreateAllOverlays();
+		//overlayService.onCreate();
 //        setScreen(new GameScreen(camera));
 	}
 	
 	@Override
 	public void render()
 	{
+	
+		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -102,7 +107,10 @@ public class MyGame implements ApplicationListener
 		//orthogonalTiledMapRenderer.render();
 		//overlayService.onRender();
 		//OverlayService.RenderAllOverlays();
-		update();
+		
+		Update();
+	
+		Render();
 	}
 	
 	@Override
@@ -111,6 +119,7 @@ public class MyGame implements ApplicationListener
 		this.gameData.camera.viewportWidth = width;
 		this.gameData.camera.viewportHeight = height;
 		this.gameData.camera.update();
+		this.gameData.viewport.update(width, height);
 	}
 	
 	@Override
@@ -128,11 +137,30 @@ public class MyGame implements ApplicationListener
 	@Override
 	public void dispose()
 	{
-
+	
 	}
 	
-	private void update()
+	private void Render()
 	{
+		
+		for (Bullet bullet : gameData.ActiveBullets)
+		{
+			bullet.OnRender(gameData, world); // update bullet
+		}
+		
+		cursor.render();
+		RenderTileSelector(gameData);
+		
+		
+		this.gameData.UIStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
+		this.gameData.UIStage.draw();
+	}
+	
+	private void Update()
+	{
+		
+		gameData.waveManager.OnUpdate(gameData, world);
+		
 		// always draw the map first with the camera because components are renders synchronously.
 //        if(mapService != null) {
 //        mapService.updateMap(this.gameData.camera);
@@ -168,60 +196,104 @@ public class MyGame implements ApplicationListener
 		}
 		
 		
-		this.gameData.UIStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
-		this.gameData.UIStage.draw();
-		cursor.render();
+		
+		
+		
+		
+		
+		
+		gameData.enemyQuadTree.OnUpdate(gameData, world);
+		
+		
+		
+		
+		
+		// update bullets
+		//loop through all our active bullets
+		for (Bullet bullet : gameData.ActiveBullets)
+		{
+			bullet.OnUpdate(gameData, world); // update bullet
+		}
+		
+		// loop through bullets again
+		for (Bullet bullet : gameData.ActiveBullets)
+		{
+			Vector2 bulletPos = bullet.getPosition();
+			if (bulletPos.x > gameData.GlobalWidth || bulletPos.x < -50 || bulletPos.y < -50 || bulletPos.y > gameData.GlobalHeight)
+			{
+				// bullet is off screen so free it and then remove it
+				gameData.BulletPool.free(bullet); // place back in pool
+				gameData.ActiveBullets.removeValue(bullet, true); // remove bullet from our array so we don't render it anymore
+			}
+		}
+	
+		
+
 	}
+	
+	private void RenderTileSelector(GameData gameData)
+	{
+		Vector2 TilePos = MouseOperator.GetTilePositionUnderMousePosition(gameData);
+		
+		gameData.MouseTileSelector.setPosition(TilePos.x, TilePos.y);
+		gameData.MouseTileSelector.setSize(gameData.TileMapHelper.TilePixelWidth, gameData.TileMapHelper.TilePixelHeight);
+		
+		gameData.GlobalSpriteBatch.begin();
+		gameData.GlobalSpriteBatch.draw(gameData.MouseTileSelector, gameData.MouseTileSelector.getX(), gameData.MouseTileSelector.getY(), gameData.MouseTileSelector.getWidth(), gameData.MouseTileSelector.getHeight());
+		
+		Vector2 mousePosition = MouseOperator.GetMouseWorldPosition(gameData);
+		if (gameData.Coins < gameData.TurretPriceInCoins)
+		{
+			DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFont, "" + gameData.TurretPriceInCoins, mousePosition.x + 20, mousePosition.y - 5, new Color(1.0f, 0.2f, 0.2f, 1.0f));
+		}
+		else
+		{
+			DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFont, "" + gameData.TurretPriceInCoins, mousePosition.x + 20, mousePosition.y - 5, new Color(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		
+		gameData.GlobalSpriteBatch.end();
+	}
+	
 	
 	public void addEntityProcessingService(IEntityProcessingService eps)
 	{
 		entityProcessorList.add(eps);
+		System.out.println("Added EntityProcessingService: " + eps.getClass().getSimpleName());
 	}
 	
 	public void removeEntityProcessingService(IEntityProcessingService eps)
 	{
 		entityProcessorList.remove(eps);
+		System.out.println("Removed EntityProcessingService: " + eps.getClass().getSimpleName());
 	}
 	
 	public void addPostEntityProcessingService(IPostEntityProcessingService eps)
 	{
 		postEntityProcessorList.add(eps);
+		System.out.println("Added PostEntityProcessingService: " + eps.getClass().getSimpleName());
 	}
 	
 	public void removePostEntityProcessingService(IPostEntityProcessingService eps)
 	{
 		postEntityProcessorList.remove(eps);
+		System.out.println("Removed PostEntityProcessingService: " + eps.getClass().getSimpleName());
 	}
 	
 	public void addGamePluginService(IGamePluginService plugin)
 	{
 		gamePluginList.add(plugin);
-		//plugin.start(gameData, world);
+		if (IsInitialized)
+		{
+			plugin.start(gameData, world);
+		}
+		System.out.println("Added plugin: " + plugin.getClass().getSimpleName());
 	}
 	
 	public void removeGamePluginService(IGamePluginService plugin)
 	{
 		gamePluginList.remove(plugin);
 		plugin.stop(gameData, world);
+		System.out.println("Removed plugin: " + plugin.getClass().getSimpleName());
 	}
-
-
-
-
-//    public void addMapService(IMapService map) {
-//        mapService = map;
-//    }
-//
-//    public void removeMapService(IMapService map) {
-//        mapService = null;
-//    }
-//
-//    public void addUIService(IOverlayService overlay) {
-//        overlayService  = overlay;
-//    }
-//
-//    public void removeUIService(IOverlayService overlay) {
-//        overlayService = null;
-//    }
-
+	
 }

@@ -1,12 +1,16 @@
-package dk.sdu.mmmi.cbse.common.data;
+package dk.sdu.mmmi.cbse.common.data.GamePlay;
 
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import dk.sdu.mmmi.cbse.common.data.GameData;
+import dk.sdu.mmmi.cbse.common.data.IEntity;
+import dk.sdu.mmmi.cbse.common.data.IRenderable;
+import dk.sdu.mmmi.cbse.common.data.World;
 
-public class Health implements IEntity
+public class Health implements IRenderable
 {
 	Sprite[] hearts;
 	int healthCounter = 0;
@@ -22,8 +26,8 @@ public class Health implements IEntity
 		return healthCounter <= 0;
 	}
 	
-	private Vector2 position;
-	private Vector2 size;
+	private Vector2 position = new Vector2(0, 0);
+	private Vector2 size = null;
 	private int paddingX = 0;
 	
 	private Texture HeartTexture = null;
@@ -32,10 +36,20 @@ public class Health implements IEntity
 	
 	private void LoadHeartTextures(GameData gameData)
 	{
-		HeartTexture =	gameData.assets.LoadTexture("../assets/ui/hp.png");
-		HeartTextureNull =	gameData.assets.LoadTexture("../assets/ui/hp_null.png");
+		HeartTexture = gameData.assets.LoadTexture("../assets/ui/hp.png");
+		HeartTextureNull = gameData.assets.LoadTexture("../assets/ui/hp_null.png");
 	}
 	
+	
+	public Health(int x, int y, int inputPaddingX, int health)
+	{
+		position = new Vector2(x, y);
+		size = new Vector2(0, 0);
+		hearts = new Sprite[health];
+		
+		paddingX = inputPaddingX;
+		healthCounter = health;
+	}
 	
 	public Health(int x, int y, int width, int height, int inputPaddingX, int health)
 	{
@@ -58,7 +72,6 @@ public class Health implements IEntity
 		}
 		for (int i = 0; i < hearts.length; i++)
 		{
-			
 			hearts[i].setSize(width, height);
 		}
 	}
@@ -123,12 +136,15 @@ public class Health implements IEntity
 	public void OnCreate(GameData gameData, World world)
 	{
 		LoadHeartTextures(gameData);
+		if (size == null || size == Vector2.Zero)
+		{
+			size = new Vector2(HeartTexture.getWidth() * 1.6f, HeartTexture.getHeight() * 1.6f);
+		}
 		
 		for (int i = 0; i < hearts.length; i++)
 		{
-			hearts[i] = new Sprite(HeartTexture, (paddingX * i) + (int)position.x, (int) position.y - 15, (int)size.x, (int)size.y);
+			hearts[i] = new Sprite(HeartTexture, (paddingX * i) + (int) position.x, (int) position.y - 15, (int) size.x, (int) size.y);
 		}
-		
 	}
 	
 	@Override
@@ -138,7 +154,8 @@ public class Health implements IEntity
 		{
 			for (int i = 0; i < hearts.length; i++)
 			{
-				hearts[i].draw(gameData.GlobalSpriteBatch);
+				gameData.GlobalSpriteBatch.draw(hearts[i].getTexture(), position.x, position.y, size.x, size.y);
+//				hearts[i].draw(gameData.GlobalSpriteBatch);
 			}
 		}
 	}

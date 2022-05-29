@@ -1,4 +1,4 @@
-package dk.sdu.mmmi.cbse.common.data;
+package dk.sdu.mmmi.cbse.common.data.helpers;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
@@ -37,7 +37,7 @@ public class FontResource
 		return Size;
 	}
 	
-	BitmapFont GetFont()
+	public BitmapFont GetFont()
 	{
 		return Font;
 	}

@@ -12,8 +12,20 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import dk.sdu.mmmi.cbse.common.data.Algorithms.EnemyQuadTree;
+import dk.sdu.mmmi.cbse.common.data.Bullets.Bullet;
+import dk.sdu.mmmi.cbse.common.data.GamePlay.BulletPool;
+import dk.sdu.mmmi.cbse.common.data.GamePlay.EnemyManager;
+import dk.sdu.mmmi.cbse.common.data.GamePlay.Health;
+import dk.sdu.mmmi.cbse.common.data.GamePlay.WaveManager;
 import dk.sdu.mmmi.cbse.common.data.Map.Tile;
+import dk.sdu.mmmi.cbse.common.data.Map.TileMapHelper;
+import dk.sdu.mmmi.cbse.common.data.helpers.GameKeys;
+import dk.sdu.mmmi.cbse.common.data.helpers.MouseOperator;
 import dk.sdu.mmmi.cbse.common.events.Event;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -21,35 +33,49 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class GameData
 {
 	
+	
+	// Essential
+	public Viewport viewport;
+	public EnemyManager enemyManager;
+	
+	public static BulletPool BulletPool = new BulletPool(10000, 0);
+	public static Array<Bullet> ActiveBullets = new Array<Bullet>();
+	
+	
 	//Bullets
 /*	public static BulletPool BulletPool = new BulletPool(10000, 0);
 	public static Array<Bullet> ActiveBullets = new Array<Bullet>();*/
 	
 	public Resources assets;
 	
-	public Health UIHealth;
 	
-	public static ShapeRenderer GlobalShapeRenderer;
-	public static dk.sdu.mmmi.cbse.common.data.Map.TileMapHelper TileMapHelper;
-	public static dk.sdu.mmmi.cbse.common.data.Map.GameMapGraph GameMapGraph;
-	public static GraphPath<Tile> GameMapPath;
+	public EnemyQuadTree enemyQuadTree;
+	
+	public Health UIHealth;
+	public ShapeRenderer GlobalShapeRenderer;
+	public static TileMapHelper TileMapHelper;
+	public dk.sdu.mmmi.cbse.common.data.Map.GameMapGraph GameMapGraph;
+	public GraphPath<Tile> GameMapPath;
+	
 	// Fonts
 	public BitmapFont BigPauseScreenFont;
 	public SpriteBatch GlobalSpriteBatch;
 	public BitmapFont ScoreUIFontIcons;
 	public BitmapFont ScoreUIFont;
 	public BitmapFont PixelFont;
-
-
+	
+	
 	// Game
 	public static int Coins = 2500;
 	public static WaveManager waveManager;
-
-
+	
+	
 	public boolean IsPauseScreenVisible = false;
+	public int TurretPriceInCoins = 500;
+	
 	private float delta;
-	private int displayWidth;
-	private int displayHeight;
+	public static int GlobalWidth;
+	public static int GlobalHeight;
 	private final GameKeys keys = new GameKeys();
 	private List<Event> events = new CopyOnWriteArrayList<>();
 	public OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
@@ -58,78 +84,113 @@ public class GameData
 	public MouseOperator mouseOperator;
 	public static Sprite MouseTileSelector;
 	public Stage UIStage;
-
-	public void addEvent(Event e) {
+	
+	public void addEvent(Event e)
+	{
 		events.add(e);
 	}
-
+	
 	public static AssetManager assetManager = new AssetManager();
-
-	public void loadAsset(String path, Class type) {
+	
+	public void loadAsset(String path, Class type)
+	{
 		assetManager.load(path, type);
 	}
-
-	public static <T> Array<T> getListOfAssets(Class<T> type, Array<T> array) {
+	
+	public static <T> Array<T> getListOfAssets(Class<T> type, Array<T> array)
+	{
 		return assetManager.getAll(type, array);
 	}
-
-	public void removeEvent(Event e) {
+	
+	public void removeEvent(Event e)
+	{
 		events.remove(e);
 	}
-
-	public List<Event> getEvents() {
+	
+	public List<Event> getEvents()
+	{
 		return events;
 	}
-
-	public GameKeys getKeys() {
+	
+	public GameKeys getKeys()
+	{
 		return keys;
 	}
-
-	public void setDelta(float delta) {
+	
+	public void setDelta(float delta)
+	{
 		this.delta = delta;
 	}
-
-	public float getDelta() {
+	
+	public float getDelta()
+	{
 		return delta;
 	}
-
-	public void setDisplayWidth(int width) {
-		this.displayWidth = width;
+	
+	public void setGlobalWidth(int width)
+	{
+		this.GlobalWidth = width;
 	}
-
-	public int getDisplayWidth() {
-		return displayWidth;
+	
+	public int getGlobalWidth()
+	{
+		return GlobalWidth;
 	}
-
-	public void setDisplayHeight(int height) {
-		this.displayHeight = height;
+	
+	public void setGlobalHeight(int height)
+	{
+		this.GlobalHeight = height;
 	}
-
-	public int getDisplayHeight() {
-		return displayHeight;
+	
+	public int getGlobalHeight()
+	{
+		return GlobalHeight;
 	}
-
-	public <E extends Event> List<Event> getEvents(Class<E> type, String sourceID) {
+	
+	public <E extends Event> List<Event> getEvents(Class<E> type, String sourceID)
+	{
 		List<Event> r = new ArrayList();
-		for (Event event : events) {
-			if (event.getClass().equals(type) && event.getSource().getID().equals(sourceID)) {
+		for (Event event : events)
+		{
+			if (event.getClass().equals(type) && event.getSource().getID().equals(sourceID))
+			{
 				r.add(event);
 			}
 		}
-
+		
 		return r;
 	}
-
-	public void Initialize() {
-		UIStage = new com.badlogic.gdx.scenes.scene2d.Stage();
+	
+	public void Initialize()
+	{
+		this.setGlobalWidth(Gdx.graphics.getWidth());
+		this.setGlobalHeight(Gdx.graphics.getHeight());
+		
+		assets.LoadAllAssets(this);
+		
+		viewport = new FitViewport(GlobalWidth, GlobalHeight);
+		UIStage = new Stage(viewport);
 		Gdx.input.setInputProcessor(UIStage);
-
-		GlobalSpriteBatch = new SpriteBatch();
-		MouseTileSelector = new Sprite();
-		GlobalShapeRenderer = new ShapeRenderer();
+		
+		
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, GlobalWidth, GlobalHeight);
+		//setScreen(new GameScreen());
+		
+		
 		waveManager = new WaveManager();
 		
-		UIHealth = new Health(20, displayHeight - 70, 50, 50, 7, 7);
+		
+		MouseTileSelector = new Sprite(Resources.LoadTexture("../assets/ui/selected_tile.png"));
+		
+
+		
+		
+		GlobalSpriteBatch = new SpriteBatch();
+		GlobalShapeRenderer = new ShapeRenderer();
+		
+		enemyQuadTree = new EnemyQuadTree(this);
+		
 	}
 }
 	

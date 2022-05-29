@@ -12,8 +12,6 @@ public class OverlayPlugin implements IGamePluginService
 	{
 		//call functionality to add the map to the game, so it is visible
 		
-		Resources.LoadAllAssets(gameData);
-		
 		new PauseScreen();
 		new GameUIOverlay();
 		
@@ -26,6 +24,5 @@ public class OverlayPlugin implements IGamePluginService
 		//call functionality to remove the map from the game, so it is no longer visible
 		
 		Overlay.DisposeAllOverlays(gameData, world);
-		
 	}
 }

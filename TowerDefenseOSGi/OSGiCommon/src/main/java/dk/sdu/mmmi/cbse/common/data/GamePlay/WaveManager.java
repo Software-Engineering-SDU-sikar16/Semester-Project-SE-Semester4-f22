@@ -1,8 +1,11 @@
-package dk.sdu.mmmi.cbse.common.data;
+package dk.sdu.mmmi.cbse.common.data.GamePlay;
 
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import dk.sdu.mmmi.cbse.common.data.EnemyType;
+import dk.sdu.mmmi.cbse.common.data.GameData;
+import dk.sdu.mmmi.cbse.common.data.World;
 
 public class WaveManager
 {
@@ -90,18 +93,17 @@ public class WaveManager
 	
 	}
 	
-	public void OnUpdate(GameData gameData)
+	public void OnUpdate(GameData gameData, World world)
 	{
 		
 		if (isWaveStarted)
 		{
-			
 			if (SpawnedEnemies < GetWave().MaxEnemies())
 			{
 				timeSinceLastSpawned += Gdx.graphics.getDeltaTime();
 				if (timeSinceLastSpawned > WaveSpawnSpeed)
 				{
-				//	gameData.EnemyManager.SpawnEnemy(GetWave().GetEnemyTypeAtIndex(SpawnedEnemies));
+					gameData.enemyManager.SpawnEnemy(world, GetWave().GetEnemyTypeAtIndex(SpawnedEnemies));
 					timeSinceLastSpawned = 0;
 					SpawnedEnemies++;
 				}

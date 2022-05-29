@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dk.sdu.mmmi.cbse.common.data.entityparts;
+package dk.sdu.mmmi.cbse.common.data.components;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -104,19 +104,19 @@ public class MovingPart implements EntityPart {
 
         // set position
         x += dx * dt;
-        if (x > gameData.getDisplayWidth()) {
+        if (x > gameData.getGlobalWidth()) {
             x = 0;
         }
         else if (x < 0) {
-            x = gameData.getDisplayWidth();
+            x = gameData.getGlobalWidth();
         }
 
         y += dy * dt;
-        if (y > gameData.getDisplayHeight()) {
+        if (y > gameData.getGlobalHeight()) {
             y = 0;
         }
         else if (y < 0) {
-            y = gameData.getDisplayHeight();
+            y = gameData.getGlobalHeight();
         }
 
         positionPart.setX(x);

@@ -48,14 +48,11 @@ public class GameScreen extends ScreenAdapter
 		Constants.WaveManager.OnUpdate();
 		if (!Constants.IsPauseScreenVisible)
 		{
-			Constants.World.step(1 / 60f, 6, 2);
-			//	cameraUpdate(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			Constants.Camera.update();
 			batch.setProjectionMatrix(Constants.Camera.combined);
 			orthogonalTiledMapRenderer.setView(Constants.Camera);
 		}
 
-		Constants.EnemyManager.SteerEnemies();
 		Entity.UpdateAllEntities();
 		Overlay.UpdateAllOverlays();
 		Turret.TryBuildTurret();
@@ -97,16 +94,7 @@ public class GameScreen extends ScreenAdapter
 		}
 	}
 
-	private void cameraUpdate(int width, int height)
-	{
-		Vector3 position = Constants.Camera.position;
-		Constants.Camera.viewportHeight = height;
-		Constants.Camera.viewportWidth = width;
-		// camera.position.set(position);
-		Constants.Camera.position.set(width / 2f, height / 2f, 0); //by default camera position on (0,0,0)
-		//camera.position.set(new Vector3(0, 0, 0));
-		Constants.Camera.update();
-	}
+
 
 
 	@Override

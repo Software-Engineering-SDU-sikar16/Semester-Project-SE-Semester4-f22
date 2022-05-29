@@ -34,11 +34,9 @@ public class TileMapHelper
 	public static HashMap<Vector2, Tile> BuildableTiles = new HashMap<Vector2, Tile>();
 	
 	
-	public OrthogonalTiledMapRenderer setupMap(GameData gameData)
+	public OrthogonalTiledMapRenderer setupMap(GameData gameData, String TilemapPath)
 	{
-		
-		
-		String TilemapPath = "maps/map1.tmx";
+
 		tiledMap = new TmxMapLoader().load(TilemapPath);
 		TiledMapTileLayer tileid = (TiledMapTileLayer) tiledMap.getLayers().get(0);
 		TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();

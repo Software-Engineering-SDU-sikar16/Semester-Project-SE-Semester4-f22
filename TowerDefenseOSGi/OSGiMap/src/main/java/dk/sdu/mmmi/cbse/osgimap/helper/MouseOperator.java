@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import dk.sdu.mmmi.cbse.common.data.Map.TileMapHelper;
 import dk.sdu.mmmi.cbse.osgimap.MapService;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 
@@ -17,11 +18,6 @@ public class MouseOperator //extends MapService
 	public static Vector2 WorldPosition = new Vector2();
 	public static Vector2 TileUnderMouseWorldPosition = new Vector2();
 	public static Vector2 MousePosition = new Vector2();
-	public static int GlobalWidth = 0;
-	public static int GlobalHeight = 0;
-	
-	public static int TILE_WIDTH = 32;
-	public static int TILE_HEIGHT = 32;
 	
 	public static Vector2 ScreenToWorldPoint(float x, float y)
 	{
@@ -57,7 +53,7 @@ public class MouseOperator //extends MapService
 		Vector3 screenPos = MultiplyPoint(MVP, new Vector3(x, y, 0));
 		Vector3 screenPoint = new Vector3(screenPos.x + 1f, screenPos.y + 1f, screenPos.z + 1f).scl(0.5f); // returns x, y in [0, 1] internal.
 		
-		return new Vector2(screenPoint.x * GlobalWidth, screenPoint.y * GlobalHeight); // multiply by viewport width and height to get the actual screen coordinates.
+		return new Vector2(screenPoint.x * GameData.GlobalWidth, screenPoint.y * GameData.GlobalHeight); // multiply by viewport width and height to get the actual screen coordinates.
 	}
 	
 	public static Vector2 WorldToScreenPoint(Vector2 ScreenPoint)
@@ -90,8 +86,8 @@ public class MouseOperator //extends MapService
 		int mx = Gdx.input.getX();
 		int my = Gdx.input.getY();
 
-//        int TILE_HEIGHT = Constants.TileMapHelper.TilePixelHeight;
-//        int TILE_WIDTH = Constants.TileMapHelper.TilePixelWidth;
+        int TILE_HEIGHT = GameData.TileMapHelper.TilePixelHeight;
+        int TILE_WIDTH = GameData.TileMapHelper.TilePixelWidth;
 		
 		int tileIndexX = (int) Math.floor(mx / TILE_WIDTH + 0.5f);
 		int tileIndexY = (int) Math.floor(my / TILE_HEIGHT + 0.5f);
@@ -105,8 +101,8 @@ public class MouseOperator //extends MapService
 	
 	public static Vector2 GetTilePositionAt(float x, float y)
 	{
-//        int TILE_HEIGHT = Constants.TileMapHelper.TilePixelHeight;
-//        int TILE_WIDTH = Constants.TileMapHelper.TilePixelWidth;
+        int TILE_HEIGHT = GameData.TileMapHelper.TilePixelHeight;
+        int TILE_WIDTH = GameData.TileMapHelper.TilePixelWidth;
 		
 		int tileIndexX = (int) Math.floor(x / TILE_WIDTH + 0.5f);
 		int tileIndexY = (int) Math.floor(y / TILE_HEIGHT + 0.5f);
@@ -122,8 +118,8 @@ public class MouseOperator //extends MapService
 		int mx = Gdx.input.getX();
 		int my = Gdx.input.getY();
 
-//        int TILE_HEIGHT = Constants.TileMapHelper.TilePixelHeight;
-//        int TILE_WIDTH = Constantsts.TileMapHelper.TilePixelHeight;
+        int TILE_HEIGHT = GameData.TileMapHelper.TilePixelHeight;
+        int TILE_WIDTH = GameData.TileMapHelper.TilePixelHeight;
 		
 		GameData.camera.unproject(UnprojectVector.set(mx, my, 0.0f));
 		WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);

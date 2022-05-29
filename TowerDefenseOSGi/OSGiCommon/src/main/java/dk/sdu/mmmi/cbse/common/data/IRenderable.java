@@ -1,12 +1,11 @@
-package dk.sdu.mmmi.cbse.osgioverlay;
+package dk.sdu.mmmi.cbse.common.data;
 
-import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.World;
-
-public interface IOverlay
+public interface IRenderable
 {
 	void OnCreate(GameData gameData, World world);
+	
 	void OnRender(GameData gameData, World world);
+	
 	void OnUpdate(GameData gameData, World world);
 	
 	void OnDispose(GameData gameData, World world);

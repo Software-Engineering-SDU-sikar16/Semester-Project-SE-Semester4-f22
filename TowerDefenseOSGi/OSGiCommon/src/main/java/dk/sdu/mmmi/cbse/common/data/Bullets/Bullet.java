@@ -1,7 +1,6 @@
 package dk.sdu.mmmi.cbse.common.data.Bullets;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -10,9 +9,9 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.Resources;
 import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.data.entityparts.EntityPart;
+import dk.sdu.mmmi.cbse.common.data.components.EntityPart;
 
-public class Bullet implements EntityPart, Pool.Poolable
+public class Bullet implements Pool.Poolable
 {
 	public static Texture BulletTexture = Resources.LoadTexture("turrets/bullet_4.png");
 	
@@ -31,6 +30,17 @@ public class Bullet implements EntityPart, Pool.Poolable
 		//setTexture(BulletTexture);
 		//sprite.AddAnimation("default", BulletTexture, 1, 8, 5, Animation.PlayMode.NORMAL);
 		rect = new Rectangle(0, 0, BulletTexture.getWidth(), BulletTexture.getHeight());
+	}
+	
+	public void setPosition(float x, float y)
+	{
+		sprite.setPosition(x, y);
+		rect.setPosition(x, y);
+	}
+	
+	public Vector2 getPosition()
+	{
+		return new Vector2(sprite.getX(), sprite.getY());
 	}
 	
 	
@@ -63,7 +73,7 @@ public class Bullet implements EntityPart, Pool.Poolable
 	
 	}
 	
-	void OnRender(GameData gameData, World world)
+	public void OnRender(GameData gameData, World world)
 	{
 		if (sprite != null)
 		{
@@ -80,7 +90,7 @@ public class Bullet implements EntityPart, Pool.Poolable
 	}
 	
 	
-	void OnUpdate(GameData gameData, World world)
+	public void OnUpdate(GameData gameData, World world)
 	{
 		sprite.translate(dx, dy);
 		
@@ -95,10 +105,10 @@ public class Bullet implements EntityPart, Pool.Poolable
 		
 	}
 	
-	@Override
+/*	@Override
 	public void process(GameData gameData, World world, Entity entity)
 	{
 		OnUpdate(gameData, world);
 		OnRender(gameData, world);
-	}
+	}*/
 }

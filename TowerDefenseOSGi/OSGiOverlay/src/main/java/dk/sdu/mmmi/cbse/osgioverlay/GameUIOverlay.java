@@ -12,6 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import dk.sdu.mmmi.cbse.common.data.*;
+import dk.sdu.mmmi.cbse.common.data.GamePlay.Health;
+import dk.sdu.mmmi.cbse.common.data.helpers.DrawUtil;
+import dk.sdu.mmmi.cbse.common.data.helpers.FontResource;
 
 public class GameUIOverlay extends Overlay
 {
@@ -41,7 +44,7 @@ public class GameUIOverlay extends Overlay
 		StartButtonTexture = Resources.LoadTexture("../assets/ui/start_button.png");
 		
 		
-		CenterPoint = new Vector2(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
+		CenterPoint = new Vector2(gameData.getGlobalWidth() / 2, gameData.getGlobalHeight() / 2);
 		Vector2 Pos = GetTextCenterPosition(gameData.ScoreUIFontIcons, "\u0083", CenterPoint.x, CenterPoint.y);
 		
 		
@@ -56,7 +59,7 @@ public class GameUIOverlay extends Overlay
 		StartButton.setWidth(StartButtonTexture.getWidth() * 1.5f);
 		StartButton.setHeight(StartButtonTexture.getHeight() * 1.5f);
 		StartButton.getImage().setFillParent(true);
-		StartButton.setPosition(180, gameData.getDisplayHeight() - 48);
+		StartButton.setPosition(180, gameData.getGlobalHeight() - 48);
 		StartButton.addListener(new ClickListener()
 		{
 			@Override
@@ -83,6 +86,8 @@ public class GameUIOverlay extends Overlay
 		
 		
 		gameData.UIStage.addActor(StartButton);
+		
+		gameData.UIHealth = new Health(20, gameData.getGlobalHeight() - 70, 1, 7);
 		gameData.UIHealth.OnCreate(gameData, world);
 	}
 	
@@ -91,10 +96,10 @@ public class GameUIOverlay extends Overlay
 	{
 		gameData.GlobalSpriteBatch.begin();
 		
-		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFont, "Wave " + gameData.waveManager.GetWaveNumber() + " / " + gameData.waveManager.GetTotalWaves(), 25, gameData.getDisplayHeight() - 20, Color.WHITE);
+		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFont, "Wave " + gameData.waveManager.GetWaveNumber() + " / " + gameData.waveManager.GetTotalWaves(), 25, gameData.getGlobalHeight() - 20, Color.WHITE);
 		
-		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFontIcons, "\u0183", 25, gameData.getDisplayHeight() - 118, Color.WHITE);
-		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFont, "" + gameData.Coins, 41, gameData.getDisplayHeight() - 99, Color.WHITE);
+		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFontIcons, "\u0183", 25, gameData.getGlobalHeight() - 118, Color.WHITE);
+		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFont, "" + gameData.Coins, 41, gameData.getGlobalHeight() - 99, Color.WHITE);
 		
 		gameData.UIHealth.OnRender(gameData, world);
 		
@@ -110,5 +115,6 @@ public class GameUIOverlay extends Overlay
 	@Override
 	public void OnDispose(GameData gameData, World world)
 	{
+		gameData.UIStage.getRoot().removeActor(StartButton);
 	}
 }

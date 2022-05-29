@@ -1,6 +1,5 @@
-package dk.sdu.mmmi.cbse.common.data.entityparts;
+package dk.sdu.mmmi.cbse.common.data.components;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,10 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
-
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class SpriteLoaderPart implements EntityPart {
     private SpriteBatch spriteBatch;
