@@ -1,6 +1,7 @@
 package dk.sdu.mmmi.cbse.common.data;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import dk.sdu.mmmi.cbse.common.data.entityparts.EntityPart;
 import dk.sdu.mmmi.cbse.common.services.EntityComparator;
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.Resources;
+import dk.sdu.mmmi.cbse.common.data.World;
 
 public class HealthPart implements EntityPart {
     public static Texture HeartTexture = Resources.LoadTexture("ui/hp.png");
@@ -69,7 +70,7 @@ public class HealthPart implements EntityPart {
         }
     }
     @Override
-    public void process(GameData gameData, Entity entity) {
+    public void process(GameData gameData,  World world, Entity entity) {
         gameData.GlobalSpriteBatch.begin();
         if (entity.getTexture() != null){
             for (int i = 0; i < heartTextures.length; i++) {
@@ -82,5 +83,6 @@ public class HealthPart implements EntityPart {
         }
         gameData.GlobalSpriteBatch.end();
     }
+    
 
 }
