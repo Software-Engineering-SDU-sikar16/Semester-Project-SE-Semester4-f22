@@ -49,9 +49,7 @@ public class MyGame implements ApplicationListener
 		cfg.vSyncEnabled = true;
 		cfg.backgroundFPS = 60;
 		cfg.foregroundFPS = 60;
-		
 		cfg.pauseWhenBackground = true;
-		
 		new LwjglApplication(this, cfg);
 	}
 	
@@ -78,8 +76,7 @@ public class MyGame implements ApplicationListener
 		{
 			gameData.orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
 		}
-		
-		
+
 		for (Entity entity : world.getEntities())
 		{
 			SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
@@ -87,14 +84,8 @@ public class MyGame implements ApplicationListener
 			{
 				sl.createSprite();
 			}
-			
 		}
-		
-		
 		cursor = new CustomCursorDrawer();
-		
-
-
 
         //OverlayService.CreateAllOverlays();
         //overlayService.onCreate();
