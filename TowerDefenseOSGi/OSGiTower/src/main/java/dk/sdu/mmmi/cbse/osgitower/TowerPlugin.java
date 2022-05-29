@@ -43,7 +43,10 @@ public class TowerPlugin implements IGamePluginService {
     private Entity TargetEnemy;
     // end from gibson
 
-    public TowerPlugin(){}
+    public TowerPlugin()
+    {
+    
+    }
 
     @Override
     public void start(GameData gameData, World world) {

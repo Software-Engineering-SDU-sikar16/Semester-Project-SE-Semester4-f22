@@ -1,5 +1,6 @@
 package dk.sdu.mmmi.cbse.osgienemy;
 
+import dk.sdu.mmmi.cbse.common.data.EnemyType;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -30,7 +31,8 @@ public class EnemyPlugin implements IGamePluginService {
     }
 
     private Entity createEnemy(GameData gameData) {
-        Entity enemyThing = new Enemy();
+        Entity enemyThing = new Enemy(0.0f, 0.0f, 0.0f, 0.0f, EnemyType.normal);
+        /*   Entity enemyThing = new Enemy();
         float deceleration = 10;
         float acceleration = 200;
         float maxSpeed = 300;
@@ -44,6 +46,7 @@ public class EnemyPlugin implements IGamePluginService {
         enemyThing.add(new PositionPart(x, y, radians));
         SpriteLoaderPart spriteLoaderPart = new SpriteLoaderPart("images/v3.png", 2*16, 9*16, 16, 16, false, false);
         enemyThing.add(spriteLoaderPart);
+        return enemyThing;*/
         return enemyThing;
     }
 

@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
+import dk.sdu.mmmi.cbse.common.data.World;
+
 import java.util.HashMap;
 
 public class AnimatedSpritePart extends Sprite implements EntityPart{
@@ -18,10 +20,7 @@ public class AnimatedSpritePart extends Sprite implements EntityPart{
     Animation<TextureRegion> currentAnimation = null;
     float elapsedTime = 0;
 
-    @Override
-    public void process(GameData gameData, Entity entity) {
 
-    }
 
     public AnimatedSpritePart()
     {
@@ -68,5 +67,11 @@ public class AnimatedSpritePart extends Sprite implements EntityPart{
         {
             currentAnimation = animation;
         }
+    }
+    
+    @Override
+    public void process(GameData gameData, World world, Entity entity)
+    {
+    
     }
 }

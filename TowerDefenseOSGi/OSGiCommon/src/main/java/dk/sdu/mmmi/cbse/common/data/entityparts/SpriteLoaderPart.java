@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
+import dk.sdu.mmmi.cbse.common.data.World;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -62,7 +63,7 @@ public class SpriteLoaderPart implements EntityPart {
     }
 
     @Override
-    public void process(GameData gameData, Entity entity) {
+    public void process(GameData gameData, World world, Entity entity) {
         PositionPart pp = entity.getPart(PositionPart.class);
         drawSprite(pp.getX(), pp.getY());
     }

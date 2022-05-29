@@ -7,6 +7,8 @@ package dk.sdu.mmmi.cbse.common.data.entityparts;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
+import dk.sdu.mmmi.cbse.common.data.World;
+
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
@@ -67,7 +69,7 @@ public class MovingPart implements EntityPart {
     }
 
     @Override
-    public void process(GameData gameData, Entity entity) {
+    public void process(GameData gameData, World world, Entity entity) {
         PositionPart positionPart = entity.getPart(PositionPart.class);
         float x = positionPart.getX();
         float y = positionPart.getY();

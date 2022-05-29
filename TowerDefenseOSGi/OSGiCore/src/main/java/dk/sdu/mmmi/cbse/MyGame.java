@@ -18,67 +18,78 @@ import dk.sdu.mmmi.cbse.common.services.*;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class MyGame implements ApplicationListener {
-
-    public static final GameData gameData = new GameData();
-    private static World world = new World();
-    private static final List<IEntityProcessingService> entityProcessorList = new CopyOnWriteArrayList<>();
-    private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
-    private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
-    public static MyGame INSTANCE;
-    private int widthScreen, heightScreen;
-
-
-    public MyGame(){
-        init();
-        INSTANCE = this;
-    }
-
-    public void init() {
-        LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.width = 960;
-        cfg.height = 640;
-        cfg.title = "Tower Defense";
-        cfg.resizable = false;
-        cfg.vSyncEnabled = true;
-        cfg.backgroundFPS = 60;
-        cfg.foregroundFPS = 60;
-
-        cfg.pauseWhenBackground = true;
-
-        new LwjglApplication(this, cfg);
-    }
-
-    @Override
-    public void create() {
-        this.widthScreen = Gdx.graphics.getWidth();
-        this.heightScreen = Gdx.graphics.getHeight();
-        this.gameData.setDisplayHeight(this.heightScreen);
-        this.gameData.setDisplayWidth(this.widthScreen);
-        this.gameData.camera = new OrthographicCamera();
-        this.gameData.camera.setToOrtho(false, widthScreen, heightScreen);
+public class MyGame implements ApplicationListener
+{
+	
+	public static final GameData gameData = new GameData();
+	private static World world = new World();
+	private static final List<IEntityProcessingService> entityProcessorList = new CopyOnWriteArrayList<>();
+	private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
+	private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
+	public static MyGame INSTANCE;
+	private int widthScreen, heightScreen;
+	
+	
+	public MyGame()
+	{
+		init();
+		INSTANCE = this;
+	}
+	
+	public void init()
+	{
+		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+		cfg.width = 960;
+		cfg.height = 640;
+		cfg.title = "Tower Defense";
+		cfg.resizable = false;
+		cfg.vSyncEnabled = true;
+		cfg.backgroundFPS = 60;
+		cfg.foregroundFPS = 60;
+		
+		cfg.pauseWhenBackground = true;
+		
+		new LwjglApplication(this, cfg);
+	}
+	
+	@Override
+	public void create()
+	{
+		this.widthScreen = Gdx.graphics.getWidth();
+		this.heightScreen = Gdx.graphics.getHeight();
+		this.gameData.setDisplayHeight(this.heightScreen);
+		this.gameData.setDisplayWidth(this.widthScreen);
+		this.gameData.camera = new OrthographicCamera();
+		this.gameData.camera.setToOrtho(false, widthScreen, heightScreen);
 		this.gameData.Initialize();
-
-       for (   IGamePluginService gamePluginService : gamePluginList) {
-           gamePluginService.start(gameData, world);
-        }
-
-        Array<TiledMap> maps = new Array<TiledMap>();
-        GameData.getListOfAssets(TiledMap.class, maps);
-
-        for (TiledMap map : maps) {
-            gameData.orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
-        }
-
-
-        for(Entity entity : world.getEntities()) {
-            SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
-            sl.createSprite();
-        }
-
-
-        //OverlayService.CreateAllOverlays();
-        //overlayService.onCreate();
+		
+		for (IGamePluginService gamePluginService : gamePluginList)
+		{
+			gamePluginService.start(gameData, world);
+		}
+		
+		Array<TiledMap> maps = new Array<TiledMap>();
+		GameData.getListOfAssets(TiledMap.class, maps);
+		
+		for (TiledMap map : maps)
+		{
+			gameData.orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
+		}
+		
+		
+		for (Entity entity : world.getEntities())
+		{
+			SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
+			if (sl != null) // always check, entity might not have  a spriteloader part!
+			{
+				sl.createSprite();
+			}
+			
+		}
+		
+		
+		//OverlayService.CreateAllOverlays();
+		//overlayService.onCreate();
 //        setScreen(new GameScreen(camera));
 	}
 	
@@ -150,9 +161,12 @@ public class MyGame implements ApplicationListener {
 		{
 			//sl.process(gameData, new Entity());
 			SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
-			sl.process(gameData, entity);
+			if (sl != null) // always check, entity might not have  a spriteloader part!
+			{
+				sl.process(gameData, world, entity);
+			}
+			
 		}
-		
 		
 		
 		this.gameData.UIStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));

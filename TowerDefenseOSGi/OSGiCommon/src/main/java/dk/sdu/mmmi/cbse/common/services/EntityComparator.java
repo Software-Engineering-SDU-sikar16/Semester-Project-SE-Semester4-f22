@@ -1,14 +1,17 @@
 package dk.sdu.mmmi.cbse.common.services;
 
+import dk.sdu.mmmi.cbse.common.data.Entity;
+import dk.sdu.mmmi.cbse.common.data.IEntity;
+
 import java.util.Comparator;
 
-public class EntityComparator implements Comparator<IEntityProcessingService>
+public class EntityComparator implements Comparator<IEntity>
 {
 	@Override
-	public int compare(IEntityProcessingService o1, IEntityProcessingService o2)
+	public int compare(IEntity o1, IEntity o2)
 	{
-		int a = ((EntityProcessingService) o1).GetZIndex();
-		int b = ((EntityProcessingService) o2).GetZIndex();
+		int a = ((Entity) o1).GetZIndex();
+		int b = ((Entity) o2).GetZIndex();
 		
 		if (a < b)
 		{

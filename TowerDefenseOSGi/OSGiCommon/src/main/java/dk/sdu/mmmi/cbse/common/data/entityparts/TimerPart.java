@@ -7,6 +7,7 @@ package dk.sdu.mmmi.cbse.common.data.entityparts;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
+import dk.sdu.mmmi.cbse.common.data.World;
 
 public class TimerPart implements EntityPart {
 
@@ -29,7 +30,7 @@ public class TimerPart implements EntityPart {
     }
 
     @Override
-    public void process(GameData gameData, Entity entity) {
+    public void process(GameData gameData, World world, Entity entity) {
         if (expiration > 0) {
             reduceExpiration(gameData.getDelta());
         }
