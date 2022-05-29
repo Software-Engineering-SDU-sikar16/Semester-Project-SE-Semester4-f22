@@ -1,7 +1,6 @@
 package dk.sdu.mmmi.cbse.common.data;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 import dk.sdu.mmmi.cbse.common.data.entityparts.EntityPart;
 import dk.sdu.mmmi.cbse.common.services.EntityComparator;
 
@@ -9,7 +8,6 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-
 
 
 public abstract class Entity extends Sprite implements IEntity, Serializable {
