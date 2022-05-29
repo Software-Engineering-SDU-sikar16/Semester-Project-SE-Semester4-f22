@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+
 public class GameData {
     
     public BitmapFont BigPauseScreenFont;
@@ -40,6 +41,8 @@ public class GameData {
         events.add(e);
     }
     public static AssetManager assetManager = new AssetManager();
+
+
 
     public void loadAsset( String path, Class type) {
         assetManager.load( path, type);
@@ -84,6 +87,7 @@ public class GameData {
     public int getDisplayHeight() {
         return displayHeight;
     }
+
 
     public <E extends Event> List<Event> getEvents(Class<E> type, String sourceID) {
         List<Event> r = new ArrayList();
