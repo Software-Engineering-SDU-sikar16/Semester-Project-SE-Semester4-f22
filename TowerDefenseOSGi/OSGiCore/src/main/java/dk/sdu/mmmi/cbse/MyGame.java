@@ -6,6 +6,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Array;
@@ -14,6 +15,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.entityparts.SpriteLoaderPart;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.*;
+import dk.sdu.mmmi.cbse.core.managers.CustomCursorDrawer;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -28,6 +30,7 @@ public class MyGame implements ApplicationListener
 	private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
 	public static MyGame INSTANCE;
 	private int widthScreen, heightScreen;
+	CustomCursorDrawer cursor;
 	
 	
 	public MyGame()
@@ -88,8 +91,13 @@ public class MyGame implements ApplicationListener
 		}
 		
 		
-		//OverlayService.CreateAllOverlays();
-		//overlayService.onCreate();
+		cursor = new CustomCursorDrawer();
+		
+
+
+
+        //OverlayService.CreateAllOverlays();
+        //overlayService.onCreate();
 //        setScreen(new GameScreen(camera));
 	}
 	
@@ -129,7 +137,7 @@ public class MyGame implements ApplicationListener
 	@Override
 	public void dispose()
 	{
-	
+
 	}
 	
 	private void update()
@@ -171,6 +179,7 @@ public class MyGame implements ApplicationListener
 		
 		this.gameData.UIStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
 		this.gameData.UIStage.draw();
+		cursor.render();
 	}
 	
 	public void addEntityProcessingService(IEntityProcessingService eps)
@@ -204,6 +213,8 @@ public class MyGame implements ApplicationListener
 		gamePluginList.remove(plugin);
 		plugin.stop(gameData, world);
 	}
+
+
 
 
 //    public void addMapService(IMapService map) {

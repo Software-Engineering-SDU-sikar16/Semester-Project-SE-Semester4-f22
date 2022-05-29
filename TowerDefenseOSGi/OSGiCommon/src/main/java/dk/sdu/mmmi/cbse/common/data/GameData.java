@@ -21,7 +21,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameData
 {
-	
+
 	//Bullets
 /*	public static BulletPool BulletPool = new BulletPool(10000, 0);
 	public static Array<Bullet> ActiveBullets = new Array<Bullet>();*/
@@ -148,4 +148,5 @@ public class GameData
 		waveManager = new WaveManager();
 	}
 	
-}
+
+
