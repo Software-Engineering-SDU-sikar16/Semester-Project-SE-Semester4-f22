@@ -88,11 +88,21 @@ public class MouseOperator
         int TILE_HEIGHT = gameData.TileMapHelper.TilePixelHeight;
         int TILE_WIDTH = gameData.TileMapHelper.TilePixelWidth;
         
+        if (TILE_HEIGHT == 0 || TILE_WIDTH == 0)
+        {
+            TILE_HEIGHT = 32;
+            TILE_WIDTH = 32;
+        }
+        
         int tileIndexX = (int) Math.floor(mx / TILE_WIDTH + 0.5f);
         int tileIndexY = (int) Math.floor(my / TILE_HEIGHT + 0.5f);
         
-        TiledMapTileLayer tileid = (TiledMapTileLayer) gameData.TileMapHelper.tiledMap.getLayers().get(0);
         
+        if (gameData.TileMapHelper == null || gameData.TileMapHelper.tiledMap == null)
+        {
+            return new Vector2(tileIndexX, tileIndexY);
+        }
+        TiledMapTileLayer tileid = (TiledMapTileLayer) gameData.TileMapHelper.tiledMap.getLayers().get(0);
         Vector2 WorldPoint = new Vector2(tileIndexX * TILE_WIDTH, ((tileid.getHeight() - 1) - tileIndexY) * TILE_HEIGHT);
         
         return TileUnderMouseWorldPosition.set(WorldPoint.x, WorldPoint.y);
@@ -102,6 +112,12 @@ public class MouseOperator
     {
         int TILE_HEIGHT = gameData.TileMapHelper.TilePixelHeight;
         int TILE_WIDTH = gameData.TileMapHelper.TilePixelWidth;
+    
+        if (TILE_HEIGHT == 0 || TILE_WIDTH == 0)
+        {
+            TILE_HEIGHT = 32;
+            TILE_WIDTH = 32;
+        }
         
         int tileIndexX = (int) Math.floor(x / TILE_WIDTH + 0.5f);
         int tileIndexY = (int) Math.floor(y / TILE_HEIGHT + 0.5f);
@@ -119,6 +135,12 @@ public class MouseOperator
         
         int TILE_HEIGHT = gameData.TileMapHelper.TilePixelHeight;
         int TILE_WIDTH = gameData.TileMapHelper.TilePixelWidth;
+    
+        if (TILE_HEIGHT == 0 || TILE_WIDTH == 0)
+        {
+            TILE_HEIGHT = 32;
+            TILE_WIDTH = 32;
+        }
     
         gameData.camera.unproject(UnprojectVector.set(mx, my, 0.0f));
         WorldMousePosition.set(UnprojectVector.x, UnprojectVector.y);

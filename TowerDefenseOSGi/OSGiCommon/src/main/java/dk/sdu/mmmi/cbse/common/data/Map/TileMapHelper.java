@@ -36,7 +36,7 @@ public class TileMapHelper
 	
 	public OrthogonalTiledMapRenderer setupMap(GameData gameData, String TilemapPath)
 	{
-
+		
 		tiledMap = new TmxMapLoader().load(TilemapPath);
 		TiledMapTileLayer tileid = (TiledMapTileLayer) tiledMap.getLayers().get(0);
 		TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
