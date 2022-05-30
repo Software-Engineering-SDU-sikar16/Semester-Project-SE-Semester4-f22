@@ -11,5 +11,7 @@ import dk.sdu.mmmi.cbse.common.data.World;
 
 public interface EntityPart
 {
-	void process(GameData gameData, World world, Entity entity);
+	void OnCreate(GameData gameData, World world, Entity entity);
+	void OnUpdate(GameData gameData, World world, Entity entity);
+	void OnRender(GameData gameData, World world, Entity entity);
 }

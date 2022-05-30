@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -17,9 +19,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import dk.sdu.mmmi.cbse.common.data.Algorithms.EnemyQuadTree;
 import dk.sdu.mmmi.cbse.common.data.Bullets.Bullet;
 import dk.sdu.mmmi.cbse.common.data.GamePlay.BulletPool;
-import dk.sdu.mmmi.cbse.common.data.GamePlay.EnemyManager;
 import dk.sdu.mmmi.cbse.common.data.GamePlay.Health;
-import dk.sdu.mmmi.cbse.common.data.GamePlay.WaveManager;
 import dk.sdu.mmmi.cbse.common.data.Map.Tile;
 import dk.sdu.mmmi.cbse.common.data.Map.TileMapHelper;
 import dk.sdu.mmmi.cbse.common.data.helpers.GameKeys;
@@ -33,10 +33,64 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class GameData
 {
 	
+	// Enemy Waves
+	public static WaveSettings[] AllWaves = new WaveSettings[]
+			{
+					new WaveSettings(new EnemyType[]{
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.boss,
+					}),
+					
+					new WaveSettings(new EnemyType[]{
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+					}),
+			};
+	
+	public int GetWaveNumber()
+	{
+		return currentWaveIndex;
+	}
+	
+	public int GetTotalWaves()
+	{
+		return AllWaves.length;
+	}
+	public int currentWaveIndex = 0;
+	public boolean IsWaveStarted = false;
+	
+	public WaveSettings GetWave()
+	{
+		currentWaveIndex = MathUtils.clamp(currentWaveIndex, 0, AllWaves.length);
+		return AllWaves[currentWaveIndex];
+	}
+	
+
+	
+	
+	
+	
+	
+	public Vector2 EnemiesSpawnPosition;
 	
 	// Essential
 	public Viewport viewport;
-	public EnemyManager enemyManager;
 	
 	public static BulletPool BulletPool = new BulletPool(10000, 0);
 	public static Array<Bullet> ActiveBullets = new Array<Bullet>();
@@ -67,11 +121,11 @@ public class GameData
 	
 	// Game
 	public static int Coins = 2500;
-	public static WaveManager waveManager;
 	
 	
 	public boolean IsPauseScreenVisible = false;
 	public int TurretPriceInCoins = 500;
+
 	
 	private float delta;
 	public static int GlobalWidth;
@@ -175,16 +229,12 @@ public class GameData
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, GlobalWidth, GlobalHeight);
-		//setScreen(new GameScreen());
 		
-		
-		waveManager = new WaveManager();
 		
 		
 		MouseTileSelector = new Sprite(Resources.LoadTexture("../assets/ui/selected_tile.png"));
 		
 
-		
 		
 		GlobalSpriteBatch = new SpriteBatch();
 		GlobalShapeRenderer = new ShapeRenderer();
