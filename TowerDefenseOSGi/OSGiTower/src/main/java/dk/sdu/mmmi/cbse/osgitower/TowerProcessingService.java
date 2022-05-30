@@ -46,20 +46,14 @@ public class TowerProcessingService implements IEntityProcessingService
 		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
 		{
 			Vector2 TilePos = gameData.mouseOperator.GetTilePositionUnderMousePosition(gameData);
-			if (gameData.TileMapHelper.IsTileAtPositionAValidBuildableTile(TilePos))
-			{
-				if (gameData.Coins - gameData.TurretPriceInCoins < 0) // if the user has money to build this turret
-				{
-					return;
-				}
-				else {
-					if (!world.turretPositions.containsKey(TilePos))
-					{
-						gameData.Coins -= gameData.TurretPriceInCoins;
-						world.addTower((int) TilePos.x, (int) TilePos.y);
-					}
-				}
+			boolean availableTile = gameData.TileMapHelper.IsTileAtPositionAValidBuildableTile(TilePos);
+			boolean hasEnoughMoney = gameData.Coins - gameData.TurretPriceInCoins >= 0;
+			boolean hasEnoughSpace = !world.turretPositions.containsKey(TilePos);
+			if (availableTile && hasEnoughMoney && hasEnoughSpace) {
+				gameData.Coins -= gameData.TurretPriceInCoins;
+				world.addTower((int) TilePos.x, (int) TilePos.y);
 			}
+			else return;
 		}
 	}
 }
