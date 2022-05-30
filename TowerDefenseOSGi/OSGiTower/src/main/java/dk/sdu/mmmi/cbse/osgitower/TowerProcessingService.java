@@ -52,12 +52,12 @@ public class TowerProcessingService implements IEntityProcessingService
 				{
 					return;
 				}
-				gameData.Coins -= gameData.TurretPriceInCoins;
-				
-				if (!world.turretPositions.containsKey(TilePos))
-				{
-					world.addTower((int) TilePos.x, (int) TilePos.y);
-//					new Turret((int) TilePos.x, (int) TilePos.y);
+				else {
+					if (!world.turretPositions.containsKey(TilePos))
+					{
+						gameData.Coins -= gameData.TurretPriceInCoins;
+						world.addTower((int) TilePos.x, (int) TilePos.y);
+					}
 				}
 			}
 		}
