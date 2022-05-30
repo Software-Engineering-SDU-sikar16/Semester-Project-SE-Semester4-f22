@@ -34,9 +34,7 @@ public class MyGame implements ApplicationListener
 	public static MyGame INSTANCE;
 	CustomCursorDrawer cursor;
 	
-	
 	private boolean IsInitialized = false;
-	
 	
 	public MyGame()
 	{
@@ -85,23 +83,14 @@ public class MyGame implements ApplicationListener
 		
 		IsInitialized = true;
 		
-		//OverlayService.CreateAllOverlays();
-		//overlayService.onCreate();
-//        setScreen(new GameScreen(camera));
+
 	}
 	
 	@Override
 	public void render()
 	{
-	
-		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		//orthogonalTiledMapRenderer.setView(camera);
-		//orthogonalTiledMapRenderer.render();
-		//overlayService.onRender();
-		//OverlayService.RenderAllOverlays();
 		
 		Update();
 	

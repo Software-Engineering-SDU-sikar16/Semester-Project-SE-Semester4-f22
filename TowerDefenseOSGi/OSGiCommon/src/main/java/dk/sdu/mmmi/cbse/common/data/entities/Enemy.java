@@ -16,7 +16,6 @@ import dk.sdu.mmmi.cbse.common.data.helpers.Util;
 
 public class Enemy extends Entity
 {
-	HealthPart healthPart;
 	TileIndexPart tileIndexPart;
 	
 	private static float enemySpeed = 40.0f; // speed of enemy
@@ -28,40 +27,50 @@ public class Enemy extends Entity
 	
 	public boolean IsDead()
 	{
-		return healthPart.GetHealth().IsDead();
+		HealthPart healthPart = getPart(HealthPart.class);
+		if (healthPart == null)
+		{
+			return true;
+		}
+		return healthPart.IsDead();
 	}
 	
 	public Enemy(int x, int y, int width, int height, EnemyType Type)
 	{
 		super(x, y, width, height);
+		this.Type = Type;
 		
 		int randomSheetIndex = MathUtils.random(23 - 1); // Get a random sheet index.
 		
 		AnimatedSpritePart spritePart = new AnimatedSpritePart(this, "default", Resources.LoadTexture("../assets/entities/enemies/sheet_" + randomSheetIndex + ".png"), 1, 4, 12, Animation.PlayMode.NORMAL);
 		add(spritePart);
 		
-		this.Type = Type;
+		HealthPart healthPart;
 		if (Type == EnemyType.normal) // if the enemy is a normal enemy
 		{
-			healthPart = new HealthPart(x + 6, y + height + 18, width / 2, height / 2, 0, 1); // create a health part
+			healthPart = new HealthPart(this, 0, 18, width / 2, height / 2, 1); // create a health part
 		}
 		else if (Type == EnemyType.boss) // if the enemy is a boss
 		{
-			healthPart = new HealthPart(x + 4, y + height + 18, width / 2, height / 2, 5, 2); // boss has 2 health
+			healthPart = new HealthPart(this, 5, 18, width / 2, height / 2, 2); // boss has 2 health
 		}
 		else if (Type == EnemyType.superboss) // if the enemy is a superboss
 		{
-			healthPart = new HealthPart(x + 2, y + height + 18, width / 2, height / 2, 5, 3); // set health to 3
+			healthPart = new HealthPart(this, 5, 18, width / 2, height / 2, 3); // set health to 3
 		}
 		else if (Type == EnemyType.elite) // if the enemy is an elite
 		{
-			healthPart = new HealthPart(x, y + height + 18, width / 2, height / 2, 5, 4); // set health
+			healthPart = new HealthPart(this, 5, 18, width / 2, height / 2, 4); // set health
 		}
 		else if (Type == EnemyType.kingkong) // if the enemy is a kingkong
 		{
-			healthPart = new HealthPart(x - 3, y + height + 18, width / 2, height / 2, 5, 5); // set health
+			healthPart = new HealthPart(this, 5, 18, width / 2, height / 2, 5); // set health
 		}
-		
+		else
+		{
+			healthPart = new HealthPart(this, 5, 18, width / 2, height / 2, 6); // set health
+		}
+		add(healthPart);
 		
 		tileIndexPart = new TileIndexPart();
 		add(tileIndexPart); // add tile index part
@@ -85,9 +94,12 @@ public class Enemy extends Entity
 		}
 		else
 		{
-			gameData.GlobalShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-			gameData.GlobalShapeRenderer.rect(tile.x, tile.y, gameData.TileMapHelper.TilePixelWidth, gameData.TileMapHelper.TilePixelHeight);
-			gameData.GlobalShapeRenderer.end();
+			if (gameData.DEBUG)
+			{
+				gameData.GlobalShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+				gameData.GlobalShapeRenderer.rect(tile.x, tile.y, gameData.TileMapHelper.TilePixelWidth, gameData.TileMapHelper.TilePixelHeight);
+				gameData.GlobalShapeRenderer.end();
+			}
 		}
 		
 		
@@ -96,7 +108,12 @@ public class Enemy extends Entity
 	@Override
 	public void OnUpdate(GameData gameData, World world)
 	{
-		if (healthPart.GetHealth().IsDead()) // if dead, dont do anything.
+		HealthPart healthPart = getPart(HealthPart.class);
+		if (healthPart == null)
+		{
+			return;
+		}
+		if (healthPart.IsDead()) // if dead, dont do anything.
 		{
 			return;
 		}
@@ -153,12 +170,39 @@ public class Enemy extends Entity
 	@Override
 	public void OnCollision(GameData gameData, World world, Entity other)
 	{
-		healthPart.GetHealth().SubstractHealth(); // substract health
-		if (healthPart.GetHealth().IsDead()) // if health is 0
+		HealthPart healthPart = getPart(HealthPart.class);
+		if (healthPart == null)
 		{
+			return;
+		}
+		
+		healthPart.SubstractHealth(); // substract health
+		if (healthPart.IsDead()) // if health is 0
+		{
+			
+			if (Type == EnemyType.normal) // if the enemy is a normal enemy
+			{
+				gameData.Coins += 150; // add coins
+			}
+			else if (Type == EnemyType.boss) // if the enemy is a boss
+			{
+				gameData.Coins += 250; // add coins
+			}
+			else if (Type == EnemyType.superboss) // if the enemy is a superboss
+			{
+				gameData.Coins += 400; // add coins
+			}
+			else if (Type == EnemyType.elite) // if the enemy is an elite
+			{
+				gameData.Coins += 600; // add coins
+			}
+			else if (Type == EnemyType.kingkong) // if the enemy is a kingkong
+			{
+				gameData.Coins += 900; // add coins
+			}
 			//todo play coin sound.
-			gameData.Coins += 50; // add coins
 			world.removeEntity(this); // remove entity
 		}
+	
 	}
 }

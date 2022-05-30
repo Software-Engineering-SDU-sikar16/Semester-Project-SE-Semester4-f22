@@ -28,9 +28,8 @@ public class Tower extends Entity
 	public static Random random = new Random();
 	public boolean IsShooting = false;
 	public Vector2 EnemyPosition;
-	public float TurretShootSpeedInSeconds = 1.5f; // lower numbers are faster
+	public float TurretShootSpeedInSeconds = 3.0f; // lower numbers are faster
 	float timeSinceLastBullet = 0;
-	public static int TurretPriceInCoins = 500;
 	private Entity TargetEnemy;
 	
 	ColliderPart colliderPart;
@@ -84,7 +83,6 @@ public class Tower extends Entity
 			Bullet bullet = gameData.BulletPool.obtain();
 			Vector2 bulletPos = new Vector2(getTransform().getX() + getTransform().getWidth() / 4, getTransform().getY() + getTransform().getHeight() / 2 - 2);
 			
-			System.out.println("Shooting");
 			bullet.fireBullet(bulletPos, EnemyPosition);
 			gameData.ActiveBullets.add(bullet);
 		}
@@ -106,15 +104,7 @@ public class Tower extends Entity
 			gameData.GlobalShapeRenderer.setColor(1.0f, 1.0f, 1.0f, 1);
 			gameData.GlobalShapeRenderer.end();
 		}
-		/*
-		Texture tex = getTexture();
-		if (tex != null)
-		{
-			gameData.GlobalSpriteBatch.begin();
-			gameData.GlobalSpriteBatch.draw(tex, getTransform().getX(), getTransform().getY(), getTransform().getWidth(), getTransform().getHeight());
-			gameData.GlobalSpriteBatch.end();
-		}
-		*/
+
 	}
 	
 	@Override
@@ -125,7 +115,7 @@ public class Tower extends Entity
 			return;
 		}
 		HealthPart healthPart = TargetEnemy.getPart(HealthPart.class);
-		if (healthPart == null || healthPart != null && healthPart.GetHealth().IsDead())
+		if (healthPart == null || healthPart != null && healthPart.IsDead())
 		{
 			return;
 		}
@@ -134,9 +124,8 @@ public class Tower extends Entity
 		if (IsShooting)
 		{
 			timeSinceLastBullet += Gdx.graphics.getDeltaTime();
-			if (timeSinceLastBullet > TurretShootSpeedInSeconds + (random.nextInt(500) * 0.001f))
+			if (timeSinceLastBullet > TurretShootSpeedInSeconds + (random.nextInt(5000) * 0.01f))
 			{
-				System.out.println("Shooting");
 				SpawnBullet(gameData);
 				timeSinceLastBullet = 0;
 				TargetEnemy = null;

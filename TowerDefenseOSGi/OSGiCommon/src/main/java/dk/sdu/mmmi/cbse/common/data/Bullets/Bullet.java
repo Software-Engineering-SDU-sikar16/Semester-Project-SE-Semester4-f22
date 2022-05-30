@@ -1,5 +1,6 @@
 package dk.sdu.mmmi.cbse.common.data.Bullets;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -14,11 +15,13 @@ import dk.sdu.mmmi.cbse.common.data.World;
 
 public class Bullet implements Pool.Poolable
 {
-	public static Texture BulletTexture = Resources.LoadTexture("../assets/turrets/bullet_4.png");
+	public static Texture BulletTexture = Resources.LoadTexture("../assets/turrets/bullet_2.png");
 	
 	public Vector2 targetDirection;
 	public Vector2 position;
 	public Vector2 size;
+	
+	public static float bulletSpeed = 70;
 	
 	public float dx = 0;
 	public float dy = 0;
@@ -30,12 +33,13 @@ public class Bullet implements Pool.Poolable
 	public Bullet()
 	{
 		texture = BulletTexture;
-		
-		position = new Vector2(0, 0);
 		size = new Vector2(BulletTexture.getWidth(), BulletTexture.getHeight());
-		//setTexture(BulletTexture);
-		//sprite.AddAnimation("default", BulletTexture, 1, 8, 5, Animation.PlayMode.NORMAL);
-		rect = new Rectangle(0, 0, BulletTexture.getWidth(), BulletTexture.getHeight());
+		position = new Vector2(0,0);
+
+		int bulletWidthSquared = BulletTexture.getWidth() * 2;
+		int bulletHeightSquared = BulletTexture.getHeight() * 2;
+		
+		rect = new Rectangle(0, 0, bulletWidthSquared, bulletHeightSquared);
 	}
 	
 	public void setPosition(float x, float y)
@@ -64,8 +68,6 @@ public class Bullet implements Pool.Poolable
 		this.targetDirection = enemyPosition;
 		float angle = enemyPosition.sub(origin).angleDeg();
 		
-		//	float angle = (float)Math.atan(direction.x / direction.y);
-		
 		//	float angle = 180;
 		double angleInRads = Math.toRadians(angle);
 		dx = (float) Math.cos(angleInRads);
@@ -81,25 +83,28 @@ public class Bullet implements Pool.Poolable
 	
 	public void OnRender(GameData gameData, World world)
 	{
+		gameData.GlobalSpriteBatch.begin();
 		if (texture != null)
 		{
 			gameData.GlobalSpriteBatch.draw(texture, position.x, position.y, size.x, size.y);
 		}
+		gameData.GlobalSpriteBatch.end();
 		
 		//super.OnRender(gameData, world);
 		
-		gameData.GlobalShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-		gameData.GlobalShapeRenderer.setColor(Color.WHITE);
-		gameData.GlobalShapeRenderer.rect(rect.x, rect.y, rect.width, rect.height);
-		gameData.GlobalShapeRenderer.end();
+		if (gameData.DEBUG) {
+			gameData.GlobalShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+			gameData.GlobalShapeRenderer.setColor(Color.WHITE);
+			gameData.GlobalShapeRenderer.rect(rect.x, rect.y, rect.width, rect.height);
+			gameData.GlobalShapeRenderer.end();
+		}
 		
 	}
 	
 	
 	public void OnUpdate(GameData gameData, World world)
 	{
-		position.add(dx, dy);
-		
+		position.add(dx * Gdx.graphics.getDeltaTime() * bulletSpeed, dy * Gdx.graphics.getDeltaTime() * bulletSpeed);
 		rect.setPosition(position.x, position.y);
 		
 		Array<Entity> hitEntities = gameData.enemyQuadTree.Query(rect);
