@@ -42,7 +42,14 @@ public class LifePart implements EntityPart {
     
     
     @Override
-    public void process(GameData gameData, World world, Entity entity) {
+    public void OnCreate(GameData gameData, World world, Entity entity) {
+    
+        
+    }
+    
+    @Override
+    public void OnUpdate(GameData gameData, World world, Entity entity)
+    {
         if (isHit) {
             life =- 1;
             isHit = false;
@@ -50,6 +57,11 @@ public class LifePart implements EntityPart {
         if (life <= 0) {
             dead = true;
         }
-        
+    }
+    
+    @Override
+    public void OnRender(GameData gameData, World world, Entity entity)
+    {
+    
     }
 }

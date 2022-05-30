@@ -28,11 +28,21 @@ public class HealthPart implements EntityPart
 	}
 	
 	@Override
-	public void process(GameData gameData, World world, Entity entity)
+	public void OnCreate(GameData gameData, World world, Entity entity)
 	{
-		health.setPosition(entity.getX(), entity.getY());
-		
+		health = new Health(0, 0, 0, 0);
+	}
+	
+	@Override
+	public void OnUpdate(GameData gameData, World world, Entity entity)
+	{
+		health.setPosition(entity.getTransform().getX(), entity.getTransform().getY());
 		health.OnUpdate(gameData, world);
+	}
+	
+	@Override
+	public void OnRender(GameData gameData, World world, Entity entity)
+	{
 		health.OnRender(gameData, world);
 	}
 	

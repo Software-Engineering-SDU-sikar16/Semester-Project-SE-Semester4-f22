@@ -2,11 +2,10 @@ package dk.sdu.mmmi.cbse.osgimap;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Vector2;
 import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.GamePlay.EnemyManager;
 import dk.sdu.mmmi.cbse.common.data.Map.TileMapHelper;
 import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.data.components.AnimatedSpritePart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 
@@ -22,8 +21,11 @@ public class MapPlugin implements IGamePluginService
 		
 		gameData.TileMapHelper = new TileMapHelper();
 		gameData.orthogonalTiledMapRenderer = gameData.TileMapHelper.setupMap(gameData, "../assets/maps/map1.tmx");
-		gameData.enemyManager = new EnemyManager(gameData);
+		
+		gameData.EnemiesSpawnPosition = new Vector2(gameData.TileMapHelper.Start.x, gameData.TileMapHelper.Start.y); //set the start position to the tile position.
 	}
+	
+	
 	
 	@Override
 	public void stop(GameData gameData, World world)

@@ -98,4 +98,29 @@ public class World
 			                                 myTower.OnRender(gameData, this);
 		                                 });
 	}
+	
+	public void OnCreateEntities(GameData gameData)
+	{
+		for (Entity entity : getEntities())
+		{
+			entity.InternalOnCreate(gameData, this);
+		}
+	}
+	
+	public void OnRenderEntities(GameData gameData)
+	{
+		for (Entity entity : getEntities())
+		{
+			entity.InternalOnRender(gameData, this);
+		}
+	}
+	
+	public void OnUpdateEntities(GameData gameData)
+	{
+		for (Entity entity : getEntities())
+		{
+			entity.InternalOnUpdate(gameData, this);
+		}
+	}
+	
 }

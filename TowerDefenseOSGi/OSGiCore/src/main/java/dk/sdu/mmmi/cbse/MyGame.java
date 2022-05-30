@@ -78,14 +78,9 @@ public class MyGame implements ApplicationListener
 			gameData.orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
 		}
 		
-		for (Entity entity : world.getEntities())
-		{
-			SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
-			if (sl != null) // always check, entity might not have  a spriteloader part!
-			{
-				sl.createSprite();
-			}
-		}
+		world.OnCreateEntities(gameData);
+		
+
 		cursor = new CustomCursorDrawer();
 		
 		IsInitialized = true;
@@ -143,6 +138,8 @@ public class MyGame implements ApplicationListener
 	private void Render()
 	{
 		
+		world.OnRenderEntities(gameData);
+		
 		for (Bullet bullet : gameData.ActiveBullets)
 		{
 			bullet.OnRender(gameData, world); // update bullet
@@ -159,7 +156,7 @@ public class MyGame implements ApplicationListener
 	private void Update()
 	{
 		
-		gameData.waveManager.OnUpdate(gameData, world);
+	//	gameData.waveManager.OnUpdate(gameData, world);
 		
 		// always draw the map first with the camera because components are renders synchronously.
 //        if(mapService != null) {
@@ -184,13 +181,15 @@ public class MyGame implements ApplicationListener
 		}
 		
 		
+		world.OnUpdateEntities(gameData);
+		
 		for (Entity entity : world.getEntities())
 		{
 			//sl.process(gameData, new Entity());
 			SpriteLoaderPart sl = entity.getPart(SpriteLoaderPart.class);
 			if (sl != null) // always check, entity might not have  a spriteloader part!
 			{
-				sl.process(gameData, world, entity);
+				sl.OnCreate(gameData, world, entity);
 			}
 			
 		}

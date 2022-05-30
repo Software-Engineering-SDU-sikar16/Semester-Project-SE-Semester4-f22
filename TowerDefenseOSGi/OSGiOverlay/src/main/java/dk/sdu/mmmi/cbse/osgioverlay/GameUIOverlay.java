@@ -65,7 +65,7 @@ public class GameUIOverlay extends Overlay
 			@Override
 			public void clicked(InputEvent event, float x, float y)
 			{
-				gameData.waveManager.StartWave();
+				gameData.IsWaveStarted = true;
 			}
 			
 			
@@ -96,7 +96,7 @@ public class GameUIOverlay extends Overlay
 	{
 		gameData.GlobalSpriteBatch.begin();
 		
-		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFont, "Wave " + gameData.waveManager.GetWaveNumber() + " / " + gameData.waveManager.GetTotalWaves(), 25, gameData.getGlobalHeight() - 20, Color.WHITE);
+		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFont, "Wave " + gameData.GetWaveNumber() + " / " + gameData.GetTotalWaves(), 25, gameData.getGlobalHeight() - 20, Color.WHITE);
 		
 		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFontIcons, "\u0183", 25, gameData.getGlobalHeight() - 118, Color.WHITE);
 		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFont, "" + gameData.Coins, 41, gameData.getGlobalHeight() - 99, Color.WHITE);

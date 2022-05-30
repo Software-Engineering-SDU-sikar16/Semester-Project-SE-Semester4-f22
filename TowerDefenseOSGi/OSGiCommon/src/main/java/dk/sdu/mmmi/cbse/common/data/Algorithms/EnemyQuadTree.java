@@ -41,7 +41,7 @@ public class EnemyQuadTree extends QuadTree<Entity>
 		{
 			if (entity != null)
 			{
-				gameData.GlobalShapeRenderer.circle(entity.getX(), entity.getY(), 10);
+				gameData.GlobalShapeRenderer.circle(entity.getTransform().getX(), entity.getTransform().getY(), 10);
 			}
 		}
 		gameData.GlobalShapeRenderer.end();
@@ -51,10 +51,7 @@ public class EnemyQuadTree extends QuadTree<Entity>
 	
 	private void AddEnemies(GameData gameData, World world)
 	{
-		for (Entity enemy : gameData.enemyManager.enemiesOnScreen)
-		{
-			Insert(enemy.getCenteredPosition(), enemy);
-		}
+		world.getEntities(Enemy.class).forEach(enemy ->	Insert(enemy.getTransform().getCenteredPosition(), enemy));
 	}
 	
 	

@@ -42,27 +42,26 @@ public class Tower extends Entity
 	
 	public Tower(int x, int y)
 	{
-		setPosition(x, y);
-		setSize(50, 50);
+		super(x, y, 50, 50);
 		
 		Texture turret1 = Resources.LoadTexture("../assets/turrets/4shot.png");
 		
 		int width = turret1.getWidth();
 		int height = turret1.getHeight();
 		
-		setSize(width, height);
+		getTransform().setSize(width, height);
 		
 		float radius = 100;
-		circle = new Circle(getCenterX(), getCenterY(), radius);
+		circle = new Circle(getTransform().getCenterX(), getTransform().getCenterY(), radius);
 		rect = new Rectangle(x, y, width, height);
 		
 		float radiusTimesTwoCircumfrence = 2 * radius;
 		float radiusSquared = radiusTimesTwoCircumfrence * radiusTimesTwoCircumfrence;
 		float rectCircleSize = (float) Math.sqrt(radiusSquared);
-		hitRect = new Rectangle(getCenterX() - rectCircleSize / 2, getCenterY() - rectCircleSize / 2, rectCircleSize, rectCircleSize);
+		hitRect = new Rectangle(getTransform().getCenterX() - rectCircleSize / 2, getTransform().getCenterY() - rectCircleSize / 2, rectCircleSize, rectCircleSize);
 		
-		
-		setTexture(turret1);
+		AnimatedSpritePart animatedSprite = new AnimatedSpritePart(turret1);
+		add(animatedSprite);
 	}
 	
 	@Override
@@ -76,7 +75,7 @@ public class Tower extends Entity
 		if (IsShooting)
 		{
 			Bullet bullet = gameData.BulletPool.obtain();
-			Vector2 bulletPos = new Vector2(getX() + getWidth() / 4, getY() + getHeight() / 2 - 2);
+			Vector2 bulletPos = new Vector2(getTransform().getX() +getTransform(). getWidth() / 4, getTransform().getY() + getTransform().getHeight() / 2 - 2);
 			
 			bullet.fireBullet(bulletPos, EnemyPosition);
 			gameData.ActiveBullets.add(bullet);
@@ -99,15 +98,15 @@ public class Tower extends Entity
 			gameData.GlobalShapeRenderer.setColor(1.0f, 1.0f, 1.0f, 1);
 			gameData.GlobalShapeRenderer.end();
 		}
-		
+		/*
 		Texture tex = getTexture();
 		if (tex != null)
 		{
 			gameData.GlobalSpriteBatch.begin();
-			gameData.GlobalSpriteBatch.draw(tex, getX(), getY(), getWidth(), getHeight());
+			gameData.GlobalSpriteBatch.draw(tex, getTransform().getX(), getTransform().getY(), getTransform().getWidth(), getTransform().getHeight());
 			gameData.GlobalSpriteBatch.end();
 		}
-		
+		*/
 	}
 	
 	@Override

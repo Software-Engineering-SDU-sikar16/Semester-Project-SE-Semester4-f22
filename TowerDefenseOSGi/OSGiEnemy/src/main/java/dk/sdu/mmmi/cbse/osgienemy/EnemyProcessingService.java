@@ -1,15 +1,53 @@
 package dk.sdu.mmmi.cbse.osgienemy;
 
-import dk.sdu.mmmi.cbse.common.data.Enemy;
-import dk.sdu.mmmi.cbse.common.data.Entity;
-import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.World;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
+import dk.sdu.mmmi.cbse.common.data.*;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 public class EnemyProcessingService implements IEntityProcessingService {
+    
+    
+    private int SpawnedEnemies = 0;
+    public float WaveSpawnSpeed = 1.5f; // lower numbers are faster
+    float timeSinceLastSpawned = 0;
+    
+    
+    
     @Override
     public void process(GameData gameData, World world) {
-        for (Entity enemy : world.getEntities(Enemy.class)) {
+    
+        if (gameData.IsWaveStarted)
+        {
+            if (SpawnedEnemies < gameData.GetWave().MaxEnemies())
+            {
+                timeSinceLastSpawned += Gdx.graphics.getDeltaTime();
+                if (timeSinceLastSpawned > WaveSpawnSpeed)
+                {
+                    SpawnEnemy(gameData, world, gameData.GetWave().GetEnemyTypeAtIndex(SpawnedEnemies));
+                    timeSinceLastSpawned = 0;
+                    SpawnedEnemies++;
+                }
+            }
+            else
+            {
+                //Wave Ended
+                gameData.currentWaveIndex++;
+                gameData.IsWaveStarted = false;
+                SpawnedEnemies = 0;
+            }
         }
+        
+        
+    }
+    
+    private void SpawnEnemy(GameData gameData, World world, EnemyType type)
+    {
+        Enemy enemy = new Enemy((int)gameData.EnemiesSpawnPosition.x, (int)gameData.EnemiesSpawnPosition.y, 24, 24, type);
+    
+        enemy.getTransform().setPosition(gameData.EnemiesSpawnPosition);
+        enemy.SetEnabled(true);
+        world.addEntity(enemy);
     }
 }

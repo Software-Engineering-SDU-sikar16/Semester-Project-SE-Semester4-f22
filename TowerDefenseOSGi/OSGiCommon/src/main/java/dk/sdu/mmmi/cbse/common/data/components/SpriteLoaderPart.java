@@ -58,11 +58,23 @@ public class SpriteLoaderPart implements EntityPart {
     }
 
     @Override
-    public void process(GameData gameData, World world, Entity entity) {
+    public void OnCreate(GameData gameData, World world, Entity entity) {
+    
+    }
+    
+    @Override
+    public void OnUpdate(GameData gameData, World world, Entity entity)
+    {
+    
+    }
+    
+    @Override
+    public void OnRender(GameData gameData, World world, Entity entity)
+    {
         PositionPart pp = entity.getPart(PositionPart.class);
         drawSprite(pp.getX(), pp.getY());
     }
-
+    
     public boolean isFlipX() {
         return flipX;
     }
