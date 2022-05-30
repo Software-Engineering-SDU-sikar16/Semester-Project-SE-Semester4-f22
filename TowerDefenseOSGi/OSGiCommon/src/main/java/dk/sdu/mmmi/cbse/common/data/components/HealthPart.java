@@ -8,9 +8,12 @@ import dk.sdu.mmmi.cbse.common.data.GamePlay.Health;
 import dk.sdu.mmmi.cbse.common.data.Resources;
 import dk.sdu.mmmi.cbse.common.data.World;
 
+
 public class HealthPart implements EntityPart
 {
 	Health health;
+	
+	
 	
 	public HealthPart(int x, int y, int paddingX, int startHealth)
 	{

@@ -1,7 +1,7 @@
 package dk.sdu.mmmi.cbse.osgienemy;
 
 import dk.sdu.mmmi.cbse.common.data.*;
-import dk.sdu.mmmi.cbse.common.data.components.Tower;
+import dk.sdu.mmmi.cbse.common.data.entities.Enemy;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 public class EnemyPlugin implements IGamePluginService {

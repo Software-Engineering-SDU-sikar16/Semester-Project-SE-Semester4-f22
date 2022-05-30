@@ -199,9 +199,7 @@ public class MyGame implements ApplicationListener
 		
 		
 		
-		
-		
-		gameData.enemyQuadTree.OnUpdate(gameData, world);
+		gameData.enemyQuadTree.OnUpdate(gameData, world); // update enemy quadtree
 		
 		
 		

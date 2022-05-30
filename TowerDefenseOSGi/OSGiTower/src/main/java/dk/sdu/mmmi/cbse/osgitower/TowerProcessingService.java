@@ -3,8 +3,13 @@ package dk.sdu.mmmi.cbse.osgitower;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.components.ColliderPart;
+import dk.sdu.mmmi.cbse.common.data.components.HealthPart;
+import dk.sdu.mmmi.cbse.common.data.entities.Tower;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 public class TowerProcessingService implements IEntityProcessingService
@@ -13,10 +18,40 @@ public class TowerProcessingService implements IEntityProcessingService
 	public void process(GameData gameData, World world)
 	{
 		world.ProcessTowers(gameData);
-
 		
 		
 		TryBuildTurret(gameData, world);
+		
+		
+		if (gameData.enemyQuadTree != null)
+		{
+			
+			world.getEntities(Tower.class).forEach(tower -> {
+				
+				ColliderPart colliderPart = tower.getPart(ColliderPart.class);
+				if (colliderPart != null)
+				{
+					Array<Entity> hitEntities = gameData.enemyQuadTree.Query(colliderPart.getShape("hitRect").getRect());
+					for (Entity enemy : hitEntities)
+					{
+						HealthPart healthPart = enemy.getPart(HealthPart.class);
+						if (healthPart != null)
+						{
+							if (!healthPart.GetHealth().IsDead())
+							{
+								System.out.println("Tower hit enemy");
+								tower.OnCollision(gameData, world, enemy);
+							}
+						} else {
+							System.out.println("healthpart is null");
+						}
+					}
+				}
+				
+			});
+			
+		}
+		
 /*		Turret.TryBuildTurret();
 		// update turrets
 		for (
@@ -52,7 +87,8 @@ public class TowerProcessingService implements IEntityProcessingService
 				{
 					return;
 				}
-				else {
+				else
+				{
 					if (!world.turretPositions.containsKey(TilePos))
 					{
 						gameData.Coins -= gameData.TurretPriceInCoins;

@@ -1,9 +1,8 @@
 package dk.sdu.mmmi.cbse.osgienemy;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.mmmi.cbse.common.data.*;
+import dk.sdu.mmmi.cbse.common.data.entities.Enemy;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 public class EnemyProcessingService implements IEntityProcessingService {

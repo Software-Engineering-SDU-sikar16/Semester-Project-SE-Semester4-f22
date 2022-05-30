@@ -2,7 +2,7 @@ package dk.sdu.mmmi.cbse.common.data;
 
 import com.badlogic.gdx.math.Vector2;
 import dk.sdu.mmmi.cbse.common.data.components.EntityPart;
-import dk.sdu.mmmi.cbse.common.data.components.Tower;
+import dk.sdu.mmmi.cbse.common.data.entities.Tower;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

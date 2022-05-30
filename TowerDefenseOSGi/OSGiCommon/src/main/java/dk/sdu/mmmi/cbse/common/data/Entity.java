@@ -11,7 +11,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-public abstract class Entity implements IRenderable, Serializable
+public abstract class Entity implements IRenderable, ICollidable,  Serializable
 {
 	private final UUID ID = UUID.randomUUID(); // Unique ID for this entity
 	
@@ -52,6 +52,7 @@ public abstract class Entity implements IRenderable, Serializable
 	{
 		return (E) parts.get(partClass);
 	} // Get a component from this entity
+	
 	
 	public PositionPart getTransform()
 	{
