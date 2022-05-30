@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.data.components.Tower;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 public class TowerProcessingService implements IEntityProcessingService
@@ -53,12 +52,12 @@ public class TowerProcessingService implements IEntityProcessingService
 				{
 					return;
 				}
-				gameData.Coins -= gameData.TurretPriceInCoins;
-				
-				if (!world.turretPositions.containsKey(TilePos))
-				{
-					world.addTower((int) TilePos.x, (int) TilePos.y);
-//					new Turret((int) TilePos.x, (int) TilePos.y);
+				else {
+					if (!world.turretPositions.containsKey(TilePos))
+					{
+						gameData.Coins -= gameData.TurretPriceInCoins;
+						world.addTower((int) TilePos.x, (int) TilePos.y);
+					}
 				}
 			}
 		}
