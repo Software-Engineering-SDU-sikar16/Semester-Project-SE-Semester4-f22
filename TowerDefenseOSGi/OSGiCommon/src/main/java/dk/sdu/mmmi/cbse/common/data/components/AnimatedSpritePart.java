@@ -23,31 +23,31 @@ public class AnimatedSpritePart implements EntityPart
 	Animation<TextureRegion> currentAnimation = null;
 	float elapsedTime = 0;
 	
-	Sprite sprite;
+	Texture texture;
 	
-	
-	public AnimatedSpritePart(Texture texture, float x, float y, int width, int height)
+	public AnimatedSpritePart(Texture texture)
 	{
-		sprite = new Sprite(texture);
-		sprite.setSize(width, height);
-		sprite.setPosition(x, y);
+		this.texture = texture;
 	}
 	
-	public AnimatedSpritePart(int x, int y, int width, int height)
+	
+	public AnimatedSpritePart(Entity entity, String AnimationName, Texture AnimationSpriteSheet, int NumberOfRows, int NumberOfColumns, float AnimationSpeed, Animation.PlayMode playMode)
 	{
-		sprite = new Sprite();
-		sprite.setSize(width, height);
-		sprite.setPosition(x, y);
+		AddAnimation(entity, AnimationName, AnimationSpriteSheet, NumberOfRows, NumberOfColumns, AnimationSpeed, playMode);
 	}
 	
-	public void AddAnimation(String AnimationName, Texture AnimationSpriteSheet, int NumberOfRows, int NumberOfColumns, float AnimationSpeed, Animation.PlayMode playMode)
+	public void AddAnimation(Entity entity, String AnimationName, Texture AnimationSpriteSheet, int NumberOfRows, int NumberOfColumns, float AnimationSpeed, Animation.PlayMode playMode)
 	{
 		int width = AnimationSpriteSheet.getWidth() / NumberOfColumns;
 		int height = AnimationSpriteSheet.getHeight() / NumberOfRows;
 		// assume the individual frames are aligned correctly. in terms of width/height
 		TextureRegions = TextureRegion.split(AnimationSpriteSheet, width, height);
 		
-		sprite.setSize(width, height);
+		PositionPart transform = entity.getTransform();
+		if (transform != null)
+		{
+			transform.setSize(width, height);
+		}
 		
 		AnimationFrames = new TextureRegion[NumberOfColumns * NumberOfRows];
 		int animationFramesIndex = 0;
@@ -93,29 +93,48 @@ public class AnimatedSpritePart implements EntityPart
 	}
 	
 	
-	public void OnRender(GameData gameData)
+	public void OnRender(GameData gameData, Entity entity)
 	{
-		if (currentAnimation == null && sprite.getTexture() == null) // end early
+		if (currentAnimation == null && texture == null) // end early
+		{
+			return;
+		}
+		PositionPart transform = entity.getTransform();
+		if (transform == null)
 		{
 			return;
 		}
 		
+		gameData.GlobalSpriteBatch.begin();
 		if (currentAnimation != null)
 		{
 			elapsedTime += Gdx.graphics.getDeltaTime();
-			gameData.GlobalSpriteBatch.draw(currentAnimation.getKeyFrame(elapsedTime, true), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+			gameData.GlobalSpriteBatch.draw(currentAnimation.getKeyFrame(elapsedTime, true), transform.getX(), transform.getY(), transform.getWidth(), transform.getHeight());
 		}
 		
-		if (sprite.getTexture() != null)
+		if (texture != null)
 		{
-			gameData.GlobalSpriteBatch.draw(sprite.getTexture(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+			gameData.GlobalSpriteBatch.draw(texture, transform.getX(), transform.getY(), transform.getWidth(), transform.getHeight());
 		}
+		gameData.GlobalSpriteBatch.end();
 		
 	}
 	
 	@Override
-	public void process(GameData gameData, World world, Entity entity)
+	public void OnCreate(GameData gameData, World world, Entity entity)
 	{
-		OnRender(gameData);
+	
+	}
+	
+	@Override
+	public void OnUpdate(GameData gameData, World world, Entity entity)
+	{
+	
+	}
+	
+	@Override
+	public void OnRender(GameData gameData, World world, Entity entity)
+	{
+		OnRender(gameData, entity);
 	}
 }
