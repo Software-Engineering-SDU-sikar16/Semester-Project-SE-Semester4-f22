@@ -1,4 +1,4 @@
-package dk.sdu.mmmi.cbse.common.data.components;
+package dk.sdu.mmmi.cbse.common.data.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,55 +14,61 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.Map.Tile;
 import dk.sdu.mmmi.cbse.common.data.Resources;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.components.AnimatedSpritePart;
+import dk.sdu.mmmi.cbse.common.data.components.ColliderPart;
+import dk.sdu.mmmi.cbse.common.data.components.HealthPart;
+import dk.sdu.mmmi.cbse.common.data.components.TileIndexPart;
+import org.w3c.dom.css.Rect;
 
 import java.util.Random;
 
 
 public class Tower extends Entity
 {
-	public static Array<Tower> Towers = new Array<Tower>();
-	
-	public Tower()
-	{
-		Towers.add(this);
-	}
-	
-	
 	public static Random random = new Random();
 	public boolean IsShooting = false;
 	public Vector2 EnemyPosition;
 	public float TurretShootSpeedInSeconds = 1.5f; // lower numbers are faster
-	public Rectangle hitRect;
 	float timeSinceLastBullet = 0;
 	public static int TurretPriceInCoins = 500;
-	public Circle circle; // this circle is for checking whether the enemy is getting close to the turret.
-	public Rectangle rect; // this rectangle is for checking whether the mouse is hovering over the turret
 	private Entity TargetEnemy;
 	
+	ColliderPart colliderPart;
+	
+	Circle circle;
+	Rectangle rect;
+	Rectangle hitRect;
+
 	
 	public Tower(int x, int y)
 	{
-		setPosition(x, y);
-		setSize(50, 50);
+		super(x, y, 50, 50);
 		
 		Texture turret1 = Resources.LoadTexture("../assets/turrets/4shot.png");
 		
-		int width = turret1.getWidth();
-		int height = turret1.getHeight();
+		int width = turret1.getWidth(); // width of the turret
+		int height = turret1.getHeight(); // height of the turret
 		
-		setSize(width, height);
+		getTransform().setSize(width, height); // set the size of the turret
 		
 		float radius = 100;
-		circle = new Circle(getCenterX(), getCenterY(), radius);
+		circle = new Circle(getTransform().getCenterX(), getTransform().getCenterY(), radius); // create a circle for checking whether the enemy is getting close to the turret
 		rect = new Rectangle(x, y, width, height);
 		
 		float radiusTimesTwoCircumfrence = 2 * radius;
 		float radiusSquared = radiusTimesTwoCircumfrence * radiusTimesTwoCircumfrence;
 		float rectCircleSize = (float) Math.sqrt(radiusSquared);
-		hitRect = new Rectangle(getCenterX() - rectCircleSize / 2, getCenterY() - rectCircleSize / 2, rectCircleSize, rectCircleSize);
+		hitRect = new Rectangle(getTransform().getCenterX() - rectCircleSize / 2, getTransform().getCenterY() - rectCircleSize / 2, rectCircleSize, rectCircleSize);
 		
+		AnimatedSpritePart animatedSprite = new AnimatedSpritePart(turret1); // create a new animated sprite part
+		add(animatedSprite);
 		
-		setTexture(turret1);
+		colliderPart = new ColliderPart(); // create a new collider part
+		colliderPart.Add("circle", circle);
+		colliderPart.Add("rect", rect);
+		colliderPart.Add("hitRect", hitRect);
+	
+		add(colliderPart);
 	}
 	
 	@Override
@@ -76,8 +82,9 @@ public class Tower extends Entity
 		if (IsShooting)
 		{
 			Bullet bullet = gameData.BulletPool.obtain();
-			Vector2 bulletPos = new Vector2(getX() + getWidth() / 4, getY() + getHeight() / 2 - 2);
+			Vector2 bulletPos = new Vector2(getTransform().getX() + getTransform().getWidth() / 4, getTransform().getY() + getTransform().getHeight() / 2 - 2);
 			
+			System.out.println("Shooting");
 			bullet.fireBullet(bulletPos, EnemyPosition);
 			gameData.ActiveBullets.add(bullet);
 		}
@@ -99,15 +106,15 @@ public class Tower extends Entity
 			gameData.GlobalShapeRenderer.setColor(1.0f, 1.0f, 1.0f, 1);
 			gameData.GlobalShapeRenderer.end();
 		}
-		
+		/*
 		Texture tex = getTexture();
 		if (tex != null)
 		{
 			gameData.GlobalSpriteBatch.begin();
-			gameData.GlobalSpriteBatch.draw(tex, getX(), getY(), getWidth(), getHeight());
+			gameData.GlobalSpriteBatch.draw(tex, getTransform().getX(), getTransform().getY(), getTransform().getWidth(), getTransform().getHeight());
 			gameData.GlobalSpriteBatch.end();
 		}
-		
+		*/
 	}
 	
 	@Override
@@ -122,18 +129,21 @@ public class Tower extends Entity
 		{
 			return;
 		}
-
-	
+		
 		
 		if (IsShooting)
 		{
 			timeSinceLastBullet += Gdx.graphics.getDeltaTime();
 			if (timeSinceLastBullet > TurretShootSpeedInSeconds + (random.nextInt(500) * 0.001f))
 			{
+				System.out.println("Shooting");
 				SpawnBullet(gameData);
 				timeSinceLastBullet = 0;
+				TargetEnemy = null;
 			}
-			else {}
+			else
+			{
+			}
 		}
 	}
 	
@@ -171,6 +181,9 @@ public class Tower extends Entity
 		}
 	}
 	
-
-	
+	@Override
+	public void OnCollision(GameData gameData, World world, Entity other)
+	{
+		EnemyIsClose(gameData, other);
+	}
 }

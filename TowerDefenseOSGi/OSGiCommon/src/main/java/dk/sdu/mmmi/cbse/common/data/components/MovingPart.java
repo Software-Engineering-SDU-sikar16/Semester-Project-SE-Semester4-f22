@@ -69,60 +69,25 @@ public class MovingPart implements EntityPart {
     }
 
     @Override
-    public void process(GameData gameData, World world, Entity entity) {
+    public void OnCreate(GameData gameData, World world, Entity entity) {
+    
+    }
+    
+    @Override
+    public void OnUpdate(GameData gameData, World world, Entity entity)
+    {
         PositionPart positionPart = entity.getPart(PositionPart.class);
         float x = positionPart.getX();
         float y = positionPart.getY();
-        float radians = positionPart.getRadians();
         float dt = gameData.getDelta();
-
-        // turning
-        if (left) {
-            radians += rotationSpeed * dt;
-        }
-
-        if (right) {
-            radians -= rotationSpeed * dt;
-        }
-
-        // accelerating            
-        if (up) {
-            dx += cos(radians) * acceleration * dt;
-            dy += sin(radians) * acceleration * dt;
-        }
-
-        // deccelerating
-        float vec = (float) sqrt(dx * dx + dy * dy);
-        if (vec > 0) {
-            dx -= (dx / vec) * deceleration * dt;
-            dy -= (dy / vec) * deceleration * dt;
-        }
-        if (vec > maxSpeed) {
-            dx = (dx / vec) * maxSpeed;
-            dy = (dy / vec) * maxSpeed;
-        }
-
-        // set position
-        x += dx * dt;
-        if (x > gameData.getGlobalWidth()) {
-            x = 0;
-        }
-        else if (x < 0) {
-            x = gameData.getGlobalWidth();
-        }
-
-        y += dy * dt;
-        if (y > gameData.getGlobalHeight()) {
-            y = 0;
-        }
-        else if (y < 0) {
-            y = gameData.getGlobalHeight();
-        }
-
-        positionPart.setX(x);
-        positionPart.setY(y);
-
-        positionPart.setRadians(radians);
+    
+   
     }
-
+    
+    @Override
+    public void OnRender(GameData gameData, World world, Entity entity)
+    {
+    
+    }
+    
 }

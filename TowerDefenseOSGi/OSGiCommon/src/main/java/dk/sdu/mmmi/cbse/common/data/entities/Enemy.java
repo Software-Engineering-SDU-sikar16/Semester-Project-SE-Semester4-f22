@@ -1,4 +1,4 @@
-package dk.sdu.mmmi.cbse.common.data;
+package dk.sdu.mmmi.cbse.common.data.entities;
 
 
 import com.badlogic.gdx.Gdx;
@@ -7,16 +7,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import dk.sdu.mmmi.cbse.common.data.*;
-import dk.sdu.mmmi.cbse.common.data.Bullets.Bullet;
-import dk.sdu.mmmi.cbse.common.data.GamePlay.Health;
 import dk.sdu.mmmi.cbse.common.data.Map.Tile;
 import dk.sdu.mmmi.cbse.common.data.components.AnimatedSpritePart;
 import dk.sdu.mmmi.cbse.common.data.components.HealthPart;
-import dk.sdu.mmmi.cbse.common.data.components.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.components.TileIndexPart;
 import dk.sdu.mmmi.cbse.common.data.helpers.Util;
-
-import java.util.Set;
 
 
 public class Enemy extends Entity
@@ -70,20 +65,6 @@ public class Enemy extends Entity
 		
 		tileIndexPart = new TileIndexPart();
 		add(tileIndexPart); // add tile index part
-	}
-	
-	/*
-	 * Got hit by a bullet
-	 */
-	public void GotHit(GameData gameData, World world, Bullet bullet)
-	{
-		healthPart.GetHealth().SubstractHealth(); // substract health
-		if (healthPart.GetHealth().IsDead()) // if health is 0
-		{
-			//todo play coin sound.
-			gameData.Coins += 50; // add coins
-			world.removeEntity(this); // remove entity
-		}
 	}
 	
 	
@@ -167,5 +148,17 @@ public class Enemy extends Entity
 	public void OnDispose(GameData gameData, World world)
 	{
 	
+	}
+	
+	@Override
+	public void OnCollision(GameData gameData, World world, Entity other)
+	{
+		healthPart.GetHealth().SubstractHealth(); // substract health
+		if (healthPart.GetHealth().IsDead()) // if health is 0
+		{
+			//todo play coin sound.
+			gameData.Coins += 50; // add coins
+			world.removeEntity(this); // remove entity
+		}
 	}
 }

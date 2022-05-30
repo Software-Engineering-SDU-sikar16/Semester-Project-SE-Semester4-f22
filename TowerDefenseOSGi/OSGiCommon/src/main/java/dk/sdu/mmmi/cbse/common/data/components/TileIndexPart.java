@@ -10,7 +10,19 @@ public class TileIndexPart implements EntityPart
 	public int TileIndex;
 	
 	@Override
-	public void process(GameData gameData, World world, Entity entity)
+	public void OnCreate(GameData gameData, World world, Entity entity)
+	{
+	
+	}
+	
+	@Override
+	public void OnUpdate(GameData gameData, World world, Entity entity)
+	{
+	
+	}
+	
+	@Override
+	public void OnRender(GameData gameData, World world, Entity entity)
 	{
 	
 	}

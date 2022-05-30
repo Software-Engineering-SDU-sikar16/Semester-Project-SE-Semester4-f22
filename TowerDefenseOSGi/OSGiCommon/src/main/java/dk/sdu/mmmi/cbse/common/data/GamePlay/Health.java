@@ -12,7 +12,7 @@ import dk.sdu.mmmi.cbse.common.data.World;
 
 public class Health implements IRenderable
 {
-	Sprite[] hearts;
+	Texture[] hearts;
 	int healthCounter = 0;
 	private boolean Enabled = true;
 	
@@ -45,7 +45,7 @@ public class Health implements IRenderable
 	{
 		position = new Vector2(x, y);
 		size = new Vector2(0, 0);
-		hearts = new Sprite[health];
+		hearts = new Texture[health];
 		
 		paddingX = inputPaddingX;
 		healthCounter = health;
@@ -56,7 +56,7 @@ public class Health implements IRenderable
 		position = new Vector2(x, y);
 		size = new Vector2(width, height);
 		
-		hearts = new Sprite[health];
+		hearts = new Texture[health];
 		
 		paddingX = inputPaddingX;
 		healthCounter = health;
@@ -70,10 +70,6 @@ public class Health implements IRenderable
 		{
 			return;
 		}
-		for (int i = 0; i < hearts.length; i++)
-		{
-			hearts[i].setSize(width, height);
-		}
 	}
 	
 	public void setPosition(Vector2 pos)
@@ -82,10 +78,6 @@ public class Health implements IRenderable
 		if (hearts == null)
 		{
 			return;
-		}
-		for (int i = 0; i < hearts.length; i++)
-		{
-			hearts[i].setPosition(pos.x, pos.y);
 		}
 	}
 	
@@ -96,10 +88,6 @@ public class Health implements IRenderable
 		{
 			return;
 		}
-		for (int i = 0; i < hearts.length; i++)
-		{
-			hearts[i].setPosition(x, y);
-		}
 	}
 	
 	public void SubstractHealth()
@@ -109,8 +97,7 @@ public class Health implements IRenderable
 		
 		for (int i = healthCounter; i < hearts.length; i++)
 		{
-			hearts[i].setTexture(HeartTextureNull);
-			//hearts[i].setSize(HeartTextureNull.getWidth() * 1.7f, HeartTextureNull.getHeight() * 1.7f);
+			hearts[i] = HeartTextureNull;
 		}
 	}
 	
@@ -121,9 +108,7 @@ public class Health implements IRenderable
 		
 		for (int i = 0; i < healthCounter; i++)
 		{
-			hearts[i].setTexture(HeartTexture);
-			hearts[i].setTexture(HeartTexture);
-			//hearts[i].setSize(HeartTexture.getWidth() * 1.6f, HeartTexture.getHeight() * 1.6f);
+			hearts[i] = HeartTexture;
 		}
 	}
 	
@@ -143,7 +128,7 @@ public class Health implements IRenderable
 		
 		for (int i = 0; i < hearts.length; i++)
 		{
-			hearts[i] = new Sprite(HeartTexture, (paddingX * i) + (int) position.x, (int) position.y - 15, (int) size.x, (int) size.y);
+			hearts[i] = HeartTexture;
 		}
 	}
 	
@@ -154,8 +139,7 @@ public class Health implements IRenderable
 		{
 			for (int i = 0; i < hearts.length; i++)
 			{
-				gameData.GlobalSpriteBatch.draw(hearts[i].getTexture(), position.x, position.y, size.x, size.y);
-//				hearts[i].draw(gameData.GlobalSpriteBatch);
+				gameData.GlobalSpriteBatch.draw(hearts[i], (paddingX * i) + (int) position.x , position.y - 15, size.x, size.y);
 			}
 		}
 	}
@@ -168,7 +152,5 @@ public class Health implements IRenderable
 	@Override
 	public void OnDispose(GameData gameData, World world)
 	{
-	/*	HeartTexture = null;
-		HeartTextureNull = null;*/
 	}
 }
