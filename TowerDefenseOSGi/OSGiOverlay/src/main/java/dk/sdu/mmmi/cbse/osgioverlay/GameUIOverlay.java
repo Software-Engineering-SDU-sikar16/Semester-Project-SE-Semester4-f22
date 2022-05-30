@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import dk.sdu.mmmi.cbse.common.data.*;
-import dk.sdu.mmmi.cbse.common.data.GamePlay.Health;
+import dk.sdu.mmmi.cbse.common.data.GamePlay.UIHealth;
 import dk.sdu.mmmi.cbse.common.data.helpers.DrawUtil;
 import dk.sdu.mmmi.cbse.common.data.helpers.FontResource;
 
@@ -29,13 +29,11 @@ public class GameUIOverlay extends Overlay
 	Texture StartButtonTexture;
 	
 	
-	
 	private Vector2 GetTextCenterPosition(BitmapFont font, String text, float x, float y)
 	{
 		GlyphLayouter.setText(font, text);
 		return new Vector2(x - GlyphLayouter.width / 2, y);
 	}
-	
 	
 	
 	@Override
@@ -46,7 +44,6 @@ public class GameUIOverlay extends Overlay
 		
 		CenterPoint = new Vector2(gameData.getGlobalWidth() / 2, gameData.getGlobalHeight() / 2);
 		Vector2 Pos = GetTextCenterPosition(gameData.ScoreUIFontIcons, "\u0083", CenterPoint.x, CenterPoint.y);
-		
 		
 		
 		TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -84,10 +81,9 @@ public class GameUIOverlay extends Overlay
 		});
 		
 		
-		
 		gameData.UIStage.addActor(StartButton);
 		
-		gameData.UIHealth = new Health(20, gameData.getGlobalHeight() - 70, 1, 7);
+		gameData.UIHealth = new UIHealth(20, gameData.getGlobalHeight() - 70, 30, 7);
 		gameData.UIHealth.OnCreate(gameData, world);
 	}
 	
@@ -101,9 +97,15 @@ public class GameUIOverlay extends Overlay
 		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFontIcons, "\u0183", 25, gameData.getGlobalHeight() - 118, Color.WHITE);
 		DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFont, "" + gameData.Coins, 41, gameData.getGlobalHeight() - 99, Color.WHITE);
 		
-		gameData.UIHealth.OnRender(gameData, world);
+		
+		if (gameData.UIHealth.GetHealth() <= 0)
+		{
+			DrawUtil.DrawText(gameData.GlobalSpriteBatch, gameData.ScoreUIFont, "Game Over", gameData.getGlobalWidth() / 2, gameData.getGlobalHeight() / 2, Color.WHITE);
+		}
+		
 		
 		gameData.GlobalSpriteBatch.end();
+		gameData.UIHealth.OnRender(gameData, world);
 	}
 	
 	@Override

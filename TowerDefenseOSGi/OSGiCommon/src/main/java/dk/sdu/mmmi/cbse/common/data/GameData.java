@@ -19,7 +19,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import dk.sdu.mmmi.cbse.common.data.Algorithms.EnemyQuadTree;
 import dk.sdu.mmmi.cbse.common.data.Bullets.Bullet;
 import dk.sdu.mmmi.cbse.common.data.GamePlay.BulletPool;
-import dk.sdu.mmmi.cbse.common.data.GamePlay.Health;
 import dk.sdu.mmmi.cbse.common.data.Map.Tile;
 import dk.sdu.mmmi.cbse.common.data.Map.TileMapHelper;
 import dk.sdu.mmmi.cbse.common.data.helpers.GameKeys;
@@ -32,6 +31,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameData
 {
+	public static final boolean DEBUG = true;
 	
 	// Enemy Waves
 	public static WaveSettings[] AllWaves = new WaveSettings[]
@@ -48,7 +48,6 @@ public class GameData
 							EnemyType.normal,
 							EnemyType.boss,
 					}),
-					
 					new WaveSettings(new EnemyType[]{
 							EnemyType.normal,
 							EnemyType.normal,
@@ -61,6 +60,183 @@ public class GameData
 							EnemyType.boss,
 							EnemyType.boss,
 					}),
+					new WaveSettings(new EnemyType[]{
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.elite,
+					}),
+					new WaveSettings(new EnemyType[]{
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.elite,
+							EnemyType.elite,
+					}),
+					new WaveSettings(new EnemyType[]{
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.elite,
+							EnemyType.kingkong,
+					}),
+					new WaveSettings(new EnemyType[]{
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.normal,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.boss,
+							EnemyType.elite,
+							EnemyType.elite,
+							EnemyType.elite,
+							EnemyType.elite,
+							EnemyType.elite,
+							EnemyType.elite,
+							EnemyType.elite,
+							EnemyType.elite,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+					}),
+					
+					new WaveSettings(new EnemyType[]{
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+							EnemyType.kingkong,
+					}),
 			};
 	
 	public int GetWaveNumber()
@@ -72,6 +248,7 @@ public class GameData
 	{
 		return AllWaves.length;
 	}
+	
 	public int currentWaveIndex = 0;
 	public boolean IsWaveStarted = false;
 	
@@ -80,11 +257,6 @@ public class GameData
 		currentWaveIndex = MathUtils.clamp(currentWaveIndex, 0, AllWaves.length);
 		return AllWaves[currentWaveIndex];
 	}
-	
-
-	
-	
-	
 	
 	
 	public Vector2 EnemiesSpawnPosition;
@@ -96,16 +268,12 @@ public class GameData
 	public static Array<Bullet> ActiveBullets = new Array<Bullet>();
 	
 	
-	//Bullets
-/*	public static BulletPool BulletPool = new BulletPool(10000, 0);
-	public static Array<Bullet> ActiveBullets = new Array<Bullet>();*/
-	
 	public Resources assets;
 	
 	
 	public EnemyQuadTree enemyQuadTree;
 	
-	public Health UIHealth;
+	public dk.sdu.mmmi.cbse.common.data.GamePlay.UIHealth UIHealth;
 	public ShapeRenderer GlobalShapeRenderer;
 	public static TileMapHelper TileMapHelper;
 	public dk.sdu.mmmi.cbse.common.data.Map.GameMapGraph GameMapGraph;
@@ -124,8 +292,8 @@ public class GameData
 	
 	
 	public boolean IsPauseScreenVisible = false;
-	public int TurretPriceInCoins = 500;
-
+	public int TurretPriceInCoins = 1000;
+	
 	
 	private float delta;
 	public static int GlobalWidth;
@@ -231,16 +399,13 @@ public class GameData
 		camera.setToOrtho(false, GlobalWidth, GlobalHeight);
 		
 		
-		
 		MouseTileSelector = new Sprite(Resources.LoadTexture("../assets/ui/selected_tile.png"));
 		
-
 		
 		GlobalSpriteBatch = new SpriteBatch();
 		GlobalShapeRenderer = new ShapeRenderer();
 		
 		enemyQuadTree = new EnemyQuadTree(this);
-		
 	}
 }
 	

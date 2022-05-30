@@ -37,13 +37,10 @@ public class TowerProcessingService implements IEntityProcessingService
 						HealthPart healthPart = enemy.getPart(HealthPart.class);
 						if (healthPart != null)
 						{
-							if (!healthPart.GetHealth().IsDead())
+							if (!healthPart.IsDead())
 							{
-								System.out.println("Tower hit enemy");
 								tower.OnCollision(gameData, world, enemy);
 							}
-						} else {
-							System.out.println("healthpart is null");
 						}
 					}
 				}
