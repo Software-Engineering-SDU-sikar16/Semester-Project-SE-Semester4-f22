@@ -66,9 +66,7 @@ public class QuadTree<TValue> {
         return false;
     }
 
-    public void Insert(float x, float y, TValue value) {
-        Insert(new Vector2(x, y), value);
-    }
+
 
     private void subdivide() {
         float halfWidth = rectangle.width / 2;

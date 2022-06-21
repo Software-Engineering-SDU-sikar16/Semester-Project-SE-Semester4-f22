@@ -80,7 +80,7 @@ public class Bullet implements Pool.Poolable {
 
         //super.OnRender(gameData, world);
 
-        if (gameData.DEBUG) {
+        if (GameData.DEBUG) {
             gameData.GlobalShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             gameData.GlobalShapeRenderer.setColor(Color.WHITE);
             gameData.GlobalShapeRenderer.rect(rect.x, rect.y, rect.width, rect.height);

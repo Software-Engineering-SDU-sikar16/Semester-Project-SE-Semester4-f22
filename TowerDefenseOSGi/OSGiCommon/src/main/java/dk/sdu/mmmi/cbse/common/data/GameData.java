@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameData {
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     // Enemy Waves
     public static WaveSettings[] AllWaves = new WaveSettings[]
