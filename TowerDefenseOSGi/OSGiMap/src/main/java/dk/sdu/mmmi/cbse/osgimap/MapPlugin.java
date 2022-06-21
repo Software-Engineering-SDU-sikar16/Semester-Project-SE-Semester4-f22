@@ -9,28 +9,24 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 
-public class MapPlugin implements IGamePluginService
-{
-	@Override
-	public void start(GameData gameData, World world)
-	{
-		// call functionality to add the map to the game, so it is visible
-		gameData.assetManager.setLoader(TiledMap.class, new TmxMapLoader());
-		gameData.loadAsset("../assets/maps/map1.tmx", TiledMap.class);
-		gameData.assetManager.finishLoading();
-		
-		gameData.TileMapHelper = new TileMapHelper();
-		gameData.orthogonalTiledMapRenderer = gameData.TileMapHelper.setupMap(gameData, "../assets/maps/map1.tmx");
-		
-		gameData.EnemiesSpawnPosition = new Vector2(gameData.TileMapHelper.Start.x, gameData.TileMapHelper.Start.y); //set the start position to the tile position.
-	}
-	
-	
-	
-	@Override
-	public void stop(GameData gameData, World world)
-	{
-		// call functionality to remove the map from the game, so it is no longer visible
-		// GameData.assetManager.unload("../assets/maps/map1.tmx");
-	}
+public class MapPlugin implements IGamePluginService {
+    @Override
+    public void start(GameData gameData, World world) {
+        // call functionality to add the map to the game, so it is visible
+        gameData.assetManager.setLoader(TiledMap.class, new TmxMapLoader());
+        gameData.loadAsset("../assets/maps/map1.tmx", TiledMap.class);
+        gameData.assetManager.finishLoading();
+
+        gameData.TileMapHelper = new TileMapHelper();
+        gameData.orthogonalTiledMapRenderer = gameData.TileMapHelper.setupMap(gameData, "../assets/maps/map1.tmx");
+
+        gameData.EnemiesSpawnPosition = new Vector2(gameData.TileMapHelper.Start.x, gameData.TileMapHelper.Start.y); //set the start position to the tile position.
+    }
+
+
+    @Override
+    public void stop(GameData gameData, World world) {
+        // call functionality to remove the map from the game, so it is no longer visible
+        // GameData.assetManager.unload("../assets/maps/map1.tmx");
+    }
 }

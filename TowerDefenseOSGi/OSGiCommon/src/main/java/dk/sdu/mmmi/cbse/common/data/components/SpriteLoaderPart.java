@@ -48,33 +48,31 @@ public class SpriteLoaderPart implements EntityPart {
     }
 
     public void drawSprite(float x, float y) {
-        if(spriteBatch == null) {
+        if (spriteBatch == null) {
             createSprite();
         }
         spriteBatch.begin();
-        sprite.setPosition(x , y);
+        sprite.setPosition(x, y);
         sprite.draw(spriteBatch);
         spriteBatch.end();
     }
 
     @Override
     public void OnCreate(GameData gameData, World world, Entity entity) {
-    
+
     }
-    
+
     @Override
-    public void OnUpdate(GameData gameData, World world, Entity entity)
-    {
-    
+    public void OnUpdate(GameData gameData, World world, Entity entity) {
+
     }
-    
+
     @Override
-    public void OnRender(GameData gameData, World world, Entity entity)
-    {
+    public void OnRender(GameData gameData, World world, Entity entity) {
         PositionPart pp = entity.getPart(PositionPart.class);
         drawSprite(pp.getX(), pp.getY());
     }
-    
+
     public boolean isFlipX() {
         return flipX;
     }

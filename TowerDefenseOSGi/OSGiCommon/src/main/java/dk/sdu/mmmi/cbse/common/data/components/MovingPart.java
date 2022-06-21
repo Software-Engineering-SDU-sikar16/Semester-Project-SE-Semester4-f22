@@ -9,10 +9,6 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-import static java.lang.Math.sqrt;
-
 public class MovingPart implements EntityPart {
 
     private float dx, dy;
@@ -34,7 +30,7 @@ public class MovingPart implements EntityPart {
     public float getDy() {
         return dy;
     }
-    
+
     public void setDeceleration(float deceleration) {
         this.deceleration = deceleration;
     }
@@ -46,7 +42,7 @@ public class MovingPart implements EntityPart {
     public void setMaxSpeed(float maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
-    
+
     public void setSpeed(float speed) {
         this.acceleration = speed;
         this.maxSpeed = speed;
@@ -70,24 +66,22 @@ public class MovingPart implements EntityPart {
 
     @Override
     public void OnCreate(GameData gameData, World world, Entity entity) {
-    
+
     }
-    
+
     @Override
-    public void OnUpdate(GameData gameData, World world, Entity entity)
-    {
+    public void OnUpdate(GameData gameData, World world, Entity entity) {
         PositionPart positionPart = entity.getPart(PositionPart.class);
         float x = positionPart.getX();
         float y = positionPart.getY();
         float dt = gameData.getDelta();
-    
-   
+
+
     }
-    
+
     @Override
-    public void OnRender(GameData gameData, World world, Entity entity)
-    {
-    
+    public void OnRender(GameData gameData, World world, Entity entity) {
+
     }
-    
+
 }

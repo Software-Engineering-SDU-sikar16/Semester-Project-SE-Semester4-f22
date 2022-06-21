@@ -9,9 +9,10 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 
-public interface EntityPart
-{
-	void OnCreate(GameData gameData, World world, Entity entity);
-	void OnUpdate(GameData gameData, World world, Entity entity);
-	void OnRender(GameData gameData, World world, Entity entity);
+public interface EntityPart {
+    void OnCreate(GameData gameData, World world, Entity entity);
+
+    void OnUpdate(GameData gameData, World world, Entity entity);
+
+    void OnRender(GameData gameData, World world, Entity entity);
 }

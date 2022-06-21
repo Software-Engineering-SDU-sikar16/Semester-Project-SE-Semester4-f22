@@ -15,30 +15,30 @@ import dk.sdu.mmmi.cbse.common.data.Map.Tile;
 
 import java.util.HashMap;
 
-public class MapService
-{
+public class MapService {
 
     public static TiledMap tiledMap;
-    private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-    public Tile start = null;
-    public Tile end = null;
     public static HashMap<Vector2, Tile> enemyPath = new HashMap<Vector2, Tile>();
     public static HashMap<Vector2, Tile> buildableTiles = new HashMap<Vector2, Tile>();
-    public GameMapGraph gameMapGraph;
     public static GraphPath<Tile> gameMapPath;
     public final float PPM = 32.0f;
+    public Tile start = null;
+    public Tile end = null;
+    public GameMapGraph gameMapGraph;
+    private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
 
-    public void CalculateGraph()
-    {
+    public static boolean IsTileAtPositionAValidBuildableTile(Vector2 vector) {
+        return buildableTiles.containsKey(vector);
+    }
+
+    public void CalculateGraph() {
         gameMapGraph = new GameMapGraph();
         Tile previousTile = null;
         MapLayer layer = tiledMap.getLayers().get("PathLayer");
         MapObjects mapObjects = layer.getObjects();
 
-        for (MapObject mapObject : mapObjects)
-        {
-            if (mapObject instanceof RectangleMapObject)
-            {
+        for (MapObject mapObject : mapObjects) {
+            if (mapObject instanceof RectangleMapObject) {
                 RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
                 // now you can get the position of the rectangle like this:
                 Rectangle rectangle = rectangleMapObject.getRectangle();
@@ -51,13 +51,11 @@ public class MapService
 
                 enemyPath.put(new Vector2(x, y), graphTile);
 
-                if (start == null)
-                {
+                if (start == null) {
                     start = graphTile;
                 }
 
-                if (previousTile != null)
-                {
+                if (previousTile != null) {
                     gameMapGraph.ConnectTiles(previousTile, graphTile);
                 }
                 previousTile = graphTile;
@@ -70,35 +68,22 @@ public class MapService
         gameMapPath = gameMapGraph.FindPath(start, end);
     }
 
-
-
-    public Tile GetEnemyPathTileAt(Vector2 vector)
-    {
+    public Tile GetEnemyPathTileAt(Vector2 vector) {
         return enemyPath.get(vector);
     }
 
-    public static boolean IsTileAtPositionAValidBuildableTile(Vector2 vector)
-    {
-        return buildableTiles.containsKey(vector);
-    }
-
-    public Tile GetEnemyPathTileAt(float x, float y)
-    {
+    public Tile GetEnemyPathTileAt(float x, float y) {
         return enemyPath.get(new Vector2(x, y));
     }
 
     // Gets the next tile we should be heading to from the position of the current tile. e.g. input is Tile xy of A => output is Tile B;
-    public Tile GetNextEnemyPathTileFromCurrentTileAt(float x, float y)
-    {
+    public Tile GetNextEnemyPathTileFromCurrentTileAt(float x, float y) {
         Tile currentTile = enemyPath.get(new Vector2(x, y));
 
-        if (gameMapPath.getCount() - 1 >= currentTile.index + 1)
-        {
+        if (gameMapPath.getCount() - 1 >= currentTile.index + 1) {
             Tile nextTile = gameMapPath.get(currentTile.index + 1);
             return nextTile;
-        }
-        else
-        {
+        } else {
             return null;
         }
 

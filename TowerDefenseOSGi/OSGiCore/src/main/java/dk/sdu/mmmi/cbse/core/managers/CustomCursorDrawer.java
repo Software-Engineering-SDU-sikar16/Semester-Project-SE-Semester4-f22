@@ -5,15 +5,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 
-public class CustomCursorDrawer
-{
+public class CustomCursorDrawer {
 
     public static Pixmap CursorOpen;
     public static Pixmap CursorGrabbed;
     public static Pixmap CursorPointing;
 
-    public CustomCursorDrawer()
-    {
+    public CustomCursorDrawer() {
         CursorOpen = new Pixmap(Gdx.files.internal("../assets/ui/cursor_open.png"));
         CursorPointing = new Pixmap(Gdx.files.internal("../assets/ui/cursor_point.png"));
         CursorGrabbed = new Pixmap(Gdx.files.internal("../assets/ui/cursor_grab.png"));
@@ -21,8 +19,26 @@ public class CustomCursorDrawer
 
     }
 
-    public void render()
-    {
+    public static void SetCursor(Pixmap pixmap) {
+        int xHotspot = pixmap.getWidth() / 2;
+        int yHotspot = pixmap.getHeight() / 2;
+        Cursor cursor = Gdx.graphics.newCursor(pixmap, xHotspot, yHotspot);
+        Gdx.graphics.setCursor(cursor);
+    }
+
+    public static void SetOpenCursor() {
+        SetCursor(CursorOpen);
+    }
+
+    public static void SetGrabCursor() {
+        SetCursor(CursorGrabbed);
+    }
+
+    public static void SetPointingCursor() {
+        SetCursor(CursorPointing);
+    }
+
+    public void render() {
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             SetPointingCursor();
         } else {
@@ -31,33 +47,7 @@ public class CustomCursorDrawer
         //Gdx.graphics.setCursor(cursor);
     }
 
-
-    public static void SetCursor(Pixmap pixmap)
-    {
-        int xHotspot = pixmap.getWidth() / 2;
-        int yHotspot = pixmap.getHeight() / 2;
-        Cursor cursor = Gdx.graphics.newCursor(pixmap, xHotspot, yHotspot);
-        Gdx.graphics.setCursor(cursor);
-    }
-
-    public static void SetOpenCursor()
-    {
-        SetCursor(CursorOpen);
-    }
-
-
-    public static void SetGrabCursor()
-    {
-        SetCursor(CursorGrabbed);
-    }
-
-    public static void SetPointingCursor()
-    {
-        SetCursor(CursorPointing);
-    }
-
-    public void Dispose()
-    {
+    public void Dispose() {
         CursorOpen.dispose();
         CursorGrabbed.dispose();
         CursorPointing.dispose();

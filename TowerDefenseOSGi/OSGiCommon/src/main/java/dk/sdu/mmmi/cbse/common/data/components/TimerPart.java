@@ -31,21 +31,19 @@ public class TimerPart implements EntityPart {
 
     @Override
     public void OnCreate(GameData gameData, World world, Entity entity) {
-    
+
     }
-    
+
     @Override
-    public void OnUpdate(GameData gameData, World world, Entity entity)
-    {
+    public void OnUpdate(GameData gameData, World world, Entity entity) {
         if (expiration > 0) {
             reduceExpiration(gameData.getDelta());
         }
     }
-    
+
     @Override
-    public void OnRender(GameData gameData, World world, Entity entity)
-    {
-    
+    public void OnRender(GameData gameData, World world, Entity entity) {
+
     }
-    
+
 }

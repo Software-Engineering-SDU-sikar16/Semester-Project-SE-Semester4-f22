@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <relativePath>../poms/compiled</relativePath>
         <groupId>dk.sdu.mmmi.build</groupId>
@@ -34,16 +35,16 @@
 
 
         <!--        <dependency>-->
-<!--            <groupId>com.badlogicgames.gdx</groupId>-->
-<!--            <artifactId>gdx</artifactId>-->
-<!--            <version>1.5.0</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
+        <!--            <groupId>com.badlogicgames.gdx</groupId>-->
+        <!--            <artifactId>gdx</artifactId>-->
+        <!--            <version>1.5.0</version>-->
+        <!--            <scope>compile</scope>-->
+        <!--        </dependency>-->
         <!--        <dependency>-->
-<!--            <groupId>${project.groupId}</groupId>-->
-<!--            <artifactId>OSGiCommonBullet</artifactId>-->
-<!--            <version>${project.version}</version>-->
-<!--        </dependency>-->
+        <!--            <groupId>${project.groupId}</groupId>-->
+        <!--            <artifactId>OSGiCommonBullet</artifactId>-->
+        <!--            <version>${project.version}</version>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <build>

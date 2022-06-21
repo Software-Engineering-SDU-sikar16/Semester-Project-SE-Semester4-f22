@@ -1,1 +1,187 @@
-{"skeleton":{"hash":"2QCEylmNG+w","spine":"3.7-from-3.8-from-4.0.64"},"bones":[{"name":"root"}],"slots":[{"name":"explosion-g1","bone":"root"},{"name":"explosion-g4","bone":"root"},{"name":"explosion-g5","bone":"root"},{"name":"explosion-g6","bone":"root"},{"name":"explosion-g7","bone":"root"},{"name":"explosion-g9","bone":"root"},{"name":"explosion-g10","bone":"root"},{"name":"explosion-g11","bone":"root"}],"animations":{"animation":{"slots":{"explosion-g4":{"attachment":[{"name":"explosion-g2","time":0.0},{"time":0.0333,"name":null}]},"explosion-g5":{"attachment":[{"time":0.0333,"name":"explosion-g3"},{"time":0.0667,"name":null}]},"explosion-g6":{"attachment":[{"time":0.0667,"name":"explosion-g4"},{"time":0.1,"name":null}]},"explosion-g7":{"attachment":[{"time":0.1,"name":"explosion-g5"},{"time":0.1333,"name":null}]},"explosion-g9":{"attachment":[{"time":0.1333,"name":"explosion-g7"},{"time":0.1667,"name":null}]},"explosion-g10":{"attachment":[{"time":0.1667,"name":"explosion-g8"},{"time":0.2,"name":null}]},"explosion-g11":{"attachment":[{"time":0.2,"name":"explosion-g9"},{"time":0.2333,"name":null}]}}}},"skins":{"default":{"explosion-g1":{"explosion-g1":{"width":41,"height":40}},"explosion-g4":{"explosion-g2":{"width":41,"height":40}},"explosion-g5":{"explosion-g3":{"width":41,"height":40}},"explosion-g6":{"explosion-g4":{"width":41,"height":40}},"explosion-g7":{"explosion-g5":{"width":41,"height":40}},"explosion-g9":{"explosion-g7":{"width":41,"height":40}},"explosion-g10":{"explosion-g8":{"width":41,"height":40}},"explosion-g11":{"explosion-g9":{"width":41,"height":40}}}}}
+{
+  "skeleton": {
+    "hash": "2QCEylmNG+w",
+    "spine": "3.7-from-3.8-from-4.0.64"
+  },
+  "bones": [
+    {
+      "name": "root"
+    }
+  ],
+  "slots": [
+    {
+      "name": "explosion-g1",
+      "bone": "root"
+    },
+    {
+      "name": "explosion-g4",
+      "bone": "root"
+    },
+    {
+      "name": "explosion-g5",
+      "bone": "root"
+    },
+    {
+      "name": "explosion-g6",
+      "bone": "root"
+    },
+    {
+      "name": "explosion-g7",
+      "bone": "root"
+    },
+    {
+      "name": "explosion-g9",
+      "bone": "root"
+    },
+    {
+      "name": "explosion-g10",
+      "bone": "root"
+    },
+    {
+      "name": "explosion-g11",
+      "bone": "root"
+    }
+  ],
+  "animations": {
+    "animation": {
+      "slots": {
+        "explosion-g4": {
+          "attachment": [
+            {
+              "name": "explosion-g2",
+              "time": 0.0
+            },
+            {
+              "time": 0.0333,
+              "name": null
+            }
+          ]
+        },
+        "explosion-g5": {
+          "attachment": [
+            {
+              "time": 0.0333,
+              "name": "explosion-g3"
+            },
+            {
+              "time": 0.0667,
+              "name": null
+            }
+          ]
+        },
+        "explosion-g6": {
+          "attachment": [
+            {
+              "time": 0.0667,
+              "name": "explosion-g4"
+            },
+            {
+              "time": 0.1,
+              "name": null
+            }
+          ]
+        },
+        "explosion-g7": {
+          "attachment": [
+            {
+              "time": 0.1,
+              "name": "explosion-g5"
+            },
+            {
+              "time": 0.1333,
+              "name": null
+            }
+          ]
+        },
+        "explosion-g9": {
+          "attachment": [
+            {
+              "time": 0.1333,
+              "name": "explosion-g7"
+            },
+            {
+              "time": 0.1667,
+              "name": null
+            }
+          ]
+        },
+        "explosion-g10": {
+          "attachment": [
+            {
+              "time": 0.1667,
+              "name": "explosion-g8"
+            },
+            {
+              "time": 0.2,
+              "name": null
+            }
+          ]
+        },
+        "explosion-g11": {
+          "attachment": [
+            {
+              "time": 0.2,
+              "name": "explosion-g9"
+            },
+            {
+              "time": 0.2333,
+              "name": null
+            }
+          ]
+        }
+      }
+    }
+  },
+  "skins": {
+    "default": {
+      "explosion-g1": {
+        "explosion-g1": {
+          "width": 41,
+          "height": 40
+        }
+      },
+      "explosion-g4": {
+        "explosion-g2": {
+          "width": 41,
+          "height": 40
+        }
+      },
+      "explosion-g5": {
+        "explosion-g3": {
+          "width": 41,
+          "height": 40
+        }
+      },
+      "explosion-g6": {
+        "explosion-g4": {
+          "width": 41,
+          "height": 40
+        }
+      },
+      "explosion-g7": {
+        "explosion-g5": {
+          "width": 41,
+          "height": 40
+        }
+      },
+      "explosion-g9": {
+        "explosion-g7": {
+          "width": 41,
+          "height": 40
+        }
+      },
+      "explosion-g10": {
+        "explosion-g8": {
+          "width": 41,
+          "height": 40
+        }
+      },
+      "explosion-g11": {
+        "explosion-g9": {
+          "width": 41,
+          "height": 40
+        }
+      }
+    }
+  }
+}
