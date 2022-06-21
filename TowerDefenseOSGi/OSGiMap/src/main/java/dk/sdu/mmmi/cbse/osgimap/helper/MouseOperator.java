@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.osgimap.MapService;
+import dk.sdu.mmmi.cbse.common.data.Map.TileMapHelper;
 
 public class MouseOperator //extends MapService
 {
@@ -81,7 +81,7 @@ public class MouseOperator //extends MapService
         int tileIndexX = (int) Math.floor(mx / TILE_WIDTH + 0.5f);
         int tileIndexY = (int) Math.floor(my / TILE_HEIGHT + 0.5f);
 
-        TiledMapTileLayer tileid = (TiledMapTileLayer) MapService.tiledMap.getLayers().get(0);
+        TiledMapTileLayer tileid = (TiledMapTileLayer) TileMapHelper.tiledMap.getLayers().get(0);
 
         Vector2 WorldPoint = new Vector2(tileIndexX * TILE_WIDTH, ((tileid.getHeight() - 1) - tileIndexY) * TILE_HEIGHT);
 

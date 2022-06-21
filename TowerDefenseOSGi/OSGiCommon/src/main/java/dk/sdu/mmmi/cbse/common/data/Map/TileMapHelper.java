@@ -20,7 +20,7 @@ import java.util.HashMap;
 public class TileMapHelper {
     public static HashMap<Vector2, Tile> EnemyPath = new HashMap<Vector2, Tile>();
     public static HashMap<Vector2, Tile> BuildableTiles = new HashMap<Vector2, Tile>();
-    public TiledMap tiledMap;
+    public static TiledMap tiledMap;
     public int MapWidth; // Width in Tiles
     public int MapHeight; // Height in Tiles
     public int TilePixelWidth; //How Wide one Tile is in Pixels
@@ -31,7 +31,6 @@ public class TileMapHelper {
     public Tile End = null;
 
     public OrthogonalTiledMapRenderer setupMap(GameData gameData, String TilemapPath) {
-
         tiledMap = new TmxMapLoader().load(TilemapPath);
         TiledMapTileLayer tileid = (TiledMapTileLayer) tiledMap.getLayers().get(0);
         TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
