@@ -74,10 +74,11 @@ public class Enemy extends Entity {
     public void OnRender(GameData gameData, World world) {
         int TileIndex = MathUtils.clamp(tileIndexPart.TileIndex, 0, gameData.GameMapPath.getCount() - 1); // Clamp the tile index to the map size.
         Tile tile = gameData.GameMapPath.get(TileIndex); // Get the tile at the current index.
-        if (tile == null) // If the tile is null, return.
+        if (tile == null) // If the tile is null, returnn
         {
+            System.out.println("Tile is null");
         } else {
-            if (gameData.DEBUG) {
+            if (GameData.DEBUG) {
                 gameData.GlobalShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                 gameData.GlobalShapeRenderer.rect(tile.x, tile.y, gameData.TileMapHelper.TilePixelWidth, gameData.TileMapHelper.TilePixelHeight);
                 gameData.GlobalShapeRenderer.end();
