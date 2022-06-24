@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 
 public class TileMapHelper {
-    public static HashMap<Vector2, Tile> EnemyPath = new HashMap<Vector2, Tile>();
+    public static HashMap<Vector2, Tile> EnemyPath = new HashMap<Vector2, Tile>(); //HashMap to store the path of the enemy.
     public static HashMap<Vector2, Tile> BuildableTiles = new HashMap<Vector2, Tile>();
     public static TiledMap tiledMap; // the map
     public int MapWidth; // Width in Tiles
@@ -32,9 +32,6 @@ public class TileMapHelper {
 
     public OrthogonalTiledMapRenderer setupMap(GameData gameData, String TilemapPath) {
         tiledMap = new TmxMapLoader().load(TilemapPath); //Load the Tilemap from the Path given in the constructor of the class
-
-//		System.out.print(tileid.getCell(0, 0).getTile().getObjects().toString());
-//		System.out.println();
 
         MapProperties prop = tiledMap.getProperties();
         MapWidth = prop.get("width", Integer.class); // Get the width of the map in tiles
