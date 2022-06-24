@@ -20,29 +20,27 @@ import java.util.HashMap;
 public class TileMapHelper {
     public static HashMap<Vector2, Tile> EnemyPath = new HashMap<Vector2, Tile>();
     public static HashMap<Vector2, Tile> BuildableTiles = new HashMap<Vector2, Tile>();
-    public static TiledMap tiledMap;
+    public static TiledMap tiledMap; // the map
     public int MapWidth; // Width in Tiles
     public int MapHeight; // Height in Tiles
     public int TilePixelWidth; //How Wide one Tile is in Pixels
     public int TilePixelHeight; //How High one Tile is in Pixels
-    public int MapPixelWidth;
-    public int MapPixelHeight;
-    public Tile Start = null;
-    public Tile End = null;
+    public int MapPixelWidth; //How Wide the Map is in Pixels
+    public int MapPixelHeight; //How High the Map is in Pixels
+    public Tile Start = null; //Start Tile
+    public Tile End = null; //End Tile
 
     public OrthogonalTiledMapRenderer setupMap(GameData gameData, String TilemapPath) {
-        tiledMap = new TmxMapLoader().load(TilemapPath);
-        TiledMapTileLayer tileid = (TiledMapTileLayer) tiledMap.getLayers().get(0);
-        TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+        tiledMap = new TmxMapLoader().load(TilemapPath); //Load the Tilemap from the Path given in the constructor of the class
 
 //		System.out.print(tileid.getCell(0, 0).getTile().getObjects().toString());
 //		System.out.println();
 
         MapProperties prop = tiledMap.getProperties();
-        MapWidth = prop.get("width", Integer.class);
-        MapHeight = prop.get("height", Integer.class);
-        TilePixelWidth = prop.get("tilewidth", Integer.class);
-        TilePixelHeight = prop.get("tileheight", Integer.class);
+        MapWidth = prop.get("width", Integer.class); // Get the width of the map in tiles
+        MapHeight = prop.get("height", Integer.class); // height in tiles
+        TilePixelWidth = prop.get("tilewidth", Integer.class); //How Wide one Tile is in Pixels
+        TilePixelHeight = prop.get("tileheight", Integer.class); //How High one Tile is in Pixels
         System.out.println("Tile Width: " + TilePixelWidth);
 
         MapPixelWidth = MapWidth * TilePixelWidth; //How Wide the Map is in Pixels
@@ -55,7 +53,7 @@ public class TileMapHelper {
         return new OrthogonalTiledMapRenderer(tiledMap); //Return the renderer
     }
 
-    private void BuildHashmapOfBuildableAreas() {
+    private void BuildHashmapOfBuildableAreas() { //Build the hashmap of buildable areas
         MapLayer layer = tiledMap.getLayers().get("PlacementLayer"); //Get the layer with the buildable areas
         MapObjects mapObjects = layer.getObjects(); //Get the objects in the layer
 
@@ -73,7 +71,7 @@ public class TileMapHelper {
         }
     }
 
-    public void CalculateGraph(GameData gameData) {
+    public void CalculateGraph(GameData gameData) { //Calculate the graph of the map
         gameData.GameMapGraph = new GameMapGraph(); //Create a new graph
         Tile PreviousTile = null; //Create a new previous tile
         MapLayer layer = tiledMap.getLayers().get("PathLayer"); //Get the layer with the path
@@ -105,14 +103,14 @@ public class TileMapHelper {
             }
         }
 
-        End = PreviousTile;
-        EnemyPath.put(new Vector2(End.x, End.y), End);
-        gameData.GameMapPath = gameData.GameMapGraph.FindPath(Start, End);
+        End = PreviousTile; //Set the end tile to the last tile
+        EnemyPath.put(new Vector2(End.x, End.y), End); //Add the end tile to the hashmap of enemies path
+        gameData.GameMapPath = gameData.GameMapGraph.FindPath(Start, End); //Find the path from the start tile to the end tile and set it to the game data
     }
-    
 
-    public boolean IsTileAtPositionAValidBuildableTile(Vector2 vector) {
-        return BuildableTiles.containsKey(vector);
+
+    public boolean IsTileAtPositionAValidBuildableTile(Vector2 vector) { //Check if the tile at the position is a valid buildable tile
+        return BuildableTiles.containsKey(vector); //Return if the hashmap contains the tile
     }
 
     // Gets the next tile we should be heading to from the position of the current tile. e.g. input is Tile xy of A => output i
