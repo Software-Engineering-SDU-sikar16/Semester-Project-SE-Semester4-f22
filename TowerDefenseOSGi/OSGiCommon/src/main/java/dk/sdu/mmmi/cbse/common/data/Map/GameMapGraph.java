@@ -12,14 +12,14 @@ public class GameMapGraph implements IndexedGraph<Tile> {
     public Array<Tile> Tiles = new Array<>();
     public Array<TilePath> Paths = new Array<>();
     public ObjectMap<Tile, Array<Connection<Tile>>> PathsMap = new ObjectMap<>();
-    TileHeuristic GameMapNodeHeuristic = new TileHeuristic();
-    private int lastNodeIndex = 0;
+    TileHeuristic GameMapNodeHeuristic = new TileHeuristic(); // This class is used to calculate the heuristic value for a tile.
+    private int lastNodeIndex = 0; // This is used to keep track of the last node index.
 
-    public void AddTile(Tile tile) {
-        tile.index = lastNodeIndex;
-        lastNodeIndex++;
+    public void AddTile(Tile tile) { // This method is used to add a tile to the graph.
+        tile.index = lastNodeIndex; // Set the tile's index to the last node index.
+        lastNodeIndex++; // Increment the last node index.
 
-        Tiles.add(tile);
+        Tiles.add(tile); // Add the tile to the graph.
     }
 
 
@@ -32,19 +32,21 @@ public class GameMapGraph implements IndexedGraph<Tile> {
         Paths.add(Path); // We add the path to the paths array.
     }
            
-    /* Here is the explanation for the code above:
+
+
+    public GraphPath<Tile> FindPath(Tile start, Tile goal) {
+        GraphPath<Tile> path = new DefaultGraphPath<>(); // We create a new path object. We use this to store the path we find.
+        new IndexedAStarPathFinder<>(this).searchNodePath(start, goal, GameMapNodeHeuristic, path); // We call the searchNodePath method on the path finder. We pass in the start and goal tiles. We pass in the GameMapNodeHeuristic as the heuristic. We pass in the path as the output path.
+        return path; // This is the path we want to return.
+    }
+
+       /* Here is the explanation for the code above:
         1. We create a new IndexedAStarPathFinder<> object.
         2. We call the searchNodePath method on this object.
         3. We pass in the start and goal tiles.
         4. We pass in the GameMapNodeHeuristic as the heuristic.
         5. We pass in the path as the output path.
         6. We return the path.  */
-
-    public GraphPath<Tile> FindPath(Tile start, Tile goal) {
-        GraphPath<Tile> path = new DefaultGraphPath<>(); // We create a new path object.
-        new IndexedAStarPathFinder<>(this).searchNodePath(start, goal, GameMapNodeHeuristic, path); // We call the searchNodePath method on the path finder.
-        return path; // This is the path we want to return.
-    }
 
     @Override
     public int getIndex(Tile node) {
