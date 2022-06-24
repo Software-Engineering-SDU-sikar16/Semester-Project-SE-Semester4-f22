@@ -16,16 +16,6 @@ public class ColliderPart implements EntityPart {
         shapes = new ArrayList<>();
     }
 
-    public ColliderPart(String name, Rectangle rect) {
-        this();
-        Add(name, rect);
-    }
-
-
-    public ColliderPart(String name, Circle circle) {
-        this();
-        Add(name, circle);
-    }
 
     public void Add(String name, Circle circle) {
         shapes.add(new ColliderShape(name, circle));
@@ -35,14 +25,13 @@ public class ColliderPart implements EntityPart {
         shapes.add(new ColliderShape(name, rect));
     }
 
-    public ColliderShape getShape(String Name) {
-        for (ColliderShape shape : shapes) {
-            if (shape.name.equals(Name)) {
-                return shape;
+    public ColliderShape getShape(String Name) { // Returns the shape with the given name
+        for (ColliderShape shape : shapes) { // Iterates through all shapes in the list of shapes and returns the shape with the given name
+            if (shape.name.equals(Name)) { // If the name of the shape is equal to the given name, return the shape
+                return shape; // Return the shape
             }
         }
         return null;
-//		return shapes.stream().findFirst().filter(shape -> shape.name.equals(Name)).orElse(null);
     }
 
     @Override
