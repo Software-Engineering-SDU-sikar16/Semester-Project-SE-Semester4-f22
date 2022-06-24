@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameData {
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     // Enemy Waves
     public static WaveSettings[] AllWaves = new WaveSettings[]
@@ -339,35 +339,35 @@ public class GameData {
         List<Event> r = new ArrayList();
         for (Event event : events) {
             if (event.getClass().equals(type) && event.getSource().getID().equals(sourceID)) {
-                r.add(event);
+                r.add(event); // Add to list
             }
         }
 
-        return r;
+        return r; // Return a copy of the list to prevent modification of the original list.
     }
 
-    public void Initialize() {
-        this.setGlobalWidth(Gdx.graphics.getWidth());
-        this.setGlobalHeight(Gdx.graphics.getHeight());
+    public void Initialize() { // Initialize the game
+        this.setGlobalWidth(Gdx.graphics.getWidth()); // Set the global width
+        this.setGlobalHeight(Gdx.graphics.getHeight()); // Set the global height
 
-        assets.LoadAllAssets(this);
+        assets.LoadAllAssets(this); // Load all assets
 
-        viewport = new FitViewport(GlobalWidth, GlobalHeight);
-        UIStage = new Stage(viewport);
-        Gdx.input.setInputProcessor(UIStage);
-
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, GlobalWidth, GlobalHeight);
+        viewport = new FitViewport(GlobalWidth, GlobalHeight); // Create the viewport
+        UIStage = new Stage(viewport); // Create the UI stage
+        Gdx.input.setInputProcessor(UIStage); // Set the UI stage as the input processor
 
 
-        MouseTileSelector = new Sprite(Resources.LoadTexture("../assets/ui/selected_tile.png"));
+        camera = new OrthographicCamera(); // Create the camera
+        camera.setToOrtho(false, GlobalWidth, GlobalHeight); // Set the camera to orthographic
 
 
-        GlobalSpriteBatch = new SpriteBatch();
-        GlobalShapeRenderer = new ShapeRenderer();
+        MouseTileSelector = new Sprite(Resources.LoadTexture("../assets/ui/selected_tile.png")); // Create the mouse tile selector
 
-        enemyQuadTree = new EnemyQuadTree(this);
+
+        GlobalSpriteBatch = new SpriteBatch(); // Create the global sprite batch
+        GlobalShapeRenderer = new ShapeRenderer(); // Create the global shape renderer
+
+        enemyQuadTree = new EnemyQuadTree(this); // Create the enemy quad tree
     }
 }
 	

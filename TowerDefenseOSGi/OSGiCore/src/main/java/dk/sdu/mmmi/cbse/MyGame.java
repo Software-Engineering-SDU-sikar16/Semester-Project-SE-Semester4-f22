@@ -28,11 +28,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class MyGame implements ApplicationListener {
 
     public static final GameData gameData = new GameData();
-    private static final List<IEntityProcessingService> entityProcessorList = new CopyOnWriteArrayList<>();
-    private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>();
+    private static final List<IEntityProcessingService> entityProcessorList = new CopyOnWriteArrayList<>(); // list of entity processors
+    private static final List<IGamePluginService> gamePluginList = new CopyOnWriteArrayList<>(); // list of game plugins
     public static MyGame INSTANCE;
     private static World world = new World();
-    private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>();
+    private static List<IPostEntityProcessingService> postEntityProcessorList = new CopyOnWriteArrayList<>(); // list of post entity processors
     CustomCursorDrawer cursor;
 
     private boolean IsInitialized = false;
@@ -211,38 +211,38 @@ public class MyGame implements ApplicationListener {
     }
 
 
-    public void addEntityProcessingService(IEntityProcessingService eps) {
-        entityProcessorList.add(eps);
-        System.out.println("Added EntityProcessingService: " + eps.getClass().getSimpleName());
+    public void addEntityProcessingService(IEntityProcessingService eps) { // add an entity processing service to the list
+        entityProcessorList.add(eps); // add the entity processing service to the list
+        System.out.println("Added EntityProcessingService: " + eps.getClass().getSimpleName()); // print out the name of the entity processing service
     }
 
-    public void removeEntityProcessingService(IEntityProcessingService eps) {
-        entityProcessorList.remove(eps);
-        System.out.println("Removed EntityProcessingService: " + eps.getClass().getSimpleName());
+    public void removeEntityProcessingService(IEntityProcessingService eps) { // remove an entity processing service from the list
+        entityProcessorList.remove(eps); // remove the entity processing service from the list
+        System.out.println("Removed EntityProcessingService: " + eps.getClass().getSimpleName()); // print out the name of the entity processing service
     }
 
-    public void addPostEntityProcessingService(IPostEntityProcessingService eps) {
-        postEntityProcessorList.add(eps);
-        System.out.println("Added PostEntityProcessingService: " + eps.getClass().getSimpleName());
+    public void addPostEntityProcessingService(IPostEntityProcessingService eps) { // add an entity processing service to the list
+        postEntityProcessorList.add(eps); // add the entity processing service to the list
+        System.out.println("Added PostEntityProcessingService: " + eps.getClass().getSimpleName()); // print out the name of the entity processing service
     }
 
-    public void removePostEntityProcessingService(IPostEntityProcessingService eps) {
-        postEntityProcessorList.remove(eps);
-        System.out.println("Removed PostEntityProcessingService: " + eps.getClass().getSimpleName());
+    public void removePostEntityProcessingService(IPostEntityProcessingService eps) { // remove an entity processing service from the list
+        postEntityProcessorList.remove(eps); // remove the entity processing service from the list
+        System.out.println("Removed PostEntityProcessingService: " + eps.getClass().getSimpleName()); // print out the name of the entity processing service
     }
 
-    public void addGamePluginService(IGamePluginService plugin) {
-        gamePluginList.add(plugin);
-        if (IsInitialized) {
-            plugin.start(gameData, world);
+    public void addGamePluginService(IGamePluginService plugin) { // add an entity processing service to the list
+        gamePluginList.add(plugin); // add the entity processing service to the list
+        if (IsInitialized) { // if the game is initialized
+            plugin.start(gameData, world); // start the plugin
         }
-        System.out.println("Added plugin: " + plugin.getClass().getSimpleName());
+        System.out.println("Added plugin: " + plugin.getClass().getSimpleName()); // print out the name of the entity processing service
     }
 
-    public void removeGamePluginService(IGamePluginService plugin) {
-        gamePluginList.remove(plugin);
-        plugin.stop(gameData, world);
-        System.out.println("Removed plugin: " + plugin.getClass().getSimpleName());
+    public void removeGamePluginService(IGamePluginService plugin) { // remove an entity processing service from the list
+        gamePluginList.remove(plugin); // remove the entity processing service from the list
+        plugin.stop(gameData, world); // stop the plugin
+        System.out.println("Removed plugin: " + plugin.getClass().getSimpleName()); // print out the name of the entity processing service
     }
 
 }
