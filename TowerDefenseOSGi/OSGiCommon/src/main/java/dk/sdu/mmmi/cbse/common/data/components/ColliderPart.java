@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 
 public class ColliderPart implements EntityPart {
-    private ArrayList<ColliderShape> shapes;
+    private ArrayList<ColliderShape> shapes; // list of shapes that make up the collider
 
     public ColliderPart() {
         shapes = new ArrayList<>();
@@ -31,7 +31,7 @@ public class ColliderPart implements EntityPart {
                 return shape; // Return the shape
             }
         }
-        return null;
+        return null; // If no shape with the given name is found, return null
     }
 
     @Override

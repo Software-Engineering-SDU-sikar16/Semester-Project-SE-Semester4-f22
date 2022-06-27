@@ -47,7 +47,7 @@ public class TileMapHelper {
 
         CalculateGraph(gameData); //Calculate the graph of the map
         BuildHashmapOfBuildableAreas(); //Build the hashmap of buildable areas
-        return new OrthogonalTiledMapRenderer(tiledMap); //Return the renderer
+        return new OrthogonalTiledMapRenderer(tiledMap); //Return the renderer for the map
     }
 
     private void BuildHashmapOfBuildableAreas() { //Build the hashmap of buildable areas
